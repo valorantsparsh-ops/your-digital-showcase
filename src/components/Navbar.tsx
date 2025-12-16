@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Code2, Github } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#skills", label: "Skills" },
-  { href: "#contact", label: "Contact" },
+  { to: "/", label: "Home" },
+  { to: "/projects", label: "Projects" },
+  { to: "/skills", label: "Skills" },
+  { to: "/experience", label: "Experience" },
+  { to: "/about", label: "About Me" },
+  { to: "/contact", label: "Contact" },
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <motion.nav
@@ -24,19 +26,37 @@ const Navbar = () => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
+          <Link to="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
             <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
               <Code2 className="w-5 h-5 text-primary" />
             </div>
-            <span className="font-display font-semibold text-lg">YourName</span>
-          </a>
+            <div className="flex flex-col">
+              <span className="font-display font-semibold text-lg leading-tight">YourName</span>
+              <span className="text-xs text-muted-foreground leading-tight">ML • AI • Developer</span>
+            </div>
+          </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="nav-link text-sm font-medium">
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`text-sm font-medium transition-colors relative ${
+                  location.pathname === link.to
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
                 {link.label}
-              </a>
+                {location.pathname === link.to && (
+                  <motion.div
+                    layoutId="navbar-indicator"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
+              </Link>
             ))}
           </div>
 
@@ -72,22 +92,26 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-background border-t border-border overflow-hidden"
           >
-            <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
+            <div className="container mx-auto px-6 py-4 flex flex-col gap-2">
               {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
+                <Link
+                  key={link.to}
+                  to={link.to}
                   onClick={() => setIsOpen(false)}
-                  className="text-muted-foreground hover:text-foreground transition-colors py-2"
+                  className={`py-3 px-4 rounded-lg transition-colors ${
+                    location.pathname === link.to
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                  }`}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <a
                 href="https://github.com/yourusername"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors py-2"
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors py-3 px-4"
               >
                 <Github className="w-4 h-4" />
                 GitHub
