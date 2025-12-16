@@ -19,7 +19,7 @@ const Footer = () => {
     <footer className="py-8 border-t border-border">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Logo */}
+          {/* Logo - ✏️ EDIT: Your Name */}
           <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
             <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
               <Code2 className="w-4 h-4 text-primary" />
@@ -40,7 +40,7 @@ const Footer = () => {
             ))}
           </div>
 
-          {/* Copyright */}
+          {/* Copyright - ✏️ EDIT: Your Name */}
           <p className="text-sm text-muted-foreground flex items-center gap-1">
             © {currentYear} Built with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> by YourName
           </p>

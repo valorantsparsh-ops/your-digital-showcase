@@ -8,10 +8,11 @@ import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+/* ✏️ EDIT: Your social links */
 const socialLinks = [
-  { icon: Github, href: "https://github.com/yourusername", label: "GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com/in/yourusername", label: "LinkedIn" },
-  { icon: Twitter, href: "https://twitter.com/yourusername", label: "Twitter" },
+  { icon: Github, href: "https://github.com/yourusername", label: "GitHub" }, /* ✏️ EDIT */
+  { icon: Linkedin, href: "https://linkedin.com/in/yourusername", label: "LinkedIn" }, /* ✏️ EDIT */
+  { icon: Twitter, href: "https://twitter.com/yourusername", label: "Twitter" }, /* ✏️ EDIT */
 ];
 
 const ContactPage = () => {
@@ -63,10 +64,11 @@ const ContactPage = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <div className="glass-card rounded-xl p-8 h-full">
+              <div className="glass-card rounded-xl p-8 h-full edit-highlight">
                 <h3 className="font-display text-xl font-semibold mb-6">Contact Information</h3>
 
                 <div className="space-y-6 mb-8">
+                  {/* ✏️ EDIT: Your email */}
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                       <Mail className="w-5 h-5 text-primary" />
@@ -74,14 +76,15 @@ const ContactPage = () => {
                     <div>
                       <p className="text-sm text-muted-foreground">Email</p>
                       <a
-                        href="mailto:hello@yourname.com"
+                        href="mailto:your@email.com"
                         className="font-medium hover:text-primary transition-colors"
                       >
-                        hello@yourname.com
+                        your@email.com
                       </a>
                     </div>
                   </div>
 
+                  {/* ✏️ EDIT: Your phone */}
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                       <Phone className="w-5 h-5 text-primary" />
@@ -97,6 +100,7 @@ const ContactPage = () => {
                     </div>
                   </div>
 
+                  {/* ✏️ EDIT: Your location */}
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                       <MapPin className="w-5 h-5 text-primary" />
