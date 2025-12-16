@@ -4,71 +4,66 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+/* ✏️ EDIT: Replace with your actual projects */
 const projects = [
   {
-    title: "E-Commerce Platform",
-    description:
-      "A full-stack e-commerce solution with user authentication, payment processing, and admin dashboard.",
+    title: "Project Name 1", /* ✏️ EDIT */
+    description: "Project description goes here. Describe what the project does and its key features.", /* ✏️ EDIT */
     language: "TypeScript",
     stars: 74,
     forks: 28,
-    link: "#",
-    github: "#",
+    link: "#", /* ✏️ EDIT: Live demo URL */
+    github: "#", /* ✏️ EDIT: GitHub repo URL */
     image: "/placeholder.svg",
   },
   {
-    title: "Task Management App",
-    description:
-      "A collaborative task management application with real-time updates, drag-and-drop, and team features.",
+    title: "Project Name 2", /* ✏️ EDIT */
+    description: "Another project description. Highlight the technologies used and the problem it solves.", /* ✏️ EDIT */
     language: "JavaScript",
     stars: 64,
     forks: 25,
-    link: "#",
-    github: "#",
+    link: "#", /* ✏️ EDIT */
+    github: "#", /* ✏️ EDIT */
     image: "/placeholder.svg",
   },
   {
-    title: "Portfolio Template",
-    description:
-      "A modern, animated portfolio template built with React and Framer Motion for developers and designers.",
+    title: "Project Name 3", /* ✏️ EDIT */
+    description: "Your third project. Add more projects by copying this object structure.", /* ✏️ EDIT */
     language: "TypeScript",
     stars: 45,
     forks: 18,
-    link: "#",
-    github: "#",
+    link: "#", /* ✏️ EDIT */
+    github: "#", /* ✏️ EDIT */
     image: "/placeholder.svg",
   },
   {
-    title: "API Gateway Service",
-    description:
-      "A scalable API gateway built with Node.js featuring rate limiting, caching, and authentication middleware.",
-    language: "TypeScript",
+    title: "Project Name 4", /* ✏️ EDIT */
+    description: "Fourth project description. Include any notable achievements or results.", /* ✏️ EDIT */
+    language: "Python",
     stars: 32,
     forks: 12,
-    link: "#",
-    github: "#",
+    link: "#", /* ✏️ EDIT */
+    github: "#", /* ✏️ EDIT */
     image: "/placeholder.svg",
   },
   {
-    title: "Real-time Chat App",
-    description:
-      "WebSocket-based chat application with private messaging, group chats, and file sharing capabilities.",
+    title: "Project Name 5", /* ✏️ EDIT */
+    description: "Fifth project. You can add or remove projects as needed.", /* ✏️ EDIT */
     language: "JavaScript",
     stars: 28,
     forks: 10,
-    link: "#",
-    github: "#",
+    link: "#", /* ✏️ EDIT */
+    github: "#", /* ✏️ EDIT */
     image: "/placeholder.svg",
   },
   {
-    title: "Data Dashboard",
-    description:
-      "An analytics dashboard with interactive charts, data visualization, and customizable widgets.",
+    title: "Project Name 6", /* ✏️ EDIT */
+    description: "Last project in the grid. Feel free to adjust the number of projects.", /* ✏️ EDIT */
     language: "TypeScript",
     stars: 19,
     forks: 7,
-    link: "#",
-    github: "#",
+    link: "#", /* ✏️ EDIT */
+    github: "#", /* ✏️ EDIT */
     image: "/placeholder.svg",
   },
 ];
@@ -114,7 +109,7 @@ const ProjectsPage = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="group"
               >
-                <div className="glass-card rounded-xl overflow-hidden h-full flex flex-col hover:border-primary/30 transition-all duration-300 group-hover:glow-soft">
+                <div className="glass-card rounded-xl overflow-hidden h-full flex flex-col hover:border-primary/30 transition-all duration-300 group-hover:glow-soft edit-highlight">
                   {/* Project Image */}
                   <div className="relative h-48 bg-gradient-to-br from-primary/10 to-accent/10">
                     <img
@@ -183,6 +178,7 @@ const ProjectsPage = () => {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="text-center"
           >
+            {/* ✏️ EDIT: Your GitHub URL */}
             <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
               <Button
                 variant="outline"

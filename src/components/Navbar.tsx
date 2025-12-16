@@ -25,13 +25,15 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Logo - EDIT THIS */}
           <Link to="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
             <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
               <Code2 className="w-5 h-5 text-primary" />
             </div>
             <div className="flex flex-col">
+              {/* ✏️ EDIT: Your Name */}
               <span className="font-display font-semibold text-lg leading-tight">YourName</span>
+              {/* ✏️ EDIT: Your Title */}
               <span className="text-xs text-muted-foreground leading-tight">ML • AI • Developer</span>
             </div>
           </Link>
@@ -60,10 +62,10 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button - EDIT THIS */}
           <div className="hidden md:flex items-center gap-4">
             <a
-              href="https://github.com/yourusername"
+              href="https://github.com/yourusername" /* ✏️ EDIT: Your GitHub URL */
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 text-sm font-medium"

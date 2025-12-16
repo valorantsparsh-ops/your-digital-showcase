@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { User, Heart, Target, Coffee, Code2, Lightbulb, Award, GraduationCap } from "lucide-react";
+import { User, Heart, Code2, Coffee, Lightbulb, Award, GraduationCap } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+/* ✏️ EDIT: Your interests */
 const interests = [
   { icon: Code2, label: "Coding", description: "Building things that matter" },
   { icon: Coffee, label: "Coffee", description: "Fuel for creativity" },
@@ -10,19 +11,21 @@ const interests = [
   { icon: Heart, label: "Open Source", description: "Contributing to community" },
 ];
 
+/* ✏️ EDIT: Your education */
 const education = [
   {
-    degree: "Bachelor of Computer Science",
-    institution: "University Name",
-    year: "2019",
-    description: "Specialized in Software Engineering and AI/ML",
+    degree: "Your Degree", /* ✏️ EDIT */
+    institution: "University Name", /* ✏️ EDIT */
+    year: "2019", /* ✏️ EDIT */
+    description: "Your specialization or notable achievements", /* ✏️ EDIT */
   },
 ];
 
+/* ✏️ EDIT: Your certifications */
 const certifications = [
-  { name: "AWS Certified Developer", issuer: "Amazon Web Services", year: "2023" },
-  { name: "React Professional", issuer: "Meta", year: "2022" },
-  { name: "TypeScript Expert", issuer: "Microsoft", year: "2022" },
+  { name: "Certification Name 1", issuer: "Issuing Organization", year: "2023" }, /* ✏️ EDIT */
+  { name: "Certification Name 2", issuer: "Issuing Organization", year: "2022" }, /* ✏️ EDIT */
+  { name: "Certification Name 3", issuer: "Issuing Organization", year: "2022" }, /* ✏️ EDIT */
 ];
 
 const AboutPage = () => {
@@ -56,25 +59,25 @@ const AboutPage = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="glass-card rounded-xl p-8 mb-12"
+              className="glass-card rounded-xl p-8 mb-12 edit-highlight"
             >
               <div className="flex flex-col lg:flex-row gap-8 items-center">
+                {/* ✏️ EDIT: Add your profile photo */}
                 <div className="w-48 h-48 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center shrink-0">
                   <div className="w-44 h-44 rounded-full bg-muted flex items-center justify-center text-4xl font-bold text-primary">
-                    YN
+                    YN {/* ✏️ EDIT: Your initials or photo */}
                   </div>
                 </div>
                 <div className="flex-1 text-center lg:text-left">
+                  {/* ✏️ EDIT: Your name and bio */}
                   <h2 className="font-display text-2xl font-bold mb-4">Hello! I'm Your Name</h2>
                   <p className="text-muted-foreground leading-relaxed mb-4">
-                    I'm a passionate Full Stack Developer with expertise in building modern web applications. 
-                    With a strong foundation in both frontend and backend technologies, I create seamless 
-                    digital experiences that solve real-world problems.
+                    Write your bio here. Tell visitors about yourself, your background, 
+                    and what drives you as a developer. This is your chance to make a personal connection.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    When I'm not coding, you'll find me exploring new technologies, contributing to open source 
-                    projects, or sharing knowledge with the developer community. I believe in continuous learning 
-                    and pushing the boundaries of what's possible with technology.
+                    Add more details about your interests, hobbies, or what you do when you're not coding. 
+                    Make it personal and authentic to who you are.
                   </p>
                 </div>
               </div>
@@ -115,7 +118,7 @@ const AboutPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                <div className="glass-card rounded-xl p-6 h-full">
+                <div className="glass-card rounded-xl p-6 h-full edit-highlight">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                       <GraduationCap className="w-5 h-5 text-primary" />
@@ -139,7 +142,7 @@ const AboutPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                <div className="glass-card rounded-xl p-6 h-full">
+                <div className="glass-card rounded-xl p-6 h-full edit-highlight">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                       <Award className="w-5 h-5 text-primary" />

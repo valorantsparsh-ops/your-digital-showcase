@@ -3,51 +3,48 @@ import { Briefcase, MapPin, Calendar } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+/* ✏️ EDIT: Replace with your actual work experience */
 const experiences = [
   {
-    title: "Senior Frontend Developer",
-    company: "Tech Company",
-    period: "2023 - Present",
-    location: "Remote",
-    description:
-      "Developing modern, responsive frontend applications with focus on user experience and performance. Working with cutting-edge technologies to build scalable web solutions.",
+    title: "Your Job Title", /* ✏️ EDIT */
+    company: "Company Name", /* ✏️ EDIT */
+    period: "2023 - Present", /* ✏️ EDIT */
+    location: "Remote / City", /* ✏️ EDIT */
+    description: "Describe your role and main responsibilities here.", /* ✏️ EDIT */
     achievements: [
-      "Building responsive and interactive user interfaces using React and Next.js",
-      "Implementing modern UI/UX designs with TailwindCSS and Framer Motion",
-      "Optimizing application performance and ensuring cross-browser compatibility",
-      "Collaborating with design and backend teams to deliver high-quality features",
+      "Key achievement or responsibility #1", /* ✏️ EDIT */
+      "Key achievement or responsibility #2", /* ✏️ EDIT */
+      "Key achievement or responsibility #3", /* ✏️ EDIT */
+      "Key achievement or responsibility #4", /* ✏️ EDIT */
     ],
-    skills: ["React", "Next.js", "TailwindCSS", "TypeScript", "Framer Motion"],
+    skills: ["Skill 1", "Skill 2", "Skill 3", "Skill 4"], /* ✏️ EDIT */
   },
   {
-    title: "Full Stack Developer",
-    company: "Startup Inc",
-    period: "2021 - 2023",
-    location: "Remote",
-    description:
-      "Developed and maintained full-stack web applications, working on both frontend and backend systems. Collaborated with cross-functional teams to deliver robust software solutions.",
+    title: "Previous Job Title", /* ✏️ EDIT */
+    company: "Previous Company", /* ✏️ EDIT */
+    period: "2021 - 2023", /* ✏️ EDIT */
+    location: "City, Country", /* ✏️ EDIT */
+    description: "Description of your previous role and what you accomplished.", /* ✏️ EDIT */
     achievements: [
-      "Developed and maintained full-stack web applications using React, Node.js, and MongoDB",
-      "Implemented RESTful APIs and integrated third-party services",
-      "Built responsive user interfaces and optimized application performance",
-      "Worked on database design and backend architecture",
+      "Achievement from this role #1", /* ✏️ EDIT */
+      "Achievement from this role #2", /* ✏️ EDIT */
+      "Achievement from this role #3", /* ✏️ EDIT */
+      "Achievement from this role #4", /* ✏️ EDIT */
     ],
-    skills: ["React", "Node.js", "MongoDB", "Express", "JavaScript"],
+    skills: ["Skill A", "Skill B", "Skill C", "Skill D"], /* ✏️ EDIT */
   },
   {
-    title: "Junior Developer",
-    company: "Agency XYZ",
-    period: "2019 - 2021",
-    location: "On-site",
-    description:
-      "Started my professional journey building websites and web applications for various clients. Gained foundational skills in modern web development practices.",
+    title: "Earlier Position", /* ✏️ EDIT */
+    company: "First Company", /* ✏️ EDIT */
+    period: "2019 - 2021", /* ✏️ EDIT */
+    location: "On-site", /* ✏️ EDIT */
+    description: "Description of your early career experience.", /* ✏️ EDIT */
     achievements: [
-      "Built responsive websites using HTML, CSS, and JavaScript",
-      "Learned React and began contributing to larger projects",
-      "Collaborated with senior developers on client projects",
-      "Participated in code reviews and agile ceremonies",
+      "What you learned or accomplished #1", /* ✏️ EDIT */
+      "What you learned or accomplished #2", /* ✏️ EDIT */
+      "What you learned or accomplished #3", /* ✏️ EDIT */
     ],
-    skills: ["HTML", "CSS", "JavaScript", "React", "Git"],
+    skills: ["Tool 1", "Tool 2", "Tool 3"], /* ✏️ EDIT */
   },
 ];
 
@@ -100,7 +97,7 @@ const ExperiencePage = () => {
                 </div>
 
                 {/* Content Card */}
-                <div className="glass-card rounded-xl p-6 ml-4 hover:border-primary/30 transition-colors duration-300">
+                <div className="glass-card rounded-xl p-6 ml-4 hover:border-primary/30 transition-colors duration-300 edit-highlight">
                   <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                     <div>
                       <h3 className="font-display text-xl font-semibold mb-1">{exp.title}</h3>
