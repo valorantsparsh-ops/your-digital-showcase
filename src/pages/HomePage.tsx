@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { ArrowDown, MapPin, Briefcase, Mail, Github, Linkedin, Instagram, Facebook, Code2, Download } from "lucide-react";
+import { MapPin, Briefcase, Mail, Github, Linkedin, Instagram, Facebook, Code2, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BackgroundEffects from "@/components/BackgroundEffects";
 
 const roles = [
   "AI Enthusiast",
@@ -32,57 +33,9 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
+      <BackgroundEffects />
       <main>
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-          {/* Animated Grid Background */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.4 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0 grid-overlay" 
-          />
-          
-          {/* Animated Gradient Orbs */}
-          <motion.div 
-            animate={{ 
-              scale: [1, 1.2, 1],
-              opacity: [0.1, 0.2, 0.1],
-            }}
-            transition={{ duration: 4, repeat: Infinity }}
-            className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-[128px]" 
-          />
-          <motion.div 
-            animate={{ 
-              scale: [1.2, 1, 1.2],
-              opacity: [0.1, 0.2, 0.1],
-            }}
-            transition={{ duration: 5, repeat: Infinity }}
-            className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent/10 rounded-full blur-[128px]" 
-          />
-
-          {/* Floating particles */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(15)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 bg-primary/30 rounded-full"
-                style={{
-                  left: `${10 + (i * 6)}%`,
-                  top: `${20 + (i * 5)}%`,
-                }}
-                animate={{ 
-                  y: [-20, -60, -20],
-                  opacity: [0, 1, 0],
-                }}
-                transition={{
-                  duration: 3 + i * 0.2,
-                  repeat: Infinity,
-                  delay: i * 0.3,
-                }}
-              />
-            ))}
-          </div>
-
           <div className="container mx-auto px-6 relative z-10">
             <motion.div 
               initial={{ opacity: 0 }}
@@ -90,36 +43,48 @@ const HomePage = () => {
               transition={{ duration: 0.6 }}
               className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20"
             >
-              {/* Profile Image with floating animation */}
+              {/* Profile Image with 3D rotation animation */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
+                initial={{ opacity: 0, rotateY: -90 }}
+                animate={{ opacity: 1, rotateY: 0 }}
                 transition={{ 
-                  opacity: { duration: 0.6 },
-                  scale: { duration: 0.6 },
-                  y: { duration: 3, repeat: Infinity }
+                  duration: 0.8,
+                  type: "spring",
+                  stiffness: 100,
                 }}
                 className="relative"
+                style={{ perspective: "1000px" }}
               >
                 <motion.div 
                   className="w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-dashed border-primary/50 p-2 edit-highlight"
-                  animate={{ rotate: 360 }}
+                  animate={{ rotateZ: [0, 360] }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 >
-                  <div className="w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden">
+                  <motion.div 
+                    className="w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
                     <motion.div 
                       className="w-full h-full rounded-full bg-muted flex items-center justify-center text-6xl font-bold text-primary"
-                      whileHover={{ scale: 1.05 }}
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.3, duration: 0.5 }}
                     >
                       YN
                     </motion.div>
-                  </div>
+                  </motion.div>
                 </motion.div>
-                {/* Glowing ring */}
+                {/* Pulsing glow rings */}
                 <motion.div
                   className="absolute inset-0 rounded-full border-2 border-primary/30"
-                  animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0, 0.5] }}
+                  animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0, 0.5] }}
                   transition={{ duration: 2, repeat: Infinity }}
+                />
+                <motion.div
+                  className="absolute inset-0 rounded-full border border-primary/20"
+                  animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0, 0.3] }}
+                  transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
                 />
               </motion.div>
 
@@ -290,23 +255,6 @@ const HomePage = () => {
                   ))}
                 </div>
               </div>
-            </motion.div>
-
-            {/* Scroll Indicator */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
-              className="absolute bottom-8 left-1/2 -translate-x-1/2"
-            >
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="flex flex-col items-center gap-2 text-muted-foreground"
-              >
-                <span className="text-xs uppercase tracking-widest">Scroll</span>
-                <ArrowDown className="w-4 h-4" />
-              </motion.div>
             </motion.div>
           </div>
         </section>
