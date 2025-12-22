@@ -4,8 +4,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import PreLoader from "./components/PreLoader";
+import PageTransition from "./components/PageTransition";
 import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
 import SkillsPage from "./pages/SkillsPage";
@@ -15,6 +16,24 @@ import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
+        <Route path="/projects" element={<PageTransition><ProjectsPage /></PageTransition>} />
+        <Route path="/skills" element={<PageTransition><SkillsPage /></PageTransition>} />
+        <Route path="/experience" element={<PageTransition><ExperiencePage /></PageTransition>} />
+        <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -29,15 +48,7 @@ const App = () => {
         </AnimatePresence>
         {!loading && (
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/projects" element={<ProjectsPage />} />
-              <Route path="/skills" element={<SkillsPage />} />
-              <Route path="/experience" element={<ExperiencePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <AnimatedRoutes />
           </BrowserRouter>
         )}
       </TooltipProvider>
