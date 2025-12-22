@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Code2, Github } from "lucide-react";
+import { Menu, X, Code2, FileText, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+/* ✏️ EDIT: Your resume URL */
+const RESUME_URL = "#"; /* ✏️ EDIT: Add your resume PDF URL */
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -63,17 +67,19 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button - EDIT THIS */}
+          {/* Resume Button */}
           <div className="hidden md:flex items-center gap-4">
-            <a
-              href="https://github.com/yourusername" /* ✏️ EDIT: Your GitHub URL */
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 text-sm font-medium"
+            <Button
+              asChild
+              variant="default"
+              size="sm"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-5 gap-2"
             >
-              <Github className="w-4 h-4" />
-              GitHub
-            </a>
+              <a href={RESUME_URL} download target="_blank" rel="noopener noreferrer">
+                <FileText className="w-4 h-4" />
+                Resume
+              </a>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -111,13 +117,14 @@ const Navbar = () => {
                 </Link>
               ))}
               <a
-                href="https://github.com/yourusername"
+                href={RESUME_URL}
+                download
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors py-3 px-4"
+                className="flex items-center gap-2 py-3 px-4 mt-2 rounded-lg bg-primary text-primary-foreground"
               >
-                <Github className="w-4 h-4" />
-                GitHub
+                <FileText className="w-4 h-4" />
+                Download Resume
               </a>
             </div>
           </motion.div>
