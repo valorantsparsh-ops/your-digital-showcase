@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Award, ExternalLink } from "lucide-react";
+import { Award, ExternalLink, X, ZoomIn } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -101,10 +101,110 @@ const TiltCard = ({ children, className = "" }: { children: React.ReactNode; cla
   );
 };
 
+// Lightbox Modal Component
+const Lightbox = ({ 
+  isOpen, 
+  onClose, 
+  certificate 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  certificate: typeof certificates[0] | null;
+}) => {
+  if (!certificate) return null;
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+          className="fixed inset-0 bg-background/90 backdrop-blur-md z-50 flex items-center justify-center p-4 md:p-8"
+        >
+          {/* Close button */}
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            onClick={onClose}
+            className="absolute top-4 right-4 md:top-8 md:right-8 p-3 rounded-full bg-card/80 border border-border hover:border-primary/50 hover:bg-primary/10 transition-all z-10"
+          >
+            <X className="w-6 h-6" />
+          </motion.button>
+
+          {/* Modal Content */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-4xl w-full bg-card border border-border rounded-2xl overflow-hidden shadow-2xl"
+          >
+            {/* Certificate Image */}
+            <div className="aspect-[16/10] bg-secondary/30 flex items-center justify-center">
+              {certificate.image ? (
+                <img 
+                  src={certificate.image} 
+                  alt={certificate.name}
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <div className="text-center p-12">
+                  <Award className="w-24 h-24 text-primary/40 mx-auto mb-6" />
+                  <p className="text-lg text-muted-foreground">Certificate of Participation</p>
+                  <h3 className="text-2xl font-bold mt-4 text-foreground">{certificate.name}</h3>
+                  <p className="text-muted-foreground mt-2">{certificate.issuer} • {certificate.year}</p>
+                </div>
+              )}
+            </div>
+
+            {/* Certificate Info Bar */}
+            <div className="p-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+              <div>
+                <h3 className="font-display font-bold text-xl">{certificate.name}</h3>
+                <p className="text-muted-foreground">{certificate.issuer} • {certificate.year}</p>
+              </div>
+              <div className="flex gap-3">
+                <Button
+                  variant="outline"
+                  onClick={onClose}
+                >
+                  Close
+                </Button>
+                <Button asChild className="bg-primary hover:bg-primary/90">
+                  <a href={certificate.link} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    View Original
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const CertificatesPage = () => {
   const [activeFilter, setActiveFilter] = useState<"tech" | "others">("tech");
+  const [selectedCertificate, setSelectedCertificate] = useState<typeof certificates[0] | null>(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const filteredCertificates = certificates.filter(cert => cert.category === activeFilter);
+
+  const openLightbox = (cert: typeof certificates[0]) => {
+    setSelectedCertificate(cert);
+    setIsLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setIsLightboxOpen(false);
+    setTimeout(() => setSelectedCertificate(null), 300);
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -169,14 +269,17 @@ const CertificatesPage = () => {
                   transition={{ delay: index * 0.1 }}
                 >
                   <TiltCard>
-                    <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden hover:border-primary/30 transition-colors duration-300">
-                      {/* Certificate Image Placeholder */}
-                      <div className="aspect-[4/3] bg-secondary/30 flex items-center justify-center border-b border-border/50">
+                    <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden hover:border-primary/30 transition-colors duration-300 group">
+                      {/* Certificate Image Placeholder with hover effect */}
+                      <div 
+                        className="aspect-[4/3] bg-secondary/30 flex items-center justify-center border-b border-border/50 relative cursor-pointer overflow-hidden"
+                        onClick={() => openLightbox(cert)}
+                      >
                         {cert.image ? (
                           <img 
                             src={cert.image} 
                             alt={cert.name}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                           />
                         ) : (
                           <div className="text-center p-6">
@@ -185,6 +288,17 @@ const CertificatesPage = () => {
                             <p className="text-sm font-medium mt-2 text-foreground">{cert.name}</p>
                           </div>
                         )}
+                        {/* Hover Overlay */}
+                        <motion.div 
+                          initial={{ opacity: 0 }}
+                          whileHover={{ opacity: 1 }}
+                          className="absolute inset-0 bg-background/60 backdrop-blur-sm flex items-center justify-center"
+                        >
+                          <div className="flex items-center gap-2 text-primary">
+                            <ZoomIn className="w-6 h-6" />
+                            <span className="font-medium">View Full</span>
+                          </div>
+                        </motion.div>
                       </div>
                       
                       {/* Certificate Info */}
@@ -196,12 +310,10 @@ const CertificatesPage = () => {
                         <Button
                           size="sm"
                           className="bg-primary hover:bg-primary/90 text-primary-foreground"
-                          asChild
+                          onClick={() => openLightbox(cert)}
                         >
-                          <a href={cert.link} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="w-3 h-3 mr-2" />
-                            View
-                          </a>
+                          <ZoomIn className="w-3 h-3 mr-2" />
+                          View
                         </Button>
                       </div>
                     </div>
@@ -221,6 +333,13 @@ const CertificatesPage = () => {
         </div>
       </main>
       <Footer />
+
+      {/* Lightbox Modal */}
+      <Lightbox 
+        isOpen={isLightboxOpen} 
+        onClose={closeLightbox} 
+        certificate={selectedCertificate} 
+      />
     </div>
   );
 };
