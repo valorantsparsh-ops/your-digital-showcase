@@ -10,6 +10,7 @@ import PageTransition from "./components/PageTransition";
 import HomePage from "./pages/HomePage";
 import ProjectsPage from "./pages/ProjectsPage";
 import SkillsPage from "./pages/SkillsPage";
+import CertificatesPage from "./pages/CertificatesPage";
 import ExperiencePage from "./pages/ExperiencePage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
@@ -26,6 +27,7 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
         <Route path="/projects" element={<PageTransition><ProjectsPage /></PageTransition>} />
         <Route path="/skills" element={<PageTransition><SkillsPage /></PageTransition>} />
+        <Route path="/certificates" element={<PageTransition><CertificatesPage /></PageTransition>} />
         <Route path="/experience" element={<PageTransition><ExperiencePage /></PageTransition>} />
         <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />

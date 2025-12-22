@@ -1,8 +1,10 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Sparkles, Award } from "lucide-react";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
 
 /* ✏️ EDIT: Your floating skill icons */
 const floatingSkills = [
@@ -50,12 +52,90 @@ const skillCategories = [
   },
 ];
 
-/* ✏️ EDIT: Add your certificates here */
-const certificates = [
-  { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", year: "2024" },
-  { name: "Google Data Analytics", issuer: "Google", year: "2023" },
-  { name: "Meta Front-End Developer", issuer: "Meta", year: "2023" },
-];
+// Mouse following particles
+interface Particle {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  opacity: number;
+  velocityX: number;
+  velocityY: number;
+}
+
+const MouseParticles = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement> }) => {
+  const [particles, setParticles] = useState<Particle[]>([]);
+  const particleIdRef = useRef(0);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Create new particles
+      const newParticles: Particle[] = [];
+      for (let i = 0; i < 3; i++) {
+        newParticles.push({
+          id: particleIdRef.current++,
+          x,
+          y,
+          size: Math.random() * 6 + 2,
+          opacity: Math.random() * 0.5 + 0.3,
+          velocityX: (Math.random() - 0.5) * 2,
+          velocityY: (Math.random() - 0.5) * 2,
+        });
+      }
+
+      setParticles(prev => [...prev.slice(-50), ...newParticles]);
+    };
+
+    container.addEventListener("mousemove", handleMouseMove);
+    return () => container.removeEventListener("mousemove", handleMouseMove);
+  }, [containerRef]);
+
+  // Animate particles
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setParticles(prev =>
+        prev
+          .map(p => ({
+            ...p,
+            x: p.x + p.velocityX,
+            y: p.y + p.velocityY,
+            opacity: p.opacity - 0.02,
+            size: p.size * 0.98,
+          }))
+          .filter(p => p.opacity > 0)
+      );
+    }, 30);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {particles.map(particle => (
+        <div
+          key={particle.id}
+          className="absolute rounded-full bg-primary"
+          style={{
+            left: particle.x,
+            top: particle.y,
+            width: particle.size,
+            height: particle.size,
+            opacity: particle.opacity,
+            transform: "translate(-50%, -50%)",
+            boxShadow: `0 0 ${particle.size * 2}px hsl(var(--primary))`,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 // 3D Tilt Card Component
 const TiltCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
@@ -172,6 +252,8 @@ const FloatingSkillIcon = ({
 };
 
 const SkillsPage = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
@@ -199,14 +281,18 @@ const SkillsPage = () => {
             </div>
           </motion.div>
 
-          {/* Floating Skills Container */}
+          {/* Floating Skills Container with Mouse Particles */}
           <motion.div
+            ref={containerRef}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="relative w-full h-[500px] md:h-[600px] rounded-3xl bg-card/30 backdrop-blur-sm border border-border/50 mb-16 overflow-hidden"
+            className="relative w-full h-[500px] md:h-[600px] rounded-3xl bg-card/30 backdrop-blur-sm border border-border/50 mb-16 overflow-hidden cursor-crosshair"
             style={{ perspective: "1000px" }}
           >
+            {/* Mouse following particles */}
+            <MouseParticles containerRef={containerRef} />
+
             {/* Decorative grid background */}
             <div className="absolute inset-0 opacity-10">
               <div className="w-full h-full" style={{
@@ -279,41 +365,26 @@ const SkillsPage = () => {
             ))}
           </motion.div>
 
-          {/* Certificates Section */}
+          {/* View Certificates CTA */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="max-w-4xl mx-auto"
+            transition={{ delay: 0.8 }}
+            className="text-center"
           >
-            <div className="flex items-center justify-center gap-2 mb-8">
+            <div className="flex items-center justify-center gap-2 mb-4">
               <Award className="w-5 h-5 text-primary" />
-              <h2 className="font-display text-2xl md:text-3xl font-bold">Certificates</h2>
+              <h2 className="font-display text-2xl md:text-3xl font-bold">Certifications</h2>
             </div>
-            <div className="grid md:grid-cols-3 gap-6" style={{ perspective: "1000px" }}>
-              {certificates.map((cert, index) => (
-                <motion.div
-                  key={cert.name}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.9 + index * 0.1 }}
-                >
-                  <TiltCard>
-                    <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl p-6 text-center hover:border-primary/30 transition-all duration-300 group cursor-pointer">
-                      <motion.div
-                        whileHover={{ rotate: [0, -10, 10, 0] }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <Award className="w-12 h-12 text-primary mx-auto mb-4 group-hover:text-amber-400 transition-colors" />
-                      </motion.div>
-                      <h3 className="font-display font-semibold mb-2">{cert.name}</h3>
-                      <p className="text-sm text-muted-foreground">{cert.issuer}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{cert.year}</p>
-                    </div>
-                  </TiltCard>
-                </motion.div>
-              ))}
-            </div>
+            <p className="text-muted-foreground mb-6">
+              View all my technical and professional certifications
+            </p>
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+              <Link to="/certificates">
+                <Award className="w-4 h-4 mr-2" />
+                View All Certificates
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </main>
