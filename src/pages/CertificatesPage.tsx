@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Award, ExternalLink, X, ZoomIn } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BackgroundEffects from "@/components/BackgroundEffects";
 import { Button } from "@/components/ui/button";
 
 /* ✏️ EDIT: Your certificates - add image URLs when you have them */
@@ -209,13 +210,8 @@ const CertificatesPage = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
+      <BackgroundEffects />
       <main className="pt-24 pb-16">
-        {/* Background effects */}
-        <div className="fixed inset-0 pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/5 rounded-full blur-[128px]" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent/5 rounded-full blur-[128px]" />
-        </div>
-
         <div className="container mx-auto px-6 relative z-10">
           {/* Main Content Card */}
           <motion.div

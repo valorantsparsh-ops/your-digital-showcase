@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Briefcase, MapPin, Calendar } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BackgroundEffects from "@/components/BackgroundEffects";
 
 /* ✏️ EDIT: Replace with your actual work experience */
 const experiences = [
@@ -52,10 +53,8 @@ const ExperiencePage = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
+      <BackgroundEffects />
       <main className="pt-24 pb-16">
-        {/* Background gradient */}
-        <div className="fixed inset-0 bg-gradient-to-b from-transparent via-card/10 to-transparent pointer-events-none" />
-
         <div className="container mx-auto px-6 relative z-10">
           {/* Page Header */}
           <motion.div

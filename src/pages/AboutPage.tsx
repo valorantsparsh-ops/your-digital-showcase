@@ -3,6 +3,7 @@ import { User, Heart, Code2, Coffee, Lightbulb, Award, GraduationCap, Download, 
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BackgroundEffects from "@/components/BackgroundEffects";
 
 /* ✏️ EDIT: Your resume URL */
 const RESUME_URL = "#"; /* ✏️ EDIT: Add your resume PDF URL */
@@ -66,51 +67,8 @@ const AboutPage = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
+      <BackgroundEffects />
       <main className="pt-24 pb-16 relative overflow-hidden">
-        {/* Background effects */}
-        <div className="fixed inset-0 pointer-events-none">
-          <motion.div 
-            animate={{ 
-              scale: [1, 1.2, 1],
-              opacity: [0.05, 0.1, 0.05],
-            }}
-            transition={{ duration: 5, repeat: Infinity }}
-            className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-[128px]" 
-          />
-          <motion.div 
-            animate={{ 
-              scale: [1.2, 1, 1.2],
-              opacity: [0.05, 0.1, 0.05],
-            }}
-            transition={{ duration: 6, repeat: Infinity }}
-            className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent/10 rounded-full blur-[128px]" 
-          />
-        </div>
-
-        {/* Floating particles */}
-        <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          {[...Array(15)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-primary/20 rounded-full"
-              style={{ 
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{ 
-                y: [0, -50, 0],
-                opacity: [0.2, 0.5, 0.2],
-              }}
-              transition={{
-                duration: Math.random() * 4 + 3,
-                repeat: Infinity,
-                delay: Math.random() * 2,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-        </div>
-
         <div className="container mx-auto px-6 relative z-10">
           {/* Page Header */}
           <motion.div
@@ -176,23 +134,34 @@ const AboutPage = () => {
                 {/* ✏️ EDIT: Add your profile photo */}
                 <motion.div 
                   className="relative"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  initial={{ opacity: 0, rotateY: -90 }}
+                  animate={{ opacity: 1, rotateY: 0 }}
+                  transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
+                  style={{ perspective: "1000px" }}
                 >
                   <motion.div
-                    animate={{ rotate: 360 }}
+                    animate={{ rotateZ: [0, 360] }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                     className="w-48 h-48 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 p-1"
                   >
-                    <div className="w-full h-full rounded-full bg-muted flex items-center justify-center text-4xl font-bold text-primary">
+                    <motion.div 
+                      className="w-full h-full rounded-full bg-muted flex items-center justify-center text-4xl font-bold text-primary"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
                       YN {/* ✏️ EDIT: Your initials or photo */}
-                    </div>
+                    </motion.div>
                   </motion.div>
-                  {/* Pulsing ring */}
+                  {/* Pulsing rings */}
                   <motion.div
                     className="absolute inset-0 rounded-full border-2 border-primary/30"
-                    animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0, 0.5] }}
+                    animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0, 0.5] }}
                     transition={{ duration: 2, repeat: Infinity }}
+                  />
+                  <motion.div
+                    className="absolute inset-0 rounded-full border border-primary/20"
+                    animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0, 0.3] }}
+                    transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
                   />
                 </motion.div>
                 
