@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Sparkles, Flame, Code2, Database, Wrench } from "lucide-react";
+import { Sparkles, Flame, Code2, Database, Wrench, Award } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -42,6 +42,13 @@ const skillCategories = [
   },
 ];
 
+/* ✏️ EDIT: Add your certificates here */
+const certificates = [
+  { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", year: "2024" }, /* ✏️ EDIT */
+  { name: "Google Data Analytics", issuer: "Google", year: "2023" }, /* ✏️ EDIT */
+  { name: "Meta Front-End Developer", issuer: "Meta", year: "2023" }, /* ✏️ EDIT */
+];
+
 const proficiencyColors: Record<string, string> = {
   Expert: "text-green-400 bg-green-400/10",
   Advanced: "text-blue-400 bg-blue-400/10",
@@ -77,7 +84,7 @@ const SkillsPage = () => {
           </motion.div>
 
           {/* Skills Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
             {skillCategories.map((category, categoryIndex) => (
               <motion.div
                 key={category.title}
@@ -124,6 +131,35 @@ const SkillsPage = () => {
               </motion.div>
             ))}
           </div>
+
+          {/* Certificates Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="flex items-center justify-center gap-2 mb-8">
+              <Award className="w-5 h-5 text-primary" />
+              <h2 className="font-display text-2xl md:text-3xl font-bold">Certificates</h2>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6 edit-highlight">
+              {certificates.map((cert, index) => (
+                <motion.div
+                  key={cert.name}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+                  className="glass-card rounded-xl p-6 text-center hover:border-primary/30 transition-all duration-300"
+                >
+                  <Award className="w-10 h-10 text-primary mx-auto mb-4" />
+                  <h3 className="font-display font-semibold mb-2">{cert.name}</h3>
+                  <p className="text-sm text-muted-foreground">{cert.issuer}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{cert.year}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </main>
       <Footer />
