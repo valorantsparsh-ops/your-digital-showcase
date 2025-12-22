@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowDown, MapPin, Briefcase, Mail, Github, Linkedin, Instagram, Facebook } from "lucide-react";
+import { ArrowDown, MapPin, Briefcase, Mail, Github, Linkedin, Instagram, Facebook, Code2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -19,8 +19,10 @@ const socialLinks = [
   { icon: Facebook, href: "https://facebook.com/yourusername", label: "Facebook" },
 ];
 
+/* ✏️ EDIT: Your work/coding profile links */
 const workLinks = [
-  { icon: Github, href: "https://github.com/yourusername", label: "GitHub" },
+  { icon: Github, href: "https://github.com/yourusername", label: "GitHub" }, /* ✏️ EDIT */
+  { icon: Code2, href: "https://leetcode.com/yourusername", label: "LeetCode" }, /* ✏️ EDIT */
 ];
 
 const HomePage = () => {
