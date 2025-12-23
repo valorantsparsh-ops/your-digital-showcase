@@ -155,7 +155,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
               variant="outline"
               size="sm"
               asChild
-              className="flex-1 border-border hover:border-primary/50 hover:bg-primary/5"
+              className="flex-1 border-border hover:border-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
             >
               <a href={project.github} target="_blank" rel="noopener noreferrer">
                 <Github className="w-4 h-4 mr-2" />
