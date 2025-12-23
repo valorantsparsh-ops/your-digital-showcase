@@ -66,14 +66,17 @@ const ContactPage = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <div className="glass-card rounded-xl p-8 h-full edit-highlight">
+              <div className="glass-card rounded-xl p-8 h-full contact-card-hover">
                 <h3 className="font-display text-xl font-semibold mb-6">Contact Information</h3>
 
                 <div className="space-y-6 mb-8">
                   {/* ✏️ EDIT: Your email */}
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <Mail className="w-5 h-5 text-primary" />
+                  <motion.div 
+                    className="flex items-center gap-4 p-3 rounded-xl transition-all duration-300 hover:bg-primary/5 cursor-pointer group"
+                    whileHover={{ x: 8, scale: 1.02 }}
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
+                      <Mail className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Email</p>
@@ -84,12 +87,15 @@ const ContactPage = () => {
                         your@email.com
                       </a>
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* ✏️ EDIT: Your phone */}
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <Phone className="w-5 h-5 text-primary" />
+                  <motion.div 
+                    className="flex items-center gap-4 p-3 rounded-xl transition-all duration-300 hover:bg-primary/5 cursor-pointer group"
+                    whileHover={{ x: 8, scale: 1.02 }}
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
+                      <Phone className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Phone</p>
@@ -100,34 +106,42 @@ const ContactPage = () => {
                         +1 (234) 567-890
                       </a>
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* ✏️ EDIT: Your location */}
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <MapPin className="w-5 h-5 text-primary" />
+                  <motion.div 
+                    className="flex items-center gap-4 p-3 rounded-xl transition-all duration-300 hover:bg-primary/5 cursor-pointer group"
+                    whileHover={{ x: 8, scale: 1.02 }}
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
+                      <MapPin className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Location</p>
                       <p className="font-medium">Your City, Country</p>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
 
                 <div>
                   <p className="text-sm text-muted-foreground mb-4">Follow me on</p>
                   <div className="flex gap-3">
-                    {socialLinks.map((social) => (
-                      <a
+                    {socialLinks.map((social, index) => (
+                      <motion.a
                         key={social.label}
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-10 h-10 rounded-lg border border-border hover:border-primary/50 hover:bg-primary/5 flex items-center justify-center transition-all duration-300"
+                        className="w-10 h-10 rounded-lg border border-border hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-all duration-300 group"
                         aria-label={social.label}
+                        whileHover={{ scale: 1.2, y: -5 }}
+                        whileTap={{ scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.3 + index * 0.1 }}
                       >
-                        <social.icon className="w-5 h-5 text-muted-foreground hover:text-foreground" />
-                      </a>
+                        <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </motion.a>
                     ))}
                   </div>
                 </div>

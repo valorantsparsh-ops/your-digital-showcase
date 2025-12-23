@@ -78,7 +78,7 @@ const HomePage = () => {
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 />
                 {/* ✏️ EDIT: Replace "YN" with your photo - use <img src="..." /> */}
-                <div className="w-64 h-64 md:w-80 md:h-80 rounded-full p-2">
+                <div className="w-64 h-64 md:w-80 md:h-80 rounded-full p-2 animate-glow">
                   <motion.div 
                     className="w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden"
                     whileHover={{ scale: 1.05 }}
@@ -91,14 +91,25 @@ const HomePage = () => {
                 </div>
                 {/* Pulsing glow rings */}
                 <motion.div
-                  className="absolute inset-0 rounded-full border-2 border-primary/30"
-                  animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0, 0.5] }}
+                  className="absolute inset-0 rounded-full border-2 border-primary/40"
+                  animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0, 0.6] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
                 <motion.div
-                  className="absolute inset-0 rounded-full border border-primary/20"
-                  animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0, 0.3] }}
+                  className="absolute inset-0 rounded-full border border-primary/30"
+                  animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0, 0.4] }}
                   transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
+                />
+                <motion.div
+                  className="absolute inset-0 rounded-full"
+                  animate={{ 
+                    boxShadow: [
+                      "0 0 30px hsl(var(--primary) / 0.2), 0 0 60px hsl(var(--primary) / 0.1)",
+                      "0 0 50px hsl(var(--primary) / 0.4), 0 0 100px hsl(var(--primary) / 0.2)",
+                      "0 0 30px hsl(var(--primary) / 0.2), 0 0 60px hsl(var(--primary) / 0.1)"
+                    ]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 />
               </motion.div>
 
@@ -113,7 +124,7 @@ const HomePage = () => {
                 >
                   Hi, I'm{" "}
                   {/* ✏️ EDIT: Replace "Your Name" with your actual name */}
-                  <span className="gradient-text">Your Name</span>
+                  <span className="gradient-text animate-glow-text">Your Name</span>
                 </motion.h1>
 
                 {/* ✏️ EDIT: Update this tagline to describe yourself */}
