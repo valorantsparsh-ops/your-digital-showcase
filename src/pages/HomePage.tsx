@@ -5,6 +5,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
 
+// ═══════════════════════════════════════════════════════════════════════════
+// ✏️ EDIT: Your role tags - Update these with your actual skills/interests
+// ═══════════════════════════════════════════════════════════════════════════
 const roles = [
   "AI Enthusiast",
   "Machine Learning Engineer",
@@ -13,6 +16,9 @@ const roles = [
   "Developer",
 ];
 
+// ═══════════════════════════════════════════════════════════════════════════
+// ✏️ EDIT: Your social media links - Update the href URLs with your profiles
+// ═══════════════════════════════════════════════════════════════════════════
 const socialLinks = [
   { icon: Linkedin, href: "https://linkedin.com/in/yourusername", label: "LinkedIn" },
   { icon: Mail, href: "mailto:hello@yourname.com", label: "Email" },
@@ -20,20 +26,24 @@ const socialLinks = [
   { icon: Facebook, href: "https://facebook.com/yourusername", label: "Facebook" },
 ];
 
-/* ✏️ EDIT: Your work/coding profile links */
-/* LeetCode SVG Icon Component */
-const LeetCodeIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.120 1.631l6.089 6.018a1.374 1.374 0 0 0 1.937-.008l6.089-6.018a5.938 5.938 0 0 0 1.120-1.631 5.83 5.83 0 0 0 .349-1.017 5.527 5.527 0 0 0 .062-2.362 5.35 5.35 0 0 0-.125-.513 5.266 5.266 0 0 0-1.209-2.104l-3.854-4.126L14.443.438A1.374 1.374 0 0 0 13.483 0zm-2.484 7.05 3.957 4.233L17.983 9.1a3.773 3.773 0 0 1 .859 1.5 3.774 3.774 0 0 1-.012 2.116 3.773 3.773 0 0 1-.859 1.5l-4.982 4.918-4.982-4.918a3.773 3.773 0 0 1-.859-1.5 3.774 3.774 0 0 1 .012-2.116 3.773 3.773 0 0 1 .859-1.5l3.957-4.05zm-3.957 4.233a1.374 1.374 0 0 0-.329.89 1.374 1.374 0 0 0 .329.89L11 17.05l4.038-3.987a1.374 1.374 0 0 0 .329-.89 1.374 1.374 0 0 0-.329-.89L11 7.296 7.042 11.283z"/>
+// LeetCode Official Logo SVG
+const LeetCodeIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.12 1.631l6.089 6.018a1.374 1.374 0 0 0 1.937-.008l6.089-6.018a5.938 5.938 0 0 0 1.12-1.631 5.83 5.83 0 0 0 .349-1.017 5.527 5.527 0 0 0 .062-2.362 5.35 5.35 0 0 0-.125-.513 5.266 5.266 0 0 0-1.209-2.104l-3.854-4.126L14.443.438A1.374 1.374 0 0 0 13.483 0zm-2.866 12.815a1.121 1.121 0 0 1 0-1.586l2.866-2.866a1.121 1.121 0 1 1 1.585 1.586l-2.866 2.866a1.121 1.121 0 0 1-1.585 0zM6.105 14.953l-1.586-1.586a1.121 1.121 0 0 1 0-1.586l1.586-1.586a1.121 1.121 0 0 1 1.586 1.586l-1.586 1.586 1.586 1.586a1.121 1.121 0 0 1-1.586 1.586l-1.586-1.586zm5.932 1.586 1.586-1.586a1.121 1.121 0 0 1 1.586 1.586l-1.586 1.586 1.586 1.586a1.121 1.121 0 0 1-1.586 1.586l-1.586-1.586-1.586 1.586a1.121 1.121 0 0 1-1.586-1.586l1.586-1.586-1.586-1.586a1.121 1.121 0 0 1 1.586-1.586l1.586 1.586z"/>
   </svg>
 );
 
+// ═══════════════════════════════════════════════════════════════════════════
+// ✏️ EDIT: Your coding profile links - Update with your GitHub and LeetCode usernames
+// ═══════════════════════════════════════════════════════════════════════════
 const workLinks = [
   { icon: Github, href: "https://github.com/yourusername", label: "GitHub" },
   { icon: LeetCodeIcon, href: "https://leetcode.com/yourusername", label: "LeetCode", isCustomIcon: true },
 ];
 
-/* ✏️ EDIT: Your resume URL */
+// ═══════════════════════════════════════════════════════════════════════════
+// ✏️ EDIT: Your resume URL - Replace "#" with your actual resume link
+// ═══════════════════════════════════════════════════════════════════════════
 const RESUME_URL = "#";
 
 const HomePage = () => {
@@ -67,15 +77,15 @@ const HomePage = () => {
                   animate={{ rotateZ: [0, 360] }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 />
-                {/* Static image container */}
-                <div className="w-64 h-64 md:w-80 md:h-80 rounded-full p-2 edit-highlight">
+                {/* ✏️ EDIT: Replace "YN" with your photo - use <img src="..." /> */}
+                <div className="w-64 h-64 md:w-80 md:h-80 rounded-full p-2">
                   <motion.div 
                     className="w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden"
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     <div className="w-full h-full rounded-full bg-muted flex items-center justify-center text-6xl font-bold text-primary">
-                      YN
+                      YN {/* ✏️ EDIT: Replace with your photo */}
                     </div>
                   </motion.div>
                 </div>
@@ -102,15 +112,16 @@ const HomePage = () => {
                   className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
                 >
                   Hi, I'm{" "}
-                  <span className="gradient-text edit-highlight">Your Name</span>
+                  {/* ✏️ EDIT: Replace "Your Name" with your actual name */}
+                  <span className="gradient-text">Your Name</span>
                 </motion.h1>
 
-                {/* Tagline */}
+                {/* ✏️ EDIT: Update this tagline to describe yourself */}
                 <motion.p
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="text-lg md:text-xl text-muted-foreground mb-6 edit-highlight inline-block"
+                  className="text-lg md:text-xl text-muted-foreground mb-6"
                 >
                   Full Stack Developer | Tech Explorer | Problem Solver
                 </motion.p>
@@ -143,6 +154,7 @@ const HomePage = () => {
                   transition={{ duration: 0.6, delay: 0.5 }}
                   className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8"
                 >
+                  {/* ✏️ EDIT: Update these info cards with your actual data */}
                   {[
                     { icon: MapPin, label: "Location", value: "Your City, Country" },
                     { icon: Briefcase, label: "Expertise", value: "Web Dev, AI/ML" },
@@ -154,7 +166,7 @@ const HomePage = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.6 + index * 0.1 }}
                       whileHover={{ y: -5, scale: 1.02 }}
-                      className="glass-card rounded-xl px-6 py-4 flex items-center gap-3 edit-highlight cursor-pointer"
+                      className="glass-card rounded-xl px-6 py-4 flex items-center gap-3 cursor-pointer"
                     >
                       <item.icon className="w-5 h-5 text-primary" />
                       <div>
@@ -208,7 +220,7 @@ const HomePage = () => {
                 >
                   Connect with me
                 </motion.h3>
-                <div className="flex gap-4 edit-highlight">
+                <div className="flex gap-4">
                   {socialLinks.map((social, index) => (
                     <motion.a
                       key={social.label}
@@ -239,7 +251,7 @@ const HomePage = () => {
                 >
                   See what I'm doing
                 </motion.h3>
-                <div className="flex gap-4 edit-highlight">
+                <div className="flex gap-4">
                   {workLinks.map((link, index) => (
                     <motion.a
                       key={link.label}
@@ -255,7 +267,7 @@ const HomePage = () => {
                       aria-label={link.label}
                     >
                       {'isCustomIcon' in link ? (
-                        <link.icon />
+                        <link.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                       ) : (
                         <link.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                       )}

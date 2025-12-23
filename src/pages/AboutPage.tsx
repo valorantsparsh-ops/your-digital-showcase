@@ -5,10 +5,14 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
 
-/* ✏️ EDIT: Your resume URL */
-const RESUME_URL = "#"; /* ✏️ EDIT: Add your resume PDF URL */
+// ═══════════════════════════════════════════════════════════════════════════
+// ✏️ EDIT: Your resume URL - Replace "#" with your actual resume link
+// ═══════════════════════════════════════════════════════════════════════════
+const RESUME_URL = "#";
 
-/* ✏️ EDIT: Your interests */
+// ═══════════════════════════════════════════════════════════════════════════
+// ✏️ EDIT: Your interests - Update with your actual hobbies/interests
+// ═══════════════════════════════════════════════════════════════════════════
 const interests = [
   { icon: Code2, label: "Coding", description: "Building things that matter" },
   { icon: Coffee, label: "Coffee", description: "Fuel for creativity" },
@@ -16,21 +20,25 @@ const interests = [
   { icon: Heart, label: "Open Source", description: "Contributing to community" },
 ];
 
-/* ✏️ EDIT: Your education */
+// ═══════════════════════════════════════════════════════════════════════════
+// ✏️ EDIT: Your education - Update with your actual education details
+// ═══════════════════════════════════════════════════════════════════════════
 const education = [
   {
-    degree: "Your Degree", /* ✏️ EDIT */
-    institution: "University Name", /* ✏️ EDIT */
-    year: "2019", /* ✏️ EDIT */
-    description: "Your specialization or notable achievements", /* ✏️ EDIT */
+    degree: "Your Degree",
+    institution: "University Name",
+    year: "2019",
+    description: "Your specialization or notable achievements",
   },
 ];
 
-/* ✏️ EDIT: Your certifications */
+// ═══════════════════════════════════════════════════════════════════════════
+// ✏️ EDIT: Your certifications - Update with your actual certifications
+// ═══════════════════════════════════════════════════════════════════════════
 const certifications = [
-  { name: "Certification Name 1", issuer: "Issuing Organization", year: "2023" }, /* ✏️ EDIT */
-  { name: "Certification Name 2", issuer: "Issuing Organization", year: "2022" }, /* ✏️ EDIT */
-  { name: "Certification Name 3", issuer: "Issuing Organization", year: "2022" }, /* ✏️ EDIT */
+  { name: "Certification Name 1", issuer: "Issuing Organization", year: "2023" },
+  { name: "Certification Name 2", issuer: "Issuing Organization", year: "2022" },
+  { name: "Certification Name 3", issuer: "Issuing Organization", year: "2022" },
 ];
 
 // Animation variants
@@ -121,7 +129,7 @@ const AboutPage = () => {
             <motion.div
               variants={itemVariants}
               whileHover={{ y: -5 }}
-              className="glass-card rounded-xl p-8 mb-12 edit-highlight relative overflow-hidden group"
+              className="glass-card rounded-xl p-8 mb-12 relative overflow-hidden group"
             >
               {/* Animated border glow */}
               <motion.div
@@ -258,7 +266,7 @@ const AboutPage = () => {
                 transition={{ duration: 0.6 }}
                 whileHover={{ y: -5 }}
               >
-                <div className="glass-card rounded-xl p-6 h-full edit-highlight group">
+                <div className="glass-card rounded-xl p-6 h-full group">
                   <div className="flex items-center gap-3 mb-6">
                     <motion.div 
                       className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"
@@ -295,7 +303,7 @@ const AboutPage = () => {
                 transition={{ duration: 0.6 }}
                 whileHover={{ y: -5 }}
               >
-                <div className="glass-card rounded-xl p-6 h-full edit-highlight group">
+                <div className="glass-card rounded-xl p-6 h-full group">
                   <div className="flex items-center gap-3 mb-6">
                     <motion.div 
                       className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center"
