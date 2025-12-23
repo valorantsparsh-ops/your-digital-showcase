@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MapPin, Briefcase, Mail, Github, Linkedin, Instagram, Facebook, Code2, Download } from "lucide-react";
+import { MapPin, Briefcase, Mail, Github, Linkedin, Instagram, Facebook, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -21,9 +21,16 @@ const socialLinks = [
 ];
 
 /* ✏️ EDIT: Your work/coding profile links */
+/* LeetCode SVG Icon Component */
+const LeetCodeIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.120 1.631l6.089 6.018a1.374 1.374 0 0 0 1.937-.008l6.089-6.018a5.938 5.938 0 0 0 1.120-1.631 5.83 5.83 0 0 0 .349-1.017 5.527 5.527 0 0 0 .062-2.362 5.35 5.35 0 0 0-.125-.513 5.266 5.266 0 0 0-1.209-2.104l-3.854-4.126L14.443.438A1.374 1.374 0 0 0 13.483 0zm-2.484 7.05 3.957 4.233L17.983 9.1a3.773 3.773 0 0 1 .859 1.5 3.774 3.774 0 0 1-.012 2.116 3.773 3.773 0 0 1-.859 1.5l-4.982 4.918-4.982-4.918a3.773 3.773 0 0 1-.859-1.5 3.774 3.774 0 0 1 .012-2.116 3.773 3.773 0 0 1 .859-1.5l3.957-4.05zm-3.957 4.233a1.374 1.374 0 0 0-.329.89 1.374 1.374 0 0 0 .329.89L11 17.05l4.038-3.987a1.374 1.374 0 0 0 .329-.89 1.374 1.374 0 0 0-.329-.89L11 7.296 7.042 11.283z"/>
+  </svg>
+);
+
 const workLinks = [
   { icon: Github, href: "https://github.com/yourusername", label: "GitHub" },
-  { icon: Code2, href: "https://leetcode.com/yourusername", label: "LeetCode" },
+  { icon: LeetCodeIcon, href: "https://leetcode.com/yourusername", label: "LeetCode", isCustomIcon: true },
 ];
 
 /* ✏️ EDIT: Your resume URL */
@@ -43,38 +50,35 @@ const HomePage = () => {
               transition={{ duration: 0.6 }}
               className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20"
             >
-              {/* Profile Image with 3D rotation animation */}
+              {/* Profile Image - only border rotates */}
               <motion.div
-                initial={{ opacity: 0, rotateY: -90 }}
-                animate={{ opacity: 1, rotateY: 0 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{ 
                   duration: 0.8,
                   type: "spring",
                   stiffness: 100,
                 }}
                 className="relative"
-                style={{ perspective: "1000px" }}
               >
+                {/* Rotating border */}
                 <motion.div 
-                  className="w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-dashed border-primary/50 p-2 edit-highlight"
+                  className="absolute inset-0 w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-dashed border-primary/50"
                   animate={{ rotateZ: [0, 360] }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                >
+                />
+                {/* Static image container */}
+                <div className="w-64 h-64 md:w-80 md:h-80 rounded-full p-2 edit-highlight">
                   <motion.div 
                     className="w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden"
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <motion.div 
-                      className="w-full h-full rounded-full bg-muted flex items-center justify-center text-6xl font-bold text-primary"
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ delay: 0.3, duration: 0.5 }}
-                    >
+                    <div className="w-full h-full rounded-full bg-muted flex items-center justify-center text-6xl font-bold text-primary">
                       YN
-                    </motion.div>
+                    </div>
                   </motion.div>
-                </motion.div>
+                </div>
                 {/* Pulsing glow rings */}
                 <motion.div
                   className="absolute inset-0 rounded-full border-2 border-primary/30"
@@ -250,7 +254,11 @@ const HomePage = () => {
                       className="w-12 h-12 rounded-full border border-border hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-all duration-300 group"
                       aria-label={link.label}
                     >
-                      <link.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      {'isCustomIcon' in link ? (
+                        <link.icon />
+                      ) : (
+                        <link.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      )}
                     </motion.a>
                   ))}
                 </div>

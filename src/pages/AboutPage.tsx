@@ -134,16 +134,18 @@ const AboutPage = () => {
                 {/* ✏️ EDIT: Add your profile photo */}
                 <motion.div 
                   className="relative"
-                  initial={{ opacity: 0, rotateY: -90 }}
-                  animate={{ opacity: 1, rotateY: 0 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-                  style={{ perspective: "1000px" }}
                 >
+                  {/* Rotating border */}
                   <motion.div
                     animate={{ rotateZ: [0, 360] }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="w-48 h-48 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 p-1"
-                  >
+                    className="absolute inset-0 w-48 h-48 rounded-full border-2 border-dashed border-primary/50"
+                  />
+                  {/* Static image */}
+                  <div className="w-48 h-48 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 p-1">
                     <motion.div 
                       className="w-full h-full rounded-full bg-muted flex items-center justify-center text-4xl font-bold text-primary"
                       whileHover={{ scale: 1.05 }}
@@ -151,7 +153,7 @@ const AboutPage = () => {
                     >
                       YN {/* ✏️ EDIT: Your initials or photo */}
                     </motion.div>
-                  </motion.div>
+                  </div>
                   {/* Pulsing rings */}
                   <motion.div
                     className="absolute inset-0 rounded-full border-2 border-primary/30"
