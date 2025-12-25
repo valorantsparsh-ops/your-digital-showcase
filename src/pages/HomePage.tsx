@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Briefcase, Mail, Github, Linkedin, Instagram, Facebook, Download } from "lucide-react";
 import { useTypingAnimation } from "@/hooks/useTypingAnimation";
