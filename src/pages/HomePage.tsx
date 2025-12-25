@@ -1,5 +1,7 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Briefcase, Mail, Github, Linkedin, Instagram, Facebook, Download } from "lucide-react";
+import { useTypingAnimation } from "@/hooks/useTypingAnimation";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -46,7 +48,21 @@ const workLinks = [
 // ═══════════════════════════════════════════════════════════════════════════
 const RESUME_URL = "#";
 
+const taglines = [
+  "Full Stack Developer",
+  "Tech Explorer",
+  "Problem Solver",
+  "Code Enthusiast",
+];
+
 const HomePage = () => {
+  const typedText = useTypingAnimation({
+    texts: taglines,
+    typingSpeed: 80,
+    deletingSpeed: 40,
+    pauseDuration: 2000,
+  });
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
@@ -127,14 +143,15 @@ const HomePage = () => {
                   <span className="gradient-text animate-glow-text">Your Name</span>
                 </motion.h1>
 
-                {/* ✏️ EDIT: Update this tagline to describe yourself */}
+                {/* Typing tagline */}
                 <motion.p
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="text-lg md:text-xl text-muted-foreground mb-6"
+                  className="text-lg md:text-xl text-muted-foreground mb-6 h-8"
                 >
-                  Full Stack Developer | Tech Explorer | Problem Solver
+                  <span>{typedText}</span>
+                  <span className="animate-pulse text-primary">|</span>
                 </motion.p>
 
                 {/* Role Tags with stagger animation */}
