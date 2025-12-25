@@ -3,45 +3,26 @@ import { useState, useEffect } from "react";
 interface UseTypingAnimationOptions {
   texts: string[];
   typingSpeed?: number;
-  deletingSpeed?: number;
-  pauseDuration?: number;
+  separator?: string;
 }
 
 export const useTypingAnimation = ({
   texts,
   typingSpeed = 100,
-  deletingSpeed = 50,
-  pauseDuration = 2000,
+  separator = " | ",
 }: UseTypingAnimationOptions) => {
   const [displayText, setDisplayText] = useState("");
-  const [textIndex, setTextIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
+  
+  const fullText = texts.join(separator);
 
   useEffect(() => {
-    const currentText = texts[textIndex];
-
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          if (displayText.length < currentText.length) {
-            setDisplayText(currentText.slice(0, displayText.length + 1));
-          } else {
-            setTimeout(() => setIsDeleting(true), pauseDuration);
-          }
-        } else {
-          if (displayText.length > 0) {
-            setDisplayText(displayText.slice(0, -1));
-          } else {
-            setIsDeleting(false);
-            setTextIndex((prev) => (prev + 1) % texts.length);
-          }
-        }
-      },
-      isDeleting ? deletingSpeed : typingSpeed
-    );
-
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, textIndex, texts, typingSpeed, deletingSpeed, pauseDuration]);
+    if (displayText.length < fullText.length) {
+      const timeout = setTimeout(() => {
+        setDisplayText(fullText.slice(0, displayText.length + 1));
+      }, typingSpeed);
+      return () => clearTimeout(timeout);
+    }
+  }, [displayText, fullText, typingSpeed]);
 
   return displayText;
 };

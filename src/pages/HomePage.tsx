@@ -58,9 +58,8 @@ const taglines = [
 const HomePage = () => {
   const typedText = useTypingAnimation({
     texts: taglines,
-    typingSpeed: 80,
-    deletingSpeed: 40,
-    pauseDuration: 2000,
+    typingSpeed: 60,
+    separator: " | ",
   });
 
   return (
