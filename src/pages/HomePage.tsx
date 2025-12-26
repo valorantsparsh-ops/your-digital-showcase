@@ -286,7 +286,7 @@ const HomePage = () => {
                       aria-label={link.label}
                     >
                       {'image' in link ? (
-                        <img src={link.image} alt={link.label} className="w-5 h-5" />
+                        <img src={link.image} alt={link.label} className="w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity" />
                       ) : (
                         <link.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                       )}
