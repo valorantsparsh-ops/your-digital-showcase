@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-
+import PreloaderLogo from "@/components/PreloaderLogo";
 interface PreLoaderProps {
   onComplete: () => void;
 }
@@ -71,17 +71,14 @@ const PreLoader = ({ onComplete }: PreLoaderProps) => {
           />
         </motion.div>
 
-        {/* Center initials */}
+        {/* Center logo */}
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
           className="absolute inset-0 flex items-center justify-center"
         >
-          <span className="font-display text-3xl font-bold gradient-text">
-            {/* ✏️ EDIT: Your initials */}
-            YN
-          </span>
+          <PreloaderLogo className="w-16 h-16" />
         </motion.div>
       </div>
 
