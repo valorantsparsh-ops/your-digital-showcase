@@ -74,7 +74,7 @@ const ResumePreviewDialog = ({ open, onOpenChange }: ResumePreviewDialogProps) =
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl w-[95vw] h-[90vh] p-0 bg-[#1a1a1a] border-border overflow-hidden">
+      <DialogContent className="max-w-6xl w-[95vw] h-[90vh] p-0 bg-[#1a1a1a] border-border overflow-hidden [&>button]:hidden">
         <DialogTitle className="sr-only">Resume Preview</DialogTitle>
         
         {/* Header Toolbar */}
@@ -101,16 +101,14 @@ const ResumePreviewDialog = ({ open, onOpenChange }: ResumePreviewDialogProps) =
               </Button>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8 hover:bg-[#3a3a3a]"
-              onClick={() => onOpenChange(false)}
-            >
-              <X className="h-5 w-5" />
-            </Button>
-          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 hover:bg-[#3a3a3a]"
+            onClick={() => onOpenChange(false)}
+          >
+            <X className="h-5 w-5" />
+          </Button>
         </div>
 
         {/* Main Content */}
