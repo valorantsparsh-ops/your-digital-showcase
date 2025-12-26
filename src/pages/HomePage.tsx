@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import ResumePreviewDialog from "@/components/ResumePreviewDialog";
+import ProfileImage from "@/components/ProfileImage";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // ✏️ EDIT: Your role tags - Update these with your actual skills/interests
@@ -97,9 +98,7 @@ const HomePage = () => {
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <div className="w-full h-full rounded-full bg-muted flex items-center justify-center text-6xl font-bold text-primary">
-                      YN {/* ✏️ EDIT: Replace with your photo */}
-                    </div>
+                    <ProfileImage />
                   </motion.div>
                 </div>
                 {/* Pulsing glow rings */}
