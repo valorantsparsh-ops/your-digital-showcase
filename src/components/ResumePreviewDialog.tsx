@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { X, Download } from "lucide-react";
+import { X, Download, FileText, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,56 +19,76 @@ interface ResumePreviewDialogProps {
 }
 
 const ResumePreviewDialog = ({ open, onOpenChange }: ResumePreviewDialogProps) => {
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = RESUME_PDF_URL;
-    link.download = RESUME_FILENAME;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-5xl w-[95vw] h-[90vh] p-0 bg-[#1a1a1a] border-border overflow-hidden [&>button]:hidden">
+      <DialogContent className="max-w-md w-[90vw] p-0 bg-card border-border overflow-hidden [&>button]:hidden">
         <DialogTitle className="sr-only">Resume Preview</DialogTitle>
         
-        {/* Header Toolbar */}
-        <div className="flex items-center justify-between px-4 py-3 bg-[#2a2a2a] border-b border-border">
-          <span className="text-sm text-muted-foreground font-medium">Resume Preview</span>
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 py-3 bg-muted/50 border-b border-border">
+          <span className="text-sm font-medium text-foreground">Resume</span>
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8 hover:bg-[#3a3a3a]"
+            className="h-8 w-8"
             onClick={() => onOpenChange(false)}
           >
             <X className="h-5 w-5" />
           </Button>
         </div>
 
-        {/* PDF Embed */}
-        <div className="flex-1 h-[calc(90vh-120px)] bg-[#525659]">
-          <iframe
-            src={`${RESUME_PDF_URL}#toolbar=0&navpanes=0`}
-            className="w-full h-full"
-            title="Resume Preview"
-          />
-        </div>
-
-        {/* Footer with Download Button */}
-        <div className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-[#2a2a2a] border-t border-border">
+        {/* Content */}
+        <div className="p-6 flex flex-col items-center gap-6">
+          {/* PDF Icon */}
           <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className="w-24 h-32 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center shadow-lg"
           >
-            <Button
-              onClick={handleDownload}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 gap-2"
-            >
-              <Download className="h-4 w-4" />
-              Download Resume
-            </Button>
+            <FileText className="w-12 h-12 text-white" />
           </motion.div>
+
+          <div className="text-center">
+            <h3 className="font-semibold text-foreground mb-1">{RESUME_FILENAME}</h3>
+            <p className="text-sm text-muted-foreground">PDF Document</p>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 w-full">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex-1"
+            >
+              <Button
+                asChild
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full gap-2"
+              >
+                <a href={RESUME_PDF_URL} download={RESUME_FILENAME}>
+                  <Download className="h-4 w-4" />
+                  Download
+                </a>
+              </Button>
+            </motion.div>
+            
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex-1"
+            >
+              <Button
+                asChild
+                variant="outline"
+                className="w-full rounded-full gap-2"
+              >
+                <a href={RESUME_PDF_URL} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="h-4 w-4" />
+                  Open in New Tab
+                </a>
+              </Button>
+            </motion.div>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
