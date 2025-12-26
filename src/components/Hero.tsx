@@ -7,7 +7,7 @@ const Hero = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Grid Background */}
       <div className="absolute inset-0 grid-overlay opacity-40" />
-      
+
       {/* Gradient Orbs */}
       <div className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/20 rounded-full blur-[128px] animate-pulse-slow" />
       <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent/15 rounded-full blur-[128px] animate-pulse-slow" />
@@ -32,7 +32,7 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
           >
-            Hi, I'm{" "}
+            Hi, I'm{"Atul Patel"}
             <span className="gradient-text">Your Name</span>
           </motion.h1>
 
@@ -53,8 +53,8 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            Full-stack builder creating digital experiences that respect humans and scale with clarity.
-            Accessibility is my north star.
+            Full-stack builder creating digital experiences that respect humans and scale with clarity. Accessibility is
+            my north star.
           </motion.p>
 
           {/* CTA Buttons */}
