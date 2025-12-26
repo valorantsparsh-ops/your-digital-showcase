@@ -94,13 +94,10 @@ const Footer = () => {
           {/* Copyright */}
           <p className="text-sm text-muted-foreground flex items-center gap-1.5">
             © {currentYear} Built with
-            {/* <motion.span
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 1, repeat: Infinity }}
-            >
+            <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1, repeat: Infinity }}>
               <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-            </motion.span> */}
-            by <span className="text-foreground font-medium">Atul Patel</span> {/* ✏️ EDIT */}
+            </motion.span>
+            by <span className="text-foreground font-medium">YourName</span> {/* ✏️ EDIT */}
           </p>
 
           {/* Back to top */}
