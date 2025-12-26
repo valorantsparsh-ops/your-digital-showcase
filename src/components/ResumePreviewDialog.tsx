@@ -11,7 +11,7 @@ import {
 // To update your resume: Simply replace the file at public/resume.pdf
 // ═══════════════════════════════════════════════════════════════════════════
 const RESUME_PDF_URL = "/resume.pdf";
-const RESUME_FILENAME = "Atul_Rajesh_Patel_Resume.pdf"; // ✏️ EDIT: Change download filename
+const RESUME_FILENAME = "Atul_Patel_Resume.pdf";
 
 interface ResumePreviewDialogProps {
   open: boolean;
