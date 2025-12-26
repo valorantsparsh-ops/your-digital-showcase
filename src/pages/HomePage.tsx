@@ -29,19 +29,15 @@ const socialLinks = [
   { icon: Facebook, href: "https://facebook.com/yourusername", label: "Facebook" },
 ];
 
-// LeetCode Official Logo SVG
-const LeetCodeIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.12 1.631l6.089 6.018a1.374 1.374 0 0 0 1.937-.008l6.089-6.018a5.938 5.938 0 0 0 1.12-1.631 5.83 5.83 0 0 0 .349-1.017 5.527 5.527 0 0 0 .062-2.362 5.35 5.35 0 0 0-.125-.513 5.266 5.266 0 0 0-1.209-2.104l-3.854-4.126L14.443.438A1.374 1.374 0 0 0 13.483 0zm-2.866 12.815a1.121 1.121 0 0 1 0-1.586l2.866-2.866a1.121 1.121 0 1 1 1.585 1.586l-2.866 2.866a1.121 1.121 0 0 1-1.585 0zM6.105 14.953l-1.586-1.586a1.121 1.121 0 0 1 0-1.586l1.586-1.586a1.121 1.121 0 0 1 1.586 1.586l-1.586 1.586 1.586 1.586a1.121 1.121 0 0 1-1.586 1.586l-1.586-1.586zm5.932 1.586 1.586-1.586a1.121 1.121 0 0 1 1.586 1.586l-1.586 1.586 1.586 1.586a1.121 1.121 0 0 1-1.586 1.586l-1.586-1.586-1.586 1.586a1.121 1.121 0 0 1-1.586-1.586l1.586-1.586-1.586-1.586a1.121 1.121 0 0 1 1.586-1.586l1.586 1.586z"/>
-  </svg>
-);
+// LeetCode Logo Image
+import leetcodeLogo from "@/assets/leetcode-logo.png";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // ✏️ EDIT: Your coding profile links - Update with your GitHub and LeetCode usernames
 // ═══════════════════════════════════════════════════════════════════════════
 const workLinks = [
   { icon: Github, href: "https://github.com/yourusername", label: "GitHub" },
-  { icon: LeetCodeIcon, href: "https://leetcode.com/yourusername", label: "LeetCode", isCustomIcon: true },
+  { image: leetcodeLogo, href: "https://leetcode.com/yourusername", label: "LeetCode" },
 ];
 
 const taglines = [
@@ -289,8 +285,8 @@ const HomePage = () => {
                       className="w-12 h-12 rounded-full border border-border hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-all duration-300 group"
                       aria-label={link.label}
                     >
-                      {'isCustomIcon' in link ? (
-                        <link.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      {'image' in link ? (
+                        <img src={link.image} alt={link.label} className="w-5 h-5" />
                       ) : (
                         <link.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                       )}
