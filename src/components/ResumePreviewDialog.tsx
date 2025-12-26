@@ -1,56 +1,76 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, Download, ZoomIn, ZoomOut, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { X, Download, ZoomIn, ZoomOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-
-// ═══════════════════════════════════════════════════════════════════════════
-// ✏️ EDIT: Your resume data - Update all fields with your actual information
-// ═══════════════════════════════════════════════════════════════════════════
+import profilePhoto from "@/assets/profile-photo.jpg";
 
 const resumeData = {
-  name: "YOUR NAME", // ✏️ EDIT: Your full name
-  title: "Your Title / Role", // ✏️ EDIT: Your job title
-  photoUrl: "", // ✏️ EDIT: Add your photo URL (or leave empty for placeholder)
+  name: "ATUL RAJESH PATEL",
+  title: "Electronics and VLSI Engineering Student",
+  photoUrl: profilePhoto,
   contact: {
-    phone: "+91 XXXXXXXXXX", // ✏️ EDIT: Your phone number
-    email: "your.email@gmail.com", // ✏️ EDIT: Your email
-    address: "Your City, State, Country", // ✏️ EDIT: Your address
+    phone: "+91 79907 20637",
+    email: "atulrpatel007@gmail.com",
+    twitter: "@atulrpatel007",
   },
-  summary: "Write your professional summary here. Describe your experience, skills, and what you're looking for. Keep it concise but impactful - 2-3 sentences work best.", // ✏️ EDIT: Your professional summary
+  summary: "Motivated and detail-oriented B. Tech student specializing in Electronics and VLSI Engineering, with a strong foundation in digital logic, circuit design, and semiconductor fundamentals. Passionate about hardware design and embedded systems, with hands-on experience in Signal Processing, Arduino, and basic PCB design.",
   projects: [
     {
-      title: "Project Title 1", // ✏️ EDIT: Your project name
-      description: "Describe what you built, the technologies used, and the impact or results achieved. Include any relevant metrics or achievements.", // ✏️ EDIT: Project description
-      link: "", // ✏️ EDIT: Optional demo link
+      title: "Line Follower Robot using Arduino Uno (PID Model)",
+      description: "Designed and implemented a line-following robot using Arduino Uno, IR sensors, and DC motors with a PID (Proportional-Integral-Derivative) control algorithm.",
+      date: "February 2025",
+      link: "",
     },
     {
-      title: "Project Title 2", // ✏️ EDIT: Your project name
-      description: "Describe another significant project. Highlight the problem solved, your role, and the technologies or methodologies used.", // ✏️ EDIT: Project description
-      link: "", // ✏️ EDIT: Optional demo link
+      title: "LED Pattern Generator using Arduino",
+      description: "Designed a basic embedded system to create LED blink patterns using Arduino Uno.",
+      date: "February 2025",
+      link: "",
     },
     {
-      title: "Project Title 3 (In Progress)", // ✏️ EDIT: Your project name
-      description: "You can also include ongoing projects to show what you're currently working on and learning.", // ✏️ EDIT: Project description
-      link: "", // ✏️ EDIT: Optional demo link
+      title: "Thermoelectric Generator (TEG)",
+      description: "Designed and built a thermoelectric generator system that converts heat energy into electrical energy using the Seebeck effect.",
+      date: "March 2024",
+      link: "",
     },
   ],
-  skills: ["Skill 1", "Skill 2", "Skill 3", "Skill 4", "Skill 5"], // ✏️ EDIT: Your key skills
+  skills: {
+    hardware: "VHDL",
+    embedded: "Arduino, Raspberry Pi (Beginner), C programming",
+    software: "MATLAB (Introductory), MS Excel, MS PowerPoint",
+    programming: "C, Python (Basic), Java (Basic)",
+    database: "MySQL",
+  },
   education: [
     {
-      degree: "Your Degree", // ✏️ EDIT: e.g., "B.Tech in Computer Science"
-      institution: "University Name", // ✏️ EDIT: Your university
-      year: "Year", // ✏️ EDIT: e.g., "2021-2025"
+      degree: "Bachelor of Technology (B.Tech) - Electronics and VLSI Engineering",
+      institution: "Sardar Vallabhbhai National Institute of Technology, Surat",
+      year: "Current (2nd Year)",
+      details: "CGPA: 8.26",
+    },
+    {
+      degree: "Class XII – CBSE",
+      institution: "Gujarat Public School, Vadodara",
+      year: "2024",
+      details: "Percentage: 89.8%",
+    },
+    {
+      degree: "Class X – CBSE",
+      institution: "Ambes School CBSE, Vadodara",
+      year: "2022",
+      details: "Percentage: 86.8%",
     },
   ],
+  languages: ["English – Professional", "Hindi – Native", "Bhojpuri / Gujarati – Conversational"],
+  interests: ["Electronics Design", "VLSI Architecture", "Embedded Systems", "Circuit Debugging", "Gaming Technology"],
 };
 
-// ✏️ EDIT: Your actual resume PDF URL for download
-const RESUME_PDF_URL = "#";
+const RESUME_PDF_URL = "/resume.pdf";
 
 interface ResumePreviewDialogProps {
   open: boolean;
@@ -61,15 +81,13 @@ const ResumePreviewDialog = ({ open, onOpenChange }: ResumePreviewDialogProps) =
   const [zoom, setZoom] = useState(100);
 
   const handleDownload = () => {
-    if (RESUME_PDF_URL && RESUME_PDF_URL !== "#") {
-      const link = document.createElement("a");
-      link.href = RESUME_PDF_URL;
-      link.download = `${resumeData.name.replace(/\s+/g, "_")}_Resume.pdf`;
-      link.target = "_blank";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+    const link = document.createElement("a");
+    link.href = RESUME_PDF_URL;
+    link.download = `${resumeData.name.replace(/\s+/g, "_")}_Resume.pdf`;
+    link.target = "_blank";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -218,8 +236,8 @@ const ResumeContent = ({ zoom, compact = false }: { zoom: number; compact?: bool
         </h2>
         <div className="flex flex-wrap gap-x-8 gap-y-1 text-gray-700" style={{ fontSize: compact ? '10px' : `${11 * scale}px` }}>
           <span>Phone: {resumeData.contact.phone}</span>
-          <span>Address: {resumeData.contact.address}</span>
           <span>Email: {resumeData.contact.email}</span>
+          <span>X: {resumeData.contact.twitter}</span>
         </div>
       </div>
 
@@ -276,9 +294,13 @@ const ResumeContent = ({ zoom, compact = false }: { zoom: number; compact?: bool
         >
           Skills
         </h2>
-        <p className="text-gray-700" style={{ fontSize: compact ? '10px' : `${11 * scale}px` }}>
-          {resumeData.skills.join(" • ")}
-        </p>
+        <div className="text-gray-700 space-y-1" style={{ fontSize: compact ? '10px' : `${11 * scale}px` }}>
+          <p><strong>Hardware Design:</strong> {resumeData.skills.hardware}</p>
+          <p><strong>Embedded Systems:</strong> {resumeData.skills.embedded}</p>
+          <p><strong>Software:</strong> {resumeData.skills.software}</p>
+          <p><strong>Programming:</strong> {resumeData.skills.programming}</p>
+          <p><strong>Database:</strong> {resumeData.skills.database}</p>
+        </div>
       </div>
 
       {/* Education */}
