@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Briefcase, Mail, Github, Linkedin, Instagram, Facebook, Download } from "lucide-react";
 import { useTypingAnimation } from "@/hooks/useTypingAnimation";
@@ -5,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
+import ResumePreviewDialog from "@/components/ResumePreviewDialog";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // ✏️ EDIT: Your role tags - Update these with your actual skills/interests
@@ -42,11 +44,6 @@ const workLinks = [
   { icon: LeetCodeIcon, href: "https://leetcode.com/yourusername", label: "LeetCode", isCustomIcon: true },
 ];
 
-// ═══════════════════════════════════════════════════════════════════════════
-// ✏️ EDIT: Your resume URL - Replace "#" with your actual resume link
-// ═══════════════════════════════════════════════════════════════════════════
-const RESUME_URL = "#";
-
 const taglines = [
   "Full Stack Developer",
   "Tech Explorer",
@@ -55,6 +52,7 @@ const taglines = [
 ];
 
 const HomePage = () => {
+  const [resumeOpen, setResumeOpen] = useState(false);
   const typedText = useTypingAnimation({
     texts: taglines,
     typingSpeed: 60,
@@ -63,6 +61,7 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <ResumePreviewDialog open={resumeOpen} onOpenChange={setResumeOpen} />
       <Navbar />
       <BackgroundEffects />
       <main>
@@ -215,14 +214,12 @@ const HomePage = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <Button 
-                      asChild 
                       size="lg" 
                       className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 gap-2 shadow-lg shadow-primary/25"
+                      onClick={() => setResumeOpen(true)}
                     >
-                      <a href={RESUME_URL} download target="_blank" rel="noopener noreferrer">
-                        <Download className="w-5 h-5" />
-                        Download Resume
-                      </a>
+                      <Download className="w-5 h-5" />
+                      Download Resume
                     </Button>
                   </motion.div>
                 </motion.div>
