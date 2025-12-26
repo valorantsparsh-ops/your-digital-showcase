@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { X, Download, FileText, ExternalLink } from "lucide-react";
+import { X, Download, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -22,7 +22,7 @@ const ResumePreviewDialog = ({ open, onOpenChange }: ResumePreviewDialogProps) =
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md w-[90vw] p-0 bg-card border-border overflow-hidden [&>button]:hidden">
-        <DialogTitle className="sr-only">Resume Preview</DialogTitle>
+        <DialogTitle className="sr-only">Resume</DialogTitle>
         
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 bg-muted/50 border-b border-border">
@@ -54,41 +54,22 @@ const ResumePreviewDialog = ({ open, onOpenChange }: ResumePreviewDialogProps) =
             <p className="text-sm text-muted-foreground">PDF Document</p>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 w-full">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex-1"
+          {/* Download Button */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full"
+          >
+            <Button
+              asChild
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full gap-2"
             >
-              <Button
-                asChild
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full gap-2"
-              >
-                <a href={RESUME_PDF_URL} download={RESUME_FILENAME}>
-                  <Download className="h-4 w-4" />
-                  Download
-                </a>
-              </Button>
-            </motion.div>
-            
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex-1"
-            >
-              <Button
-                asChild
-                variant="outline"
-                className="w-full rounded-full gap-2"
-              >
-                <a href={RESUME_PDF_URL} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="h-4 w-4" />
-                  Open in New Tab
-                </a>
-              </Button>
-            </motion.div>
-          </div>
+              <a href={RESUME_PDF_URL} download={RESUME_FILENAME}>
+                <Download className="h-4 w-4" />
+                Download Resume
+              </a>
+            </Button>
+          </motion.div>
         </div>
       </DialogContent>
     </Dialog>
