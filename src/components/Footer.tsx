@@ -37,7 +37,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="text-center md:text-left">
             <Link to="/" className="inline-flex items-center gap-2 mb-4 group">
-              <motion.div 
+              <motion.div
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
                 className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center group-hover:border-primary transition-colors"
@@ -93,14 +93,14 @@ const Footer = () => {
         <div className="border-t border-border/50 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Copyright */}
           <p className="text-sm text-muted-foreground flex items-center gap-1.5">
-            © {currentYear} Built with 
-            <motion.span
+            © {currentYear} Built with
+            {/* <motion.span
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
             >
               <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-            </motion.span>
-            by <span className="text-foreground font-medium">YourName</span> {/* ✏️ EDIT */}
+            </motion.span> */}
+            by <span className="text-foreground font-medium">Atul Patel</span> {/* ✏️ EDIT */}
           </p>
 
           {/* Back to top */}
