@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
+import ProfileImage from "@/components/ProfileImage";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // ✏️ EDIT: Your resume URL - Replace "#" with your actual resume link
@@ -153,13 +154,13 @@ const AboutPage = () => {
                     className="absolute inset-0 w-48 h-48 rounded-full border-2 border-dashed border-primary/50"
                   />
                   {/* Static image */}
-                  <div className="w-48 h-48 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 p-1">
+                  <div className="w-48 h-48 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 p-1 overflow-hidden">
                     <motion.div 
-                      className="w-full h-full rounded-full bg-muted flex items-center justify-center text-4xl font-bold text-primary"
+                      className="w-full h-full rounded-full overflow-hidden"
                       whileHover={{ scale: 1.05 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
-                      YN {/* ✏️ EDIT: Your initials or photo */}
+                      <ProfileImage />
                     </motion.div>
                   </div>
                   {/* Pulsing rings */}
