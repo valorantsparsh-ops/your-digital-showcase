@@ -32,8 +32,7 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
           >
-            Hi, I'm{"Atul Patel"}
-            <span className="gradient-text">Your Name</span>
+            Hi, I'm <span className="gradient-text">Your Name</span>
           </motion.h1>
 
           {/* Tagline */}
