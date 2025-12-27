@@ -45,6 +45,15 @@ const certificates = [
     link: "#",
   },
   {
+    id: 4,
+    name: "AWS Cloud Practitioner",
+    issuer: "Amazon Web Services",
+    year: "2024",
+    category: "tech",
+    image: null,
+    link: "#",
+  },
+  {
     id: 5,
     name: "Leadership Excellence",
     issuer: "University",
