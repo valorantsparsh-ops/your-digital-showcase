@@ -229,7 +229,7 @@ const ProjectsPage = () => {
               variant="outline"
               size="lg"
               asChild
-              className="border-border hover:border-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+              className="rounded-full border-border hover:border-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
             >
               <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
                 <Github className="w-5 h-5 mr-2" />
