@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { User, Heart, Code2, gamepad-2, Lightbulb, Award, GraduationCap, Download, Sparkles } from "lucide-react";
+import { User, Heart, Code2, gamepad2, Lightbulb, Award, GraduationCap, Download, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -16,7 +16,7 @@ const RESUME_URL = "#";
 // ═══════════════════════════════════════════════════════════════════════════
 const interests = [
   { icon: Code2, label: "Coding", description: "Building things that matter" },
-  { icon: gamepad-2, label: "Gaming", description: "Strategy, focus, and fun" },
+  { icon: gamepad2, label: "Gaming", description: "Strategy, focus, and fun" },
   { icon: Lightbulb, label: "Learning", description: "Always exploring new tech" },
   { icon: Heart, label: "Open Source", description: "Contributing to community" },
 ];
