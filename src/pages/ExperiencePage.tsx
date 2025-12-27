@@ -7,45 +7,58 @@ import BackgroundEffects from "@/components/BackgroundEffects";
 /* ✏️ EDIT: Replace with your actual work experience */
 const experiences = [
   {
-    title: "Your Job Title", /* ✏️ EDIT */
-    company: "Company Name", /* ✏️ EDIT */
-    period: "2023 - Present", /* ✏️ EDIT */
-    location: "Remote / City", /* ✏️ EDIT */
-    description: "Describe your role and main responsibilities here.", /* ✏️ EDIT */
+    title: "Your Job Title" /* ✏️ EDIT */,
+    company: "Company Name" /* ✏️ EDIT */,
+    period: "2023 - Present" /* ✏️ EDIT */,
+    location: "Remote / City" /* ✏️ EDIT */,
+    description: "Describe your role and main responsibilities here." /* ✏️ EDIT */,
     achievements: [
-      "Key achievement or responsibility #1", /* ✏️ EDIT */
-      "Key achievement or responsibility #2", /* ✏️ EDIT */
-      "Key achievement or responsibility #3", /* ✏️ EDIT */
-      "Key achievement or responsibility #4", /* ✏️ EDIT */
+      "Key achievement or responsibility #1" /* ✏️ EDIT */,
+      "Key achievement or responsibility #2" /* ✏️ EDIT */,
+      "Key achievement or responsibility #3" /* ✏️ EDIT */,
+      "Key achievement or responsibility #4" /* ✏️ EDIT */,
     ],
-    skills: ["Skill 1", "Skill 2", "Skill 3", "Skill 4"], /* ✏️ EDIT */
+    skills: ["Skill 1", "Skill 2", "Skill 3", "Skill 4"] /* ✏️ EDIT */,
   },
   {
-    title: "Previous Job Title", /* ✏️ EDIT */
-    company: "Previous Company", /* ✏️ EDIT */
-    period: "2021 - 2023", /* ✏️ EDIT */
-    location: "City, Country", /* ✏️ EDIT */
-    description: "Description of your previous role and what you accomplished.", /* ✏️ EDIT */
+    title: "Previous Job Title" /* ✏️ EDIT */,
+    company: "Previous Company" /* ✏️ EDIT */,
+    period: "2021 - 2023" /* ✏️ EDIT */,
+    location: "City, Country" /* ✏️ EDIT */,
+    description: "Description of your previous role and what you accomplished." /* ✏️ EDIT */,
     achievements: [
-      "Achievement from this role #1", /* ✏️ EDIT */
-      "Achievement from this role #2", /* ✏️ EDIT */
-      "Achievement from this role #3", /* ✏️ EDIT */
-      "Achievement from this role #4", /* ✏️ EDIT */
+      "Achievement from this role #1" /* ✏️ EDIT */,
+      "Achievement from this role #2" /* ✏️ EDIT */,
+      "Achievement from this role #3" /* ✏️ EDIT */,
+      "Achievement from this role #4" /* ✏️ EDIT */,
     ],
-    skills: ["Skill A", "Skill B", "Skill C", "Skill D"], /* ✏️ EDIT */
+    skills: ["Skill A", "Skill B", "Skill C", "Skill D"] /* ✏️ EDIT */,
   },
   {
-    title: "Earlier Position", /* ✏️ EDIT */
-    company: "First Company", /* ✏️ EDIT */
-    period: "2019 - 2021", /* ✏️ EDIT */
-    location: "On-site", /* ✏️ EDIT */
-    description: "Description of your early career experience.", /* ✏️ EDIT */
+    title: "Earlier Position" /* ✏️ EDIT */,
+    company: "First Company" /* ✏️ EDIT */,
+    period: "2019 - 2021" /* ✏️ EDIT */,
+    location: "On-site" /* ✏️ EDIT */,
+    description: "Description of your early career experience." /* ✏️ EDIT */,
     achievements: [
-      "What you learned or accomplished #1", /* ✏️ EDIT */
-      "What you learned or accomplished #2", /* ✏️ EDIT */
-      "What you learned or accomplished #3", /* ✏️ EDIT */
+      "What you learned or accomplished #1" /* ✏️ EDIT */,
+      "What you learned or accomplished #2" /* ✏️ EDIT */,
+      "What you learned or accomplished #3" /* ✏️ EDIT */,
     ],
-    skills: ["Tool 1", "Tool 2", "Tool 3"], /* ✏️ EDIT */
+    skills: ["Tool 1", "Tool 2", "Tool 3"] /* ✏️ EDIT */,
+  },
+  {
+    title: "Earlier Position" /* ✏️ EDIT */,
+    company: "First Company" /* ✏️ EDIT */,
+    period: "2019 - 2021" /* ✏️ EDIT */,
+    location: "On-site" /* ✏️ EDIT */,
+    description: "Description of your early career experience." /* ✏️ EDIT */,
+    achievements: [
+      "What you learned or accomplished #1" /* ✏️ EDIT */,
+      "What you learned or accomplished #2" /* ✏️ EDIT */,
+      "What you learned or accomplished #3" /* ✏️ EDIT */,
+    ],
+    skills: ["Tool 1", "Tool 2", "Tool 3"] /* ✏️ EDIT */,
   },
 ];
 
@@ -65,9 +78,7 @@ const ExperiencePage = () => {
           >
             <div className="flex items-center justify-center gap-2 mb-4">
               <Briefcase className="w-5 h-5 text-primary" />
-              <span className="text-sm text-muted-foreground uppercase tracking-widest">
-                Career Journey
-              </span>
+              <span className="text-sm text-muted-foreground uppercase tracking-widest">Career Journey</span>
             </div>
             <h1 className="font-display text-4xl md:text-5xl font-bold mb-4">Experience</h1>
             <p className="text-muted-foreground max-w-lg mx-auto">
