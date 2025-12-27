@@ -14,8 +14,8 @@ const certificates = [
     issuer: "Flipkart",
     year: "2022",
     category: "tech",
-    image: null, /* ✏️ EDIT: Add your certificate image URL */
-    link: "#", /* ✏️ EDIT: Add view link */
+    image: "profile-image.png" /* ✏️ EDIT: Add your certificate image URL */,
+    link: "#" /* ✏️ EDIT: Add view link */,
   },
   {
     id: 2,
@@ -103,14 +103,14 @@ const TiltCard = ({ children, className = "" }: { children: React.ReactNode; cla
 };
 
 // Lightbox Modal Component
-const Lightbox = ({ 
-  isOpen, 
-  onClose, 
-  certificate 
-}: { 
-  isOpen: boolean; 
-  onClose: () => void; 
-  certificate: typeof certificates[0] | null;
+const Lightbox = ({
+  isOpen,
+  onClose,
+  certificate,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  certificate: (typeof certificates)[0] | null;
 }) => {
   if (!certificate) return null;
 
@@ -147,17 +147,15 @@ const Lightbox = ({
             {/* Certificate Image */}
             <div className="aspect-[16/10] bg-secondary/30 flex items-center justify-center">
               {certificate.image ? (
-                <img 
-                  src={certificate.image} 
-                  alt={certificate.name}
-                  className="w-full h-full object-contain"
-                />
+                <img src={certificate.image} alt={certificate.name} className="w-full h-full object-contain" />
               ) : (
                 <div className="text-center p-12">
                   <Award className="w-24 h-24 text-primary/40 mx-auto mb-6" />
                   <p className="text-lg text-muted-foreground">Certificate of Participation</p>
                   <h3 className="text-2xl font-bold mt-4 text-foreground">{certificate.name}</h3>
-                  <p className="text-muted-foreground mt-2">{certificate.issuer} • {certificate.year}</p>
+                  <p className="text-muted-foreground mt-2">
+                    {certificate.issuer} • {certificate.year}
+                  </p>
                 </div>
               )}
             </div>
@@ -166,13 +164,12 @@ const Lightbox = ({
             <div className="p-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
               <div>
                 <h3 className="font-display font-bold text-xl">{certificate.name}</h3>
-                <p className="text-muted-foreground">{certificate.issuer} • {certificate.year}</p>
+                <p className="text-muted-foreground">
+                  {certificate.issuer} • {certificate.year}
+                </p>
               </div>
               <div className="flex gap-3">
-                <Button
-                  variant="outline"
-                  onClick={onClose}
-                >
+                <Button variant="outline" onClick={onClose}>
                   Close
                 </Button>
                 <Button asChild className="bg-primary hover:bg-primary/90">
@@ -192,12 +189,12 @@ const Lightbox = ({
 
 const CertificatesPage = () => {
   const [activeFilter, setActiveFilter] = useState<"tech" | "others">("tech");
-  const [selectedCertificate, setSelectedCertificate] = useState<typeof certificates[0] | null>(null);
+  const [selectedCertificate, setSelectedCertificate] = useState<(typeof certificates)[0] | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-  const filteredCertificates = certificates.filter(cert => cert.category === activeFilter);
+  const filteredCertificates = certificates.filter((cert) => cert.category === activeFilter);
 
-  const openLightbox = (cert: typeof certificates[0]) => {
+  const openLightbox = (cert: (typeof certificates)[0]) => {
     setSelectedCertificate(cert);
     setIsLightboxOpen(true);
   };
@@ -226,9 +223,7 @@ const CertificatesPage = () => {
                 <h1 className="font-display text-3xl md:text-4xl font-bold">Certificates</h1>
                 <span className="text-3xl">🏅</span>
               </div>
-              <p className="text-muted-foreground text-lg">
-                Explore my certifications — technical & others.
-              </p>
+              <p className="text-muted-foreground text-lg">Explore my certifications — technical & others.</p>
             </div>
 
             {/* Filter Tabs */}
@@ -267,13 +262,13 @@ const CertificatesPage = () => {
                   <TiltCard>
                     <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden hover:border-primary/30 transition-colors duration-300 group">
                       {/* Certificate Image Placeholder with hover effect */}
-                      <div 
+                      <div
                         className="aspect-[4/3] bg-secondary/30 flex items-center justify-center border-b border-border/50 relative cursor-pointer overflow-hidden"
                         onClick={() => openLightbox(cert)}
                       >
                         {cert.image ? (
-                          <img 
-                            src={cert.image} 
+                          <img
+                            src={cert.image}
                             alt={cert.name}
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                           />
@@ -285,7 +280,7 @@ const CertificatesPage = () => {
                           </div>
                         )}
                         {/* Hover Overlay */}
-                        <motion.div 
+                        <motion.div
                           initial={{ opacity: 0 }}
                           whileHover={{ opacity: 1 }}
                           className="absolute inset-0 bg-background/60 backdrop-blur-sm flex items-center justify-center"
@@ -296,7 +291,7 @@ const CertificatesPage = () => {
                           </div>
                         </motion.div>
                       </div>
-                      
+
                       {/* Certificate Info */}
                       <div className="p-5">
                         <h3 className="font-display font-bold text-lg mb-1">{cert.name}</h3>
@@ -331,11 +326,7 @@ const CertificatesPage = () => {
       <Footer />
 
       {/* Lightbox Modal */}
-      <Lightbox 
-        isOpen={isLightboxOpen} 
-        onClose={closeLightbox} 
-        certificate={selectedCertificate} 
-      />
+      <Lightbox isOpen={isLightboxOpen} onClose={closeLightbox} certificate={selectedCertificate} />
     </div>
   );
 };
