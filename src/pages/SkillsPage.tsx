@@ -206,7 +206,7 @@ const TiltCard = ({ children, className = "" }: { children: React.ReactNode; cla
   );
 };
 
-// Floating Skill Icon Component
+// Floating Skill Icon Component - Blends with dark background
 const FloatingSkillIcon = ({ 
   skill, 
   index 
@@ -215,9 +215,15 @@ const FloatingSkillIcon = ({
   index: number 
 }) => {
   const sizeClasses = {
-    sm: "w-16 h-16 text-xl",
-    md: "w-20 h-20 text-2xl",
-    lg: "w-24 h-24 text-3xl",
+    sm: "w-20 h-20",
+    md: "w-24 h-24",
+    lg: "w-28 h-28",
+  };
+
+  const iconSizeClasses = {
+    sm: "w-10 h-10",
+    md: "w-12 h-12",
+    lg: "w-14 h-14",
   };
   
   return (
@@ -226,31 +232,36 @@ const FloatingSkillIcon = ({
       animate={{ 
         opacity: 1, 
         scale: 1,
-        y: [0, -10, 0],
+        y: [0, -8, 0],
       }}
       transition={{
         opacity: { duration: 0.5, delay: index * 0.1 },
         scale: { duration: 0.5, delay: index * 0.1, type: "spring" },
         y: { duration: 3 + Math.random() * 2, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }
       }}
-      whileHover={{ scale: 1.2, zIndex: 10 }}
-      className="absolute cursor-pointer group"
+      whileHover={{ scale: 1.1, zIndex: 10 }}
+      className="absolute cursor-pointer flex flex-col items-center gap-2"
       style={{ 
         left: `${skill.x}%`, 
         top: `${skill.y}%`,
         transform: "translate(-50%, -50%)"
       }}
     >
-      <div className={`${sizeClasses[skill.size as keyof typeof sizeClasses]} rounded-full bg-card/80 backdrop-blur-sm border-2 border-primary/30 flex items-center justify-center shadow-lg shadow-primary/10 group-hover:border-primary group-hover:shadow-primary/30 transition-all duration-300 p-3`}>
-        <SkillIcon name={skill.name} className="w-full h-full" />
-      </div>
-      <motion.span 
-        initial={{ opacity: 0, y: 10 }}
-        whileHover={{ opacity: 1, y: 0 }}
-        className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-medium text-foreground whitespace-nowrap bg-card/90 px-2 py-1 rounded-md border border-border"
+      {/* Dark bubble with glowing teal border */}
+      <div 
+        className={`${sizeClasses[skill.size as keyof typeof sizeClasses]} rounded-full flex items-center justify-center transition-all duration-300`}
+        style={{
+          background: 'linear-gradient(145deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%)',
+          border: '2px solid hsl(var(--primary) / 0.4)',
+          boxShadow: '0 0 20px hsl(var(--primary) / 0.15), inset 0 0 20px hsl(var(--primary) / 0.05)',
+        }}
       >
+        <SkillIcon name={skill.name} className={iconSizeClasses[skill.size as keyof typeof iconSizeClasses]} />
+      </div>
+      {/* Label always visible below */}
+      <span className="text-xs font-medium text-primary/80 whitespace-nowrap">
         {skill.name}
-      </motion.span>
+      </span>
     </motion.div>
   );
 };
