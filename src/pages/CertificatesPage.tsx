@@ -221,7 +221,7 @@ const CertificatesPage = () => {
             <div className="mb-8">
               <div className="flex items-center gap-3 mb-3">
                 <h1 className="font-display text-3xl md:text-4xl font-bold">Certificates</h1>
-                <span className="text-3xl">🏅</span>
+                {/* <span className="text-3xl">🏅</span> */}
               </div>
               <p className="text-muted-foreground text-lg">Explore my certifications — technical & others.</p>
             </div>
