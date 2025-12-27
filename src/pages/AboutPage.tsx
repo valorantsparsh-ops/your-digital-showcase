@@ -279,21 +279,6 @@ const AboutPage = () => {
                       <p className="text-muted-foreground text-sm">{edu.description}</p>
                     </motion.div>
                   ))}
-                  {/* /* {education2.map((edu, index) => (
-                    <motion.div
-                      key={index}
-                      className="border-l-2 border-primary/30 pl-4 group-hover:border-primary/60 transition-colors"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <h3 className="font-medium">{edu.degree}</h3>
-                      <p className="text-primary text-sm">{edu.institution}</p>
-                      <p className="text-muted-foreground text-sm mb-2">{edu.year}</p>
-                      <p className="text-muted-foreground text-sm">{edu.description}</p>
-                    </motion.div>
-                  ))} */ */}
                 </div>
               </motion.div>
 
