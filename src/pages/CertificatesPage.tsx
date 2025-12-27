@@ -14,7 +14,8 @@ const certificates = [
     issuer: "Flipkart",
     year: "2022",
     category: "tech",
-    image: "/assets/profile-image.png" /* ✏️ EDIT: Add your certificate image URL */,
+    image:
+      "https://www.kaggle.com/learn/certification/kenpachi007/python" /* ✏️ EDIT: Add your certificate image URL */,
     link: "#" /* ✏️ EDIT: Add view link */,
   },
   {
