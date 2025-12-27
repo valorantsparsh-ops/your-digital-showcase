@@ -6,23 +6,26 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import { Button } from "@/components/ui/button";
+import SkillIcon from "@/components/SkillIcons";
 
-/* ✏️ EDIT: Your floating skill icons */
+/* ✏️ EDIT: Your floating skill icons - positions and sizes only
+ * To change skill images, edit src/components/SkillIcons.tsx
+ */
 const floatingSkills = [
-  { name: "React", icon: "⚛️", x: 15, y: 20, size: "lg" },
-  { name: "HTML", icon: "🌐", x: 35, y: 30, size: "md" },
-  { name: "CSS", icon: "🎨", x: 75, y: 15, size: "lg" },
-  { name: "JavaScript", icon: "📜", x: 50, y: 45, size: "lg" },
-  { name: "TypeScript", icon: "💠", x: 85, y: 40, size: "md" },
-  { name: "Node.js", icon: "🟢", x: 10, y: 55, size: "md" },
-  { name: "Python", icon: "🐍", x: 65, y: 55, size: "lg" },
-  { name: "MongoDB", icon: "🍃", x: 70, y: 75, size: "md" },
-  { name: "Git", icon: "🔀", x: 20, y: 40, size: "sm" },
-  { name: "TensorFlow", icon: "🧠", x: 90, y: 25, size: "lg" },
-  { name: "C++", icon: "⚡", x: 55, y: 20, size: "md" },
-  { name: "MySQL", icon: "🐬", x: 40, y: 70, size: "md" },
-  { name: "Docker", icon: "🐳", x: 25, y: 75, size: "sm" },
-  { name: "AWS", icon: "☁️", x: 80, y: 60, size: "sm" },
+  { name: "React", x: 15, y: 20, size: "lg" },
+  { name: "HTML", x: 35, y: 30, size: "md" },
+  { name: "CSS", x: 75, y: 15, size: "lg" },
+  { name: "JavaScript", x: 50, y: 45, size: "lg" },
+  { name: "TypeScript", x: 85, y: 40, size: "md" },
+  { name: "Node.js", x: 10, y: 55, size: "md" },
+  { name: "Python", x: 65, y: 55, size: "lg" },
+  { name: "MongoDB", x: 70, y: 75, size: "md" },
+  { name: "Git", x: 20, y: 40, size: "sm" },
+  { name: "TensorFlow", x: 90, y: 25, size: "lg" },
+  { name: "C++", x: 55, y: 20, size: "md" },
+  { name: "MySQL", x: 40, y: 70, size: "md" },
+  { name: "Docker", x: 25, y: 75, size: "sm" },
+  { name: "AWS", x: 80, y: 60, size: "sm" },
 ];
 
 /* ✏️ EDIT: Your skill categories */
@@ -238,8 +241,8 @@ const FloatingSkillIcon = ({
         transform: "translate(-50%, -50%)"
       }}
     >
-      <div className={`${sizeClasses[skill.size as keyof typeof sizeClasses]} rounded-full bg-card/80 backdrop-blur-sm border-2 border-primary/30 flex items-center justify-center shadow-lg shadow-primary/10 group-hover:border-primary group-hover:shadow-primary/30 transition-all duration-300`}>
-        <span className="select-none">{skill.icon}</span>
+      <div className={`${sizeClasses[skill.size as keyof typeof sizeClasses]} rounded-full bg-card/80 backdrop-blur-sm border-2 border-primary/30 flex items-center justify-center shadow-lg shadow-primary/10 group-hover:border-primary group-hover:shadow-primary/30 transition-all duration-300 p-3`}>
+        <SkillIcon name={skill.name} className="w-full h-full" />
       </div>
       <motion.span 
         initial={{ opacity: 0, y: 10 }}
