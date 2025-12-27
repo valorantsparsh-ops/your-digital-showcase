@@ -14,7 +14,7 @@ const certificates = [
     issuer: "Flipkart",
     year: "2022",
     category: "tech",
-    image: "profile-image.png" /* ✏️ EDIT: Add your certificate image URL */,
+    image: "/assets/profile-image.png" /* ✏️ EDIT: Add your certificate image URL */,
     link: "#" /* ✏️ EDIT: Add view link */,
   },
   {
