@@ -227,7 +227,7 @@ const ProjectsPage = () => {
             {/* ✏️ EDIT: Your GitHub URL */}
             <Button
               variant="outline"
-              size="sm"
+              size="lg"
               asChild
               className="border-border hover:border-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
             >
