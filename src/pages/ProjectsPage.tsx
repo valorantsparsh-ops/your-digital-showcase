@@ -9,63 +9,69 @@ import BackgroundEffects from "@/components/BackgroundEffects";
 /* ✏️ EDIT: Replace with your actual projects */
 const projects = [
   {
-    title: "Mammogram Malignancy Detector", /* ✏️ EDIT */
+    title: "Mammogram Malignancy Detector" /* ✏️ EDIT */,
     emoji: "🔬",
-    description: "Hybrid CNN + YOLOv8 ensemble for full-image breast cancer detection with ROI preprocessing and sliding-window inference.", /* ✏️ EDIT */
+    description:
+      "Hybrid CNN + YOLOv8 ensemble for full-image breast cancer detection with ROI preprocessing and sliding-window inference." /* ✏️ EDIT */,
     techStack: ["TensorFlow", "Keras", "OpenCV", "YOLOv8"],
-    link: "#", /* ✏️ EDIT: Live demo URL */
-    github: "#", /* ✏️ EDIT: GitHub repo URL */
-    image: null, /* ✏️ EDIT: Add project screenshot */
+    link: "#" /* ✏️ EDIT: Live demo URL */,
+    github: "#" /* ✏️ EDIT: GitHub repo URL */,
+    image: null /* ✏️ EDIT: Add project screenshot */,
   },
   {
-    title: "Mental Health Analyzer", /* ✏️ EDIT */
+    title: "Mental Health Analyzer" /* ✏️ EDIT */,
     emoji: "🧠",
-    description: "NLP-based system that analyzes user text to detect signs of anxiety, stress, and depression using sentiment analysis and transformer models.", /* ✏️ EDIT */
+    description:
+      "NLP-based system that analyzes user text to detect signs of anxiety, stress, and depression using sentiment analysis and transformer models." /* ✏️ EDIT */,
     techStack: ["Python", "Transformers", "NLTK", "scikit-learn"],
-    link: "#", /* ✏️ EDIT */
-    github: "#", /* ✏️ EDIT */
+    link: "#" /* ✏️ EDIT */,
+    github: "#" /* ✏️ EDIT */,
     image: null,
   },
   {
-    title: "Sign Language Interpreter", /* ✏️ EDIT */
+    title: "Sign Language Interpreter" /* ✏️ EDIT */,
     emoji: "🤟",
-    description: "Real-time gesture recognition and translation using Mediapipe + TensorFlow, enabling live sign-to-text interpretation.", /* ✏️ EDIT */
+    description:
+      "Real-time gesture recognition and translation using Mediapipe + TensorFlow, enabling live sign-to-text interpretation." /* ✏️ EDIT */,
     techStack: ["Mediapipe", "TensorFlow", "React", "Flask"],
-    link: "#", /* ✏️ EDIT */
-    github: "#", /* ✏️ EDIT */
+    link: "#" /* ✏️ EDIT */,
+    github: "#" /* ✏️ EDIT */,
     image: null,
   },
   {
-    title: "Portfolio Website", /* ✏️ EDIT */
+    title: "Portfolio Website" /* ✏️ EDIT */,
     emoji: "💼",
-    description: "A modern and responsive portfolio built with React and Framer Motion, showcasing projects, skills, and achievements with smooth animations and interactive UI.", /* ✏️ EDIT */
+    description:
+      "A modern and responsive portfolio built with React and Framer Motion, showcasing projects, skills, and achievements with smooth animations and interactive UI." /* ✏️ EDIT */,
     techStack: ["React", "Framer Motion", "Tailwind CSS"],
-    link: "#", /* ✏️ EDIT */
-    github: "#", /* ✏️ EDIT */
+    link: "#" /* ✏️ EDIT */,
+    github: "#" /* ✏️ EDIT */,
     image: null,
   },
   {
-    title: "AI Chatbot Assistant", /* ✏️ EDIT */
+    title: "AI Chatbot Assistant" /* ✏️ EDIT */,
     emoji: "🤖",
-    description: "Intelligent conversational agent powered by OpenAI GPT, featuring context-aware responses and memory capabilities.", /* ✏️ EDIT */
+    description:
+      "Intelligent conversational agent powered by OpenAI GPT, featuring context-aware responses and memory capabilities." /* ✏️ EDIT */,
     techStack: ["Node.js", "OpenAI", "MongoDB", "Express"],
-    link: "#", /* ✏️ EDIT */
-    github: "#", /* ✏️ EDIT */
+    link: "#" /* ✏️ EDIT */,
+    github: "#" /* ✏️ EDIT */,
     image: null,
   },
   {
-    title: "E-commerce Platform", /* ✏️ EDIT */
+    title: "E-commerce Platform" /* ✏️ EDIT */,
     emoji: "🛒",
-    description: "Full-stack shopping platform with payment integration, inventory management, and real-time order tracking.", /* ✏️ EDIT */
+    description:
+      "Full-stack shopping platform with payment integration, inventory management, and real-time order tracking." /* ✏️ EDIT */,
     techStack: ["Next.js", "Stripe", "PostgreSQL", "Prisma"],
-    link: "#", /* ✏️ EDIT */
-    github: "#", /* ✏️ EDIT */
+    link: "#" /* ✏️ EDIT */,
+    github: "#" /* ✏️ EDIT */,
     image: null,
   },
 ];
 
 // 3D Tilt Card Component
-const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
+const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index: number }) => {
   const [transform, setTransform] = useState("perspective(1000px) rotateX(0deg) rotateY(0deg)");
   const [isHovered, setIsHovered] = useState(false);
 
@@ -108,7 +114,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
           ) : (
             <div className="w-full h-full flex items-center justify-center">
               <motion.div
-                animate={{ 
+                animate={{
                   y: isHovered ? -5 : 0,
                   scale: isHovered ? 1.1 : 1,
                 }}
@@ -133,9 +139,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
           </div>
 
           {/* Description */}
-          <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-3">
-            {project.description}
-          </p>
+          <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-3">{project.description}</p>
 
           {/* Tech Stack Tags */}
           <div className="flex flex-wrap gap-2 mb-5">
@@ -162,11 +166,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
                 Code
               </a>
             </Button>
-            <Button
-              size="sm"
-              asChild
-              className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
-            >
+            <Button size="sm" asChild className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground">
               <a href={project.link} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-4 h-4 mr-2" />
                 Live
@@ -202,9 +202,7 @@ const ProjectsPage = () => {
           >
             <div className="flex items-center justify-center gap-2 mb-4">
               <FolderGit2 className="w-5 h-5 text-primary" />
-              <span className="text-sm text-muted-foreground uppercase tracking-widest">
-                My Work
-              </span>
+              <span className="text-sm text-muted-foreground uppercase tracking-widest">My Work</span>
             </div>
             <h1 className="font-display text-4xl md:text-5xl font-bold mb-4">Projects</h1>
             <p className="text-muted-foreground max-w-lg mx-auto">
@@ -230,8 +228,9 @@ const ProjectsPage = () => {
             <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
               <Button
                 variant="outline"
-                size="lg"
-                className="rounded-full border-border hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+                size="sm"
+                asChild
+                className="flex-1 border-border hover:border-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
               >
                 <Github className="w-5 h-5 mr-2" />
                 View More on Github
@@ -244,5 +243,11 @@ const ProjectsPage = () => {
     </div>
   );
 };
+
+{
+  /* variant="outline"
+                size="lg"
+                className="rounded-full border-border hover:border-primary/50 hover:bg-primary/5 transition-all duration-300" */
+}
 
 export default ProjectsPage;
