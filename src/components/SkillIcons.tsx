@@ -7,8 +7,21 @@
  * 3. Update the skillIcons object with the new import
  */
 
-// Import your skill images here
-// Example: import reactIcon from "@/assets/skills/react.png";
+// Import skill images
+import reactIcon from "@/assets/skills/react.svg";
+import htmlIcon from "@/assets/skills/html.svg";
+import cssIcon from "@/assets/skills/css.svg";
+import javascriptIcon from "@/assets/skills/javascript.svg";
+import typescriptIcon from "@/assets/skills/typescript.svg";
+import nodejsIcon from "@/assets/skills/nodejs.svg";
+import pythonIcon from "@/assets/skills/python.svg";
+import mongodbIcon from "@/assets/skills/mongodb.svg";
+import gitIcon from "@/assets/skills/git.svg";
+import tensorflowIcon from "@/assets/skills/tensorflow.svg";
+import cplusplusIcon from "@/assets/skills/cplusplus.svg";
+import mysqlIcon from "@/assets/skills/mysql.svg";
+import dockerIcon from "@/assets/skills/docker.svg";
+import awsIcon from "@/assets/skills/aws.svg";
 
 // Fallback placeholder for skills without custom icons
 const PlaceholderIcon = ({ name }: { name: string }) => (
@@ -18,24 +31,26 @@ const PlaceholderIcon = ({ name }: { name: string }) => (
 );
 
 /**
- * ✏️ ADD YOUR SKILL ICONS HERE
+ * ✏️ SKILL ICONS MAP
  * 
- * Format: "Skill Name": importedImage
- * 
- * Example:
- * import reactIcon from "@/assets/skills/react.png";
- * import pythonIcon from "@/assets/skills/python.png";
- * 
- * export const skillIcons: Record<string, string> = {
- *   "React": reactIcon,
- *   "Python": pythonIcon,
- * };
+ * Add or modify skill icons here.
+ * The key should match the skill name exactly.
  */
 export const skillIcons: Record<string, string> = {
-  // Add your skill icons here
-  // "React": reactIcon,
-  // "Python": pythonIcon,
-  // "JavaScript": javascriptIcon,
+  "React": reactIcon,
+  "HTML": htmlIcon,
+  "CSS": cssIcon,
+  "JavaScript": javascriptIcon,
+  "TypeScript": typescriptIcon,
+  "Node.js": nodejsIcon,
+  "Python": pythonIcon,
+  "MongoDB": mongodbIcon,
+  "Git": gitIcon,
+  "TensorFlow": tensorflowIcon,
+  "C++": cplusplusIcon,
+  "MySQL": mysqlIcon,
+  "Docker": dockerIcon,
+  "AWS": awsIcon,
 };
 
 // Component to render a skill icon
