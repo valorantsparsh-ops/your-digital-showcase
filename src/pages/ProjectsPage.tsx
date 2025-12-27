@@ -68,6 +68,26 @@ const projects = [
     github: "#" /* ✏️ EDIT */,
     image: null,
   },
+  {
+    title: "E-commerce Platform" /* ✏️ EDIT */,
+    emoji: "🛒",
+    description:
+      "Full-stack shopping platform with payment integration, inventory management, and real-time order tracking." /* ✏️ EDIT */,
+    techStack: ["Next.js", "Stripe", "PostgreSQL", "Prisma"],
+    link: "#" /* ✏️ EDIT */,
+    github: "#" /* ✏️ EDIT */,
+    image: null,
+  },
+  {
+    title: "E-commerce Platform" /* ✏️ EDIT */,
+    emoji: "🛒",
+    description:
+      "Full-stack shopping platform with payment integration, inventory management, and real-time order tracking." /* ✏️ EDIT */,
+    techStack: ["Next.js", "Stripe", "PostgreSQL", "Prisma"],
+    link: "#" /* ✏️ EDIT */,
+    github: "#" /* ✏️ EDIT */,
+    image: null,
+  },
 ];
 
 // 3D Tilt Card Component
