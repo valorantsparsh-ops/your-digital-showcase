@@ -8,20 +8,20 @@
  */
 
 // Import skill images
-import reactIcon from "@/assets/skills/react.svg";
-import htmlIcon from "@/assets/skills/html.svg";
-import cssIcon from "@/assets/skills/css.svg";
-import javascriptIcon from "@/assets/skills/javascript.svg";
-import typescriptIcon from "@/assets/skills/typescript.svg";
-import nodejsIcon from "@/assets/skills/nodejs.svg";
-import pythonIcon from "@/assets/skills/python.svg";
-import mongodbIcon from "@/assets/skills/mongodb.svg";
-import gitIcon from "@/assets/skills/git.svg";
-import tensorflowIcon from "@/assets/skills/tensorflow.svg";
-import cplusplusIcon from "@/assets/skills/cplusplus.svg";
-import mysqlIcon from "@/assets/skills/mysql.svg";
-import dockerIcon from "@/assets/skills/docker.svg";
-import awsIcon from "@/assets/skills/aws.svg";
+import reactIcon from "@/assets/skills/react.png";
+import htmlIcon from "@/assets/skills/html.png";
+import cssIcon from "@/assets/skills/css.png";
+import javascriptIcon from "@/assets/skills/javascript.png";
+import typescriptIcon from "@/assets/skills/typescript.png";
+import nodejsIcon from "@/assets/skills/nodejs.png";
+import pythonIcon from "@/assets/skills/python.png";
+import mongodbIcon from "@/assets/skills/mongodb.png";
+import gitIcon from "@/assets/skills/git.png";
+import tensorflowIcon from "@/assets/skills/tensorflow.png";
+import cplusplusIcon from "@/assets/skills/cplusplus.png";
+import mysqlIcon from "@/assets/skills/mysql.png";
+import dockerIcon from "@/assets/skills/docker.png";
+import awsIcon from "@/assets/skills/aws.png";
 
 // Fallback placeholder for skills without custom icons
 const PlaceholderIcon = ({ name }: { name: string }) => (
