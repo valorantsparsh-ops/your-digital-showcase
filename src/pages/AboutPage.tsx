@@ -279,7 +279,7 @@ const AboutPage = () => {
                       <p className="text-muted-foreground text-sm">{edu.description}</p>
                     </motion.div>
                   ))}
-                  {education2.map((edu, index) => (
+                  {/* /* {education2.map((edu, index) => (
                     <motion.div
                       key={index}
                       className="border-l-2 border-primary/30 pl-4 group-hover:border-primary/60 transition-colors"
@@ -293,7 +293,7 @@ const AboutPage = () => {
                       <p className="text-muted-foreground text-sm mb-2">{edu.year}</p>
                       <p className="text-muted-foreground text-sm">{edu.description}</p>
                     </motion.div>
-                  ))}
+                  ))} */ */}
                 </div>
               </motion.div>
 
