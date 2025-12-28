@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import { Button } from "@/components/ui/button";
 import SkillIcon from "@/components/SkillIcons";
+import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
 
 /* ✏️ EDIT: Your floating skill icons - positions and sizes only
  * To change skill images, edit src/components/SkillIcons.tsx
@@ -276,12 +277,7 @@ const SkillsPage = () => {
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-6 relative z-10">
           {/* Page Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8"
-          >
+          <ScrollAnimationWrapper className="mb-8">
             <h1 className="font-display text-3xl md:text-4xl font-bold text-primary mb-2">
               My Skills
             </h1>
@@ -289,66 +285,61 @@ const SkillsPage = () => {
               <Sparkles className="w-4 h-4 text-amber-400" />
               <p>Technical expertise blended with creativity — explore my core competencies below.</p>
             </div>
-          </motion.div>
+          </ScrollAnimationWrapper>
 
           {/* Floating Skills Container with Mouse Particles */}
-          <motion.div
-            ref={containerRef}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="relative w-full h-[500px] md:h-[600px] rounded-3xl bg-card/30 backdrop-blur-sm border border-border/50 mb-16 overflow-hidden cursor-crosshair"
-            style={{ perspective: "1000px" }}
-          >
-            {/* Mouse following particles */}
-            <MouseParticles containerRef={containerRef} />
+          <ScrollAnimationWrapper delay={0.2} direction="scale">
+            <motion.div
+              ref={containerRef}
+              className="relative w-full h-[500px] md:h-[600px] rounded-3xl bg-card/30 backdrop-blur-sm border border-border/50 mb-16 overflow-hidden cursor-crosshair"
+              style={{ perspective: "1000px" }}
+            >
+              {/* Mouse following particles */}
+              <MouseParticles containerRef={containerRef} />
 
-            {/* Decorative grid background */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="w-full h-full" style={{
-                backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--primary)) 1px, transparent 0)`,
-                backgroundSize: "40px 40px"
-              }} />
-            </div>
-            
-            {/* Floating skill icons */}
-            {floatingSkills.map((skill, index) => (
-              <FloatingSkillIcon key={skill.name} skill={skill} index={index} />
-            ))}
-            
-            {/* Glowing orbs in background */}
-            <motion.div
-              animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.1, 0.2, 0.1]
-              }}
-              transition={{ duration: 4, repeat: Infinity }}
-              className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/20 blur-3xl"
-            />
-            <motion.div
-              animate={{ 
-                scale: [1.2, 1, 1.2],
-                opacity: [0.15, 0.25, 0.15]
-              }}
-              transition={{ duration: 5, repeat: Infinity }}
-              className="absolute bottom-1/3 right-1/4 w-40 h-40 rounded-full bg-cyan-500/20 blur-3xl"
-            />
-          </motion.div>
+              {/* Decorative grid background */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="w-full h-full" style={{
+                  backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--primary)) 1px, transparent 0)`,
+                  backgroundSize: "40px 40px"
+                }} />
+              </div>
+              
+              {/* Floating skill icons */}
+              {floatingSkills.map((skill, index) => (
+                <FloatingSkillIcon key={skill.name} skill={skill} index={index} />
+              ))}
+              
+              {/* Glowing orbs in background */}
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  opacity: [0.1, 0.2, 0.1]
+                }}
+                transition={{ duration: 4, repeat: Infinity }}
+                className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/20 blur-3xl"
+              />
+              <motion.div
+                animate={{ 
+                  scale: [1.2, 1, 1.2],
+                  opacity: [0.15, 0.25, 0.15]
+                }}
+                transition={{ duration: 5, repeat: Infinity }}
+                className="absolute bottom-1/3 right-1/4 w-40 h-40 rounded-full bg-cyan-500/20 blur-3xl"
+              />
+            </motion.div>
+          </ScrollAnimationWrapper>
 
           {/* Skill Categories Grid with 3D Tilt */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+          <div
             className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
             style={{ perspective: "1000px" }}
           >
             {skillCategories.map((category, index) => (
-              <motion.div
+              <ScrollAnimationWrapper
                 key={category.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 + index * 0.1 }}
+                delay={index * 0.1}
+                direction="up"
               >
                 <TiltCard className="h-full">
                   <div className="h-full bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl p-6 hover:border-primary/30 transition-colors duration-300">
@@ -356,32 +347,24 @@ const SkillsPage = () => {
                       {category.title}
                     </h3>
                     <ul className="space-y-2">
-                      {category.skills.map((skill, skillIndex) => (
-                        <motion.li
+                      {category.skills.map((skill) => (
+                        <li
                           key={skill}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.8 + index * 0.1 + skillIndex * 0.05 }}
                           className="flex items-center gap-2 text-muted-foreground text-sm hover:text-foreground transition-colors"
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                           {skill}
-                        </motion.li>
+                        </li>
                       ))}
                     </ul>
                   </div>
                 </TiltCard>
-              </motion.div>
+              </ScrollAnimationWrapper>
             ))}
-          </motion.div>
+          </div>
 
           {/* View Certificates CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="text-center"
-          >
+          <ScrollAnimationWrapper delay={0.2} className="text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Award className="w-5 h-5 text-primary" />
               <h2 className="font-display text-2xl md:text-3xl font-bold">Certifications</h2>
@@ -395,7 +378,7 @@ const SkillsPage = () => {
                 View All Certificates
               </Link>
             </Button>
-          </motion.div>
+          </ScrollAnimationWrapper>
         </div>
       </main>
       <Footer />

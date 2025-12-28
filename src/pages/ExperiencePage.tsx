@@ -3,6 +3,7 @@ import { Briefcase, MapPin, Calendar } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
+import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
 
 /* ✏️ EDIT: Replace with your actual work experience */
 const experiences = [
@@ -70,12 +71,7 @@ const ExperiencePage = () => {
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-6 relative z-10">
           {/* Page Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
+          <ScrollAnimationWrapper className="text-center mb-16">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Briefcase className="w-5 h-5 text-primary" />
               <span className="text-sm text-muted-foreground uppercase tracking-widest">Career Journey</span>
@@ -84,16 +80,15 @@ const ExperiencePage = () => {
             <p className="text-muted-foreground max-w-lg mx-auto">
               A journey through my professional career and key achievements
             </p>
-          </motion.div>
+          </ScrollAnimationWrapper>
 
           {/* Timeline */}
           <div className="max-w-4xl mx-auto">
             {experiences.map((exp, index) => (
-              <motion.div
+              <ScrollAnimationWrapper
                 key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
+                delay={index * 0.15}
+                direction={index % 2 === 0 ? "left" : "right"}
                 className="relative pl-8 pb-12 last:pb-0"
               >
                 {/* Timeline line */}
@@ -144,7 +139,7 @@ const ExperiencePage = () => {
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </ScrollAnimationWrapper>
             ))}
           </div>
         </div>

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
+import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
 
 /* ✏️ EDIT: Replace with your actual projects */
 const projects = [
@@ -123,8 +124,9 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
@@ -224,12 +226,7 @@ const ProjectsPage = () => {
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-6 relative z-10">
           {/* Page Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
+          <ScrollAnimationWrapper className="text-center mb-16">
             <div className="flex items-center justify-center gap-2 mb-4">
               <FolderGit2 className="w-5 h-5 text-primary" />
               <span className="text-sm text-muted-foreground uppercase tracking-widest">My Work</span>
@@ -238,7 +235,7 @@ const ProjectsPage = () => {
             <p className="text-muted-foreground max-w-lg mx-auto">
               A collection of my recent projects and open source contributions
             </p>
-          </motion.div>
+          </ScrollAnimationWrapper>
 
           {/* Projects Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12" style={{ perspective: "1000px" }}>
@@ -248,12 +245,7 @@ const ProjectsPage = () => {
           </div>
 
           {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="text-center"
-          >
+          <ScrollAnimationWrapper delay={0.3} className="text-center">
             {/* ✏️ EDIT: Your GitHub URL */}
             <Button
               variant="outline"
@@ -266,7 +258,7 @@ const ProjectsPage = () => {
                 View More on Github
               </a>
             </Button>
-          </motion.div>
+          </ScrollAnimationWrapper>
         </div>
       </main>
       <Footer />

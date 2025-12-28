@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
+import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
 
 /* ✏️ EDIT: Your social links */
 const socialLinks = [
@@ -41,12 +42,7 @@ const ContactPage = () => {
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-6 relative z-10">
           {/* Page Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
+          <ScrollAnimationWrapper className="text-center mb-16">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Mail className="w-5 h-5 text-primary" />
               <span className="text-sm text-muted-foreground uppercase tracking-widest">
@@ -57,15 +53,11 @@ const ContactPage = () => {
             <p className="text-muted-foreground max-w-lg mx-auto">
               Have a project in mind or want to collaborate? Feel free to reach out.
             </p>
-          </motion.div>
+          </ScrollAnimationWrapper>
 
           <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
             {/* Contact Info */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
+            <ScrollAnimationWrapper direction="left">
               <div className="glass-card rounded-xl p-8 h-full contact-card-hover">
                 <h3 className="font-display text-xl font-semibold mb-6">Contact Information</h3>
 
@@ -146,14 +138,10 @@ const ContactPage = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </ScrollAnimationWrapper>
 
             {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
+            <ScrollAnimationWrapper direction="right" delay={0.1}>
               <form onSubmit={handleSubmit} className="glass-card rounded-xl p-8">
                 <h3 className="font-display text-xl font-semibold mb-6">Send a Message</h3>
 
@@ -227,7 +215,7 @@ const ContactPage = () => {
                   </Button>
                 </div>
               </form>
-            </motion.div>
+            </ScrollAnimationWrapper>
           </div>
         </div>
       </main>

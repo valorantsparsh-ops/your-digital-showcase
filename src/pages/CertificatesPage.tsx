@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import { Button } from "@/components/ui/button";
+import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
 
 /* ✏️ EDIT: Your certificates - add image URLs when you have them */
 const certificates = [
@@ -220,12 +221,8 @@ const CertificatesPage = () => {
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-6 relative z-10">
           {/* Main Content Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="bg-card/40 backdrop-blur-sm border border-border/50 rounded-2xl p-8 md:p-12"
-          >
+          <ScrollAnimationWrapper>
+            <div className="bg-card/40 backdrop-blur-sm border border-border/50 rounded-2xl p-8 md:p-12">
             {/* Header */}
             <div className="mb-8">
               <div className="flex items-center gap-3 mb-3">
@@ -254,19 +251,12 @@ const CertificatesPage = () => {
             </div>
 
             {/* Certificates Grid */}
-            <motion.div
-              key={activeFilter}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-            >
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredCertificates.map((cert, index) => (
-                <motion.div
+                <ScrollAnimationWrapper
                   key={cert.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  delay={index * 0.1}
+                  direction="up"
                 >
                   <TiltCard>
                     <div className="bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden hover:border-primary/30 transition-colors duration-300 group">
@@ -318,9 +308,9 @@ const CertificatesPage = () => {
                       </div>
                     </div>
                   </TiltCard>
-                </motion.div>
+                </ScrollAnimationWrapper>
               ))}
-            </motion.div>
+            </div>
 
             {/* Empty State */}
             {filteredCertificates.length === 0 && (
@@ -329,7 +319,8 @@ const CertificatesPage = () => {
                 <p className="text-muted-foreground">No certificates in this category yet.</p>
               </div>
             )}
-          </motion.div>
+            </div>
+          </ScrollAnimationWrapper>
         </div>
       </main>
       <Footer />
