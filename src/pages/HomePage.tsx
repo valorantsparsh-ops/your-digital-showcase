@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import ResumePreviewDialog from "@/components/ResumePreviewDialog";
 import ProfileImage from "@/components/ProfileImage";
+import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // ✏️ EDIT: Your role tags - Update these with your actual skills/interests
@@ -70,221 +71,196 @@ const HomePage = () => {
               className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20"
             >
               {/* Profile Image - only border rotates */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.8,
-                  type: "spring",
-                  stiffness: 100,
-                }}
-                className="relative"
-              >
-                {/* Rotating border */}
-                <motion.div
-                  className="absolute inset-0 w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-dashed border-primary/50"
-                  animate={{ rotateZ: [0, 360] }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                />
-                {/* ✏️ EDIT: Replace "YN" with your photo - use <img src="..." /> */}
-                <div className="w-64 h-64 md:w-80 md:h-80 rounded-full p-2 animate-glow">
+              <ScrollAnimationWrapper direction="left" delay={0.2}>
+                <motion.div className="relative">
+                  {/* Rotating border */}
                   <motion.div
-                    className="w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <ProfileImage />
-                  </motion.div>
-                </div>
-                {/* Pulsing glow rings */}
-                <motion.div
-                  className="absolute inset-0 rounded-full border-2 border-primary/40"
-                  animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0, 0.6] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-                <motion.div
-                  className="absolute inset-0 rounded-full border border-primary/30"
-                  animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0, 0.4] }}
-                  transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
-                />
-                <motion.div
-                  className="absolute inset-0 rounded-full"
-                  animate={{
-                    boxShadow: [
-                      "0 0 30px hsl(var(--primary) / 0.2), 0 0 60px hsl(var(--primary) / 0.1)",
-                      "0 0 50px hsl(var(--primary) / 0.4), 0 0 100px hsl(var(--primary) / 0.2)",
-                      "0 0 30px hsl(var(--primary) / 0.2), 0 0 60px hsl(var(--primary) / 0.1)",
-                    ],
-                  }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                />
-              </motion.div>
+                    className="absolute inset-0 w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-dashed border-primary/50"
+                    animate={{ rotateZ: [0, 360] }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  />
+                  {/* ✏️ EDIT: Replace "YN" with your photo - use <img src="..." /> */}
+                  <div className="w-64 h-64 md:w-80 md:h-80 rounded-full p-2 animate-glow">
+                    <motion.div
+                      className="w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <ProfileImage />
+                    </motion.div>
+                  </div>
+                  {/* Pulsing glow rings */}
+                  <motion.div
+                    className="absolute inset-0 rounded-full border-2 border-primary/40"
+                    animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0, 0.6] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                  <motion.div
+                    className="absolute inset-0 rounded-full border border-primary/30"
+                    animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0, 0.4] }}
+                    transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
+                  />
+                  <motion.div
+                    className="absolute inset-0 rounded-full"
+                    animate={{
+                      boxShadow: [
+                        "0 0 30px hsl(var(--primary) / 0.2), 0 0 60px hsl(var(--primary) / 0.1)",
+                        "0 0 50px hsl(var(--primary) / 0.4), 0 0 100px hsl(var(--primary) / 0.2)",
+                        "0 0 30px hsl(var(--primary) / 0.2), 0 0 60px hsl(var(--primary) / 0.1)",
+                      ],
+                    }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                </motion.div>
+              </ScrollAnimationWrapper>
 
               {/* Content */}
               <div className="flex-1 text-center lg:text-left">
                 {/* Main Heading */}
-                <motion.h1
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
-                >
-                  Hi, I'm {/* ✏️ EDIT: Replace "Your Name" with your actual name */}
-                  <span className="gradient-text animate-glow-text">Atul Patel</span>
-                </motion.h1>
+                <ScrollAnimationWrapper delay={0.3}>
+                  <motion.h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
+                    Hi, I'm {/* ✏️ EDIT: Replace "Your Name" with your actual name */}
+                    <span className="gradient-text animate-glow-text">Atul Patel</span>
+                  </motion.h1>
+                </ScrollAnimationWrapper>
 
                 {/* Typing tagline */}
-                <motion.p
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="text-lg md:text-xl text-muted-foreground mb-6 h-8"
-                >
-                  <span>{typedText}</span>
-                  <span className="animate-pulse text-primary">|</span>
-                </motion.p>
+                <ScrollAnimationWrapper delay={0.4}>
+                  <motion.p className="text-lg md:text-xl text-muted-foreground mb-6 h-8">
+                    <span>{typedText}</span>
+                    <span className="animate-pulse text-primary">|</span>
+                  </motion.p>
+                </ScrollAnimationWrapper>
 
                 {/* Role Tags with stagger animation */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                  className="flex flex-wrap justify-center lg:justify-start gap-2 mb-8"
-                >
-                  {roles.map((role, index) => (
-                    <motion.span
-                      key={role}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.5 + index * 0.1 }}
-                      whileHover={{ scale: 1.05, borderColor: "hsl(var(--primary))" }}
-                      className="px-4 py-2 rounded-full border border-border bg-card/50 text-sm text-muted-foreground hover:text-foreground transition-all duration-300 cursor-default"
-                    >
-                      {role}
-                    </motion.span>
-                  ))}
-                </motion.div>
+                <ScrollAnimationWrapper delay={0.5}>
+                  <motion.div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-8">
+                    {roles.map((role, index) => (
+                      <motion.span
+                        key={role}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.5 + index * 0.1 }}
+                        whileHover={{ scale: 1.05, borderColor: "hsl(var(--primary))" }}
+                        className="px-4 py-2 rounded-full border border-border bg-card/50 text-sm text-muted-foreground hover:text-foreground transition-all duration-300 cursor-default"
+                      >
+                        {role}
+                      </motion.span>
+                    ))}
+                  </motion.div>
+                </ScrollAnimationWrapper>
 
                 {/* Info Cards */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                  className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8"
-                >
-                  {/* ✏️ EDIT: Update these info cards with your actual data */}
-                  {[
-                    { icon: MapPin, label: "Location", value: "Your City, Country" },
-                    { icon: Briefcase, label: "Expertise", value: "Web Dev, AI/ML" },
-                    { icon: Mail, label: "Contact", value: "hello@yourname.com" },
-                  ].map((item, index) => (
-                    <motion.div
-                      key={item.label}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + index * 0.1 }}
-                      whileHover={{ y: -5, scale: 1.02 }}
-                      className="glass-card rounded-xl px-6 py-4 flex items-center gap-3 cursor-pointer"
-                    >
-                      <item.icon className="w-5 h-5 text-primary" />
-                      <div>
-                        <p className="text-xs text-muted-foreground">{item.label}</p>
-                        <p className="text-sm font-medium">{item.value}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </motion.div>
+                <ScrollAnimationWrapper delay={0.6}>
+                  <motion.div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8">
+                    {/* ✏️ EDIT: Update these info cards with your actual data */}
+                    {[
+                      { icon: MapPin, label: "Location", value: "Your City, Country" },
+                      { icon: Briefcase, label: "Expertise", value: "Web Dev, AI/ML" },
+                      { icon: Mail, label: "Contact", value: "hello@yourname.com" },
+                    ].map((item, index) => (
+                      <motion.div
+                        key={item.label}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.6 + index * 0.1 }}
+                        whileHover={{ y: -5, scale: 1.02 }}
+                        className="glass-card rounded-xl px-6 py-4 flex items-center gap-3 cursor-pointer"
+                      >
+                        <item.icon className="w-5 h-5 text-primary" />
+                        <div>
+                          <p className="text-xs text-muted-foreground">{item.label}</p>
+                          <p className="text-sm font-medium">{item.value}</p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </ScrollAnimationWrapper>
 
                 {/* Resume Download Button */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                  className="flex justify-center lg:justify-start"
-                >
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button
-                      size="lg"
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 gap-2 shadow-lg shadow-primary/25"
-                      onClick={() => setResumeOpen(true)}
-                    >
-                      <Download className="w-5 h-5" />
-                      Download Resume
-                    </Button>
+                <ScrollAnimationWrapper delay={0.7}>
+                  <motion.div className="flex justify-center lg:justify-start">
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button
+                        size="lg"
+                        className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 gap-2 shadow-lg shadow-primary/25"
+                        onClick={() => setResumeOpen(true)}
+                      >
+                        <Download className="w-5 h-5" />
+                        Download Resume
+                      </Button>
+                    </motion.div>
                   </motion.div>
-                </motion.div>
+                </ScrollAnimationWrapper>
               </div>
             </motion.div>
 
             {/* Social Links Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className="mt-16 flex flex-col md:flex-row items-center justify-center gap-12"
-            >
-              {/* Connect with me */}
-              <div className="text-center">
-                <motion.h3
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.9 }}
-                  className="text-lg font-medium mb-4"
-                >
-                  Connect with me
-                </motion.h3>
-                <div className="flex gap-4">
-                  {socialLinks.map((social, index) => (
-                    <motion.a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 1 + index * 0.1 }}
-                      whileHover={{ scale: 1.2, y: -5 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="w-12 h-12 rounded-full border border-border hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-all duration-300 group"
-                      aria-label={social.label}
-                    >
-                      <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                    </motion.a>
-                  ))}
+            <ScrollAnimationWrapper delay={0.8}>
+              <motion.div className="mt-16 flex flex-col md:flex-row items-center justify-center gap-12">
+                {/* Connect with me */}
+                <div className="text-center">
+                  <motion.h3
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.9 }}
+                    className="text-lg font-medium mb-4"
+                  >
+                    Connect with me
+                  </motion.h3>
+                  <div className="flex gap-4">
+                    {socialLinks.map((social, index) => (
+                      <motion.a
+                        key={social.label}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 1 + index * 0.1 }}
+                        whileHover={{ scale: 1.2, y: -5 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="w-12 h-12 rounded-full border border-border hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-all duration-300 group"
+                        aria-label={social.label}
+                      >
+                        <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </motion.a>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* See what I'm doing */}
-              <div className="text-center">
-                <motion.h3
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.9 }}
-                  className="text-lg font-medium mb-4"
-                >
-                  See what I'm doing
-                </motion.h3>
-                <div className="flex gap-4">
-                  {workLinks.map((link, index) => (
-                    <motion.a
-                      key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 1.2 + index * 0.1 }}
-                      whileHover={{ scale: 1.2, y: -5 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="w-12 h-12 rounded-full border border-border hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-all duration-300 group"
-                      aria-label={link.label}
-                    >
-                      <link.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                    </motion.a>
-                  ))}
+                {/* See what I'm doing */}
+                <div className="text-center">
+                  <motion.h3
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.9 }}
+                    className="text-lg font-medium mb-4"
+                  >
+                    See what I'm doing
+                  </motion.h3>
+                  <div className="flex gap-4">
+                    {workLinks.map((link, index) => (
+                      <motion.a
+                        key={link.label}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 1.2 + index * 0.1 }}
+                        whileHover={{ scale: 1.2, y: -5 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="w-12 h-12 rounded-full border border-border hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-all duration-300 group"
+                        aria-label={link.label}
+                      >
+                        <link.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </motion.a>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </ScrollAnimationWrapper>
           </div>
         </section>
       </main>
