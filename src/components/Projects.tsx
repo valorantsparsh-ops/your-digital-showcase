@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { FolderGit2, Star, GitFork, ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRef } from "react";
 
 const projects = [
   {
@@ -71,6 +72,126 @@ const languageColors: Record<string, string> = {
   Python: "bg-green-500",
 };
 
+interface ProjectCardProps {
+  project: typeof projects[0];
+  index: number;
+}
+
+const ProjectCard = ({ project, index }: ProjectCardProps) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+  
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
+  const glowX = useTransform(mouseXSpring, [-0.5, 0.5], ["0%", "100%"]);
+  const glowY = useTransform(mouseYSpring, [-0.5, 0.5], ["0%", "100%"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    
+    const rect = cardRef.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="group perspective-1000"
+    >
+      <motion.div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+        }}
+        className="relative glass-card rounded-xl p-6 h-full flex flex-col transition-all duration-300 cursor-pointer"
+      >
+        {/* Animated glow effect */}
+        <motion.div
+          className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style={{
+            background: `radial-gradient(circle at ${glowX} ${glowY}, hsl(var(--primary) / 0.4) 0%, transparent 60%)`,
+          }}
+        />
+        
+        {/* Border glow */}
+        <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none border border-primary/50 shadow-[0_0_30px_hsl(var(--primary)/0.3)]" />
+        
+        <div className="relative z-10" style={{ transform: "translateZ(40px)" }}>
+          <div className="flex items-start justify-between mb-4">
+            <FolderGit2 className="w-10 h-10 text-primary/70 group-hover:text-primary transition-colors duration-300" />
+            <div className="flex items-center gap-3">
+              <a
+                href={project.github}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Github className="w-5 h-5" />
+              </a>
+              <a
+                href={project.link}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <ExternalLink className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+          <h3 className="font-display text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+            {project.title}
+          </h3>
+          <p className="text-muted-foreground text-sm mb-4 flex-grow leading-relaxed">
+            {project.description}
+          </p>
+
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-2">
+              <span
+                className={`w-3 h-3 rounded-full ${languageColors[project.language] || "bg-gray-500"}`}
+              />
+              <span className="text-muted-foreground">{project.language}</span>
+            </div>
+            <div className="flex items-center gap-4 text-muted-foreground">
+              <span className="flex items-center gap-1">
+                <Star className="w-4 h-4" />
+                {project.stars}
+              </span>
+              <span className="flex items-center gap-1">
+                <GitFork className="w-4 h-4" />
+                {project.forks}
+              </span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 const Projects = () => {
   return (
     <section id="projects" className="py-24 relative">
@@ -98,60 +219,7 @@ const Projects = () => {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
-            >
-              <div className="glass-card rounded-xl p-6 h-full flex flex-col hover:border-primary/30 transition-all duration-300 group-hover:glow-soft">
-                <div className="flex items-start justify-between mb-4">
-                  <FolderGit2 className="w-10 h-10 text-primary/70" />
-                  <div className="flex items-center gap-3">
-                    <a
-                      href={project.github}
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      <Github className="w-5 h-5" />
-                    </a>
-                    <a
-                      href={project.link}
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                    </a>
-                  </div>
-                </div>
-
-                <h3 className="font-display text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground text-sm mb-4 flex-grow leading-relaxed">
-                  {project.description}
-                </p>
-
-                <div className="flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`w-3 h-3 rounded-full ${languageColors[project.language] || "bg-gray-500"}`}
-                    />
-                    <span className="text-muted-foreground">{project.language}</span>
-                  </div>
-                  <div className="flex items-center gap-4 text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Star className="w-4 h-4" />
-                      {project.stars}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <GitFork className="w-4 h-4" />
-                      {project.forks}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+            <ProjectCard key={project.title} project={project} index={index} />
           ))}
         </div>
 
