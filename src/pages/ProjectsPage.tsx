@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useState, useRef } from "react";
 import { FolderGit2, ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
@@ -101,29 +101,42 @@ const projects = [
   },
 ];
 
-// 3D Tilt Card Component
+// 3D Tilt Card Component (matching Skills page)
 const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index: number }) => {
-  const [transform, setTransform] = useState("perspective(1000px) rotateX(0deg) rotateY(0deg)");
+  const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-
+  
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+  
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+  
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 8;
-    const rotateY = (centerX - x) / 8;
-    setTransform(`perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`);
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
   };
-
+  
   const handleMouseLeave = () => {
-    setTransform("perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)");
     setIsHovered(false);
+    x.set(0);
+    y.set(0);
   };
 
   return (
     <motion.div
+      ref={ref}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -131,10 +144,20 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      style={{ transform, transition: "transform 0.2s ease-out" }}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
       className="relative group"
     >
-      <div className="h-full bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300">
+      <div
+        style={{
+          transform: "translateZ(75px)",
+          transformStyle: "preserve-3d",
+        }}
+        className={`h-full bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden transition-all duration-300 ${isHovered ? "scale-[1.02] border-primary/30" : ""}`}
+      >
         {/* Project Image */}
         <div className="relative h-48 bg-gradient-to-br from-primary/5 to-secondary/20 overflow-hidden">
           {project.image ? (
@@ -207,7 +230,6 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
           </div>
         </div>
       </div>
-
       {/* Glow effect */}
       <motion.div
         className="absolute -inset-2 rounded-xl bg-gradient-to-r from-primary/40 via-primary/20 to-primary/40 blur-2xl -z-10"
