@@ -112,9 +112,9 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
     const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 15;
-    const rotateY = (centerX - x) / 15;
-    setTransform(`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`);
+    const rotateX = (y - centerY) / 8;
+    const rotateY = (centerX - x) / 8;
+    setTransform(`perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`);
   };
 
   const handleMouseLeave = () => {
@@ -210,9 +210,17 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
 
       {/* Glow effect */}
       <motion.div
-        className="absolute inset-0 rounded-xl bg-primary/10 blur-xl -z-10"
-        animate={{ opacity: isHovered ? 0.4 : 0 }}
+        className="absolute -inset-2 rounded-xl bg-gradient-to-r from-primary/40 via-primary/20 to-primary/40 blur-2xl -z-10"
+        animate={{ 
+          opacity: isHovered ? 0.8 : 0,
+          scale: isHovered ? 1.1 : 1
+        }}
         transition={{ duration: 0.3 }}
+      />
+      <motion.div
+        className="absolute inset-0 rounded-xl bg-primary/30 blur-xl -z-10"
+        animate={{ opacity: isHovered ? 0.6 : 0 }}
+        transition={{ duration: 0.2 }}
       />
     </motion.div>
   );
