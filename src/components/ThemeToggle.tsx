@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
+import { createPortal } from "react-dom";
 
 const ThemeToggle = () => {
   const [isDark, setIsDark] = useState(true);
+  const [showFlash, setShowFlash] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -15,45 +17,80 @@ const ThemeToggle = () => {
 
   const toggleTheme = () => {
     const newTheme = isDark ? "light" : "dark";
-    setIsDark(!isDark);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("light", newTheme === "light");
+    
+    // Trigger flash animation
+    setShowFlash(true);
+    
+    // Change theme after a brief delay for flash effect
+    setTimeout(() => {
+      setIsDark(!isDark);
+      localStorage.setItem("theme", newTheme);
+      document.documentElement.classList.toggle("light", newTheme === "light");
+    }, 150);
+    
+    // Hide flash after animation
+    setTimeout(() => {
+      setShowFlash(false);
+    }, 500);
   };
 
   return (
-    <motion.button
-      onClick={toggleTheme}
-      className="relative w-14 h-7 rounded-full bg-secondary border border-border flex items-center px-1 cursor-pointer overflow-hidden"
-      whileTap={{ scale: 0.95 }}
-      aria-label="Toggle theme"
-    >
-      {/* Background gradient animation */}
-      <motion.div
-        className="absolute inset-0 rounded-full"
-        animate={{
-          background: isDark 
-            ? "linear-gradient(135deg, hsl(0 0% 14%) 0%, hsl(0 0% 8%) 100%)"
-            : "linear-gradient(135deg, hsl(45 100% 90%) 0%, hsl(200 80% 85%) 100%)"
-        }}
-        transition={{ duration: 0.3 }}
-      />
+    <>
+      {/* Flash overlay using portal */}
+      {createPortal(
+        <AnimatePresence>
+          {showFlash && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="fixed inset-0 pointer-events-none z-[9999]"
+              style={{
+                background: isDark 
+                  ? "radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%)"
+                  : "radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 70%)"
+              }}
+            />
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
       
-      {/* Icons */}
-      <div className="relative w-full h-full flex items-center justify-between px-1 z-10">
-        <Sun className={`w-3.5 h-3.5 transition-colors duration-300 ${isDark ? "text-muted-foreground" : "text-amber-500"}`} />
-        <Moon className={`w-3.5 h-3.5 transition-colors duration-300 ${isDark ? "text-primary" : "text-muted-foreground"}`} />
-      </div>
-      
-      {/* Toggle ball */}
-      <motion.div
-        className="absolute w-5 h-5 rounded-full shadow-md z-20"
-        animate={{
-          x: isDark ? 28 : 2,
-          backgroundColor: isDark ? "hsl(0 0% 85%)" : "hsl(45 100% 60%)"
-        }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
-      />
-    </motion.button>
+      <motion.button
+        onClick={toggleTheme}
+        className="relative w-14 h-7 rounded-full bg-secondary border border-border flex items-center px-1 cursor-pointer overflow-hidden"
+        whileTap={{ scale: 0.95 }}
+        aria-label="Toggle theme"
+      >
+        {/* Background gradient animation */}
+        <motion.div
+          className="absolute inset-0 rounded-full"
+          animate={{
+            background: isDark 
+              ? "linear-gradient(135deg, hsl(0 0% 14%) 0%, hsl(0 0% 8%) 100%)"
+              : "linear-gradient(135deg, hsl(45 100% 90%) 0%, hsl(200 80% 85%) 100%)"
+          }}
+          transition={{ duration: 0.3 }}
+        />
+        
+        {/* Icons */}
+        <div className="relative w-full h-full flex items-center justify-between px-1 z-10">
+          <Sun className={`w-3.5 h-3.5 transition-colors duration-300 ${isDark ? "text-muted-foreground" : "text-amber-500"}`} />
+          <Moon className={`w-3.5 h-3.5 transition-colors duration-300 ${isDark ? "text-primary" : "text-muted-foreground"}`} />
+        </div>
+        
+        {/* Toggle ball */}
+        <motion.div
+          className="absolute w-5 h-5 rounded-full shadow-md z-20"
+          animate={{
+            x: isDark ? 28 : 2,
+            backgroundColor: isDark ? "hsl(0 0% 85%)" : "hsl(45 100% 60%)"
+          }}
+          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        />
+      </motion.button>
+    </>
   );
 };
 
