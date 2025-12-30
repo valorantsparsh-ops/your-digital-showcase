@@ -2,6 +2,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef } from "react";
 import { FolderGit2, ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
@@ -105,15 +106,7 @@ const projects = [
 const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index: number }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  
-  // Check for mobile on mount
-  useState(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 640);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  });
+  const isMobile = useIsMobile();
   
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -145,6 +138,9 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
     y.set(0);
   };
 
+  // Prevent 3D stacking from covering the page header on small screens
+  const zLift = isHovered ? (isMobile ? 12 : 56) : 0;
+
   return (
     <motion.div
       ref={ref}
@@ -164,7 +160,7 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
     >
       <div
         style={{
-          transform: "translateZ(75px)",
+          transform: `translateZ(${zLift}px)`,
           transformStyle: "preserve-3d",
         }}
         className={`h-full bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden transition-all duration-300 ${isHovered ? "scale-[1.02] border-primary/30" : ""}`}
@@ -267,7 +263,7 @@ const ProjectsPage = () => {
       <main className="pt-24 pb-16 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Page Header */}
-          <ScrollAnimationWrapper className="text-center mb-8 sm:mb-12 md:mb-16">
+          <ScrollAnimationWrapper className="relative z-20 text-center mb-8 sm:mb-12 md:mb-16">
             <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
               <FolderGit2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               <span className="text-xs sm:text-sm text-muted-foreground uppercase tracking-widest">My Work</span>
@@ -279,7 +275,7 @@ const ProjectsPage = () => {
           </ScrollAnimationWrapper>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-12 max-w-md sm:max-w-none mx-auto" style={{ perspective: "1000px" }}>
+          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-12 max-w-md sm:max-w-none mx-auto" style={{ perspective: "1000px" }}>
             {projects.map((project, index) => (
               <ProjectCard key={`${project.title}-${index}`} project={project} index={index} />
             ))}
