@@ -28,7 +28,8 @@ const PreLoader = ({ onComplete }: PreLoaderProps) => {
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center"
+      style={{ backgroundColor: "#0a0a0a" }}
     >
       {/* Grid overlay */}
       <div className="absolute inset-0 grid-overlay opacity-30" />
@@ -45,7 +46,8 @@ const PreLoader = ({ onComplete }: PreLoaderProps) => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute inset-0 w-32 h-32 rounded-full bg-primary/20 blur-xl"
+          className="absolute inset-0 w-32 h-32 rounded-full blur-xl"
+          style={{ backgroundColor: "rgba(139, 92, 246, 0.2)" }}
         />
         <motion.div
           animate={{
@@ -56,7 +58,8 @@ const PreLoader = ({ onComplete }: PreLoaderProps) => {
             repeat: Infinity,
             ease: "linear",
           }}
-          className="relative w-32 h-32 rounded-full border-2 border-muted-foreground/20"
+          className="relative w-32 h-32 rounded-full"
+          style={{ border: "2px solid rgba(255, 255, 255, 0.2)" }}
         >
           <motion.div
             animate={{
@@ -67,7 +70,15 @@ const PreLoader = ({ onComplete }: PreLoaderProps) => {
               repeat: Infinity,
               ease: "linear",
             }}
-            className="absolute inset-2 rounded-full border-2 border-t-primary border-r-transparent border-b-transparent border-l-transparent"
+            className="absolute inset-2 rounded-full"
+            style={{ 
+              borderWidth: "2px",
+              borderStyle: "solid",
+              borderTopColor: "#8b5cf6",
+              borderRightColor: "transparent",
+              borderBottomColor: "transparent",
+              borderLeftColor: "transparent"
+            }}
           />
         </motion.div>
 
@@ -92,23 +103,26 @@ const PreLoader = ({ onComplete }: PreLoaderProps) => {
         <motion.p
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="text-muted-foreground text-sm mb-4 tracking-widest uppercase"
+          className="text-sm mb-4 tracking-widest uppercase"
+          style={{ color: "rgba(255, 255, 255, 0.6)" }}
         >
           Loading Portfolio
         </motion.p>
 
         {/* Progress bar */}
-        <div className="w-48 h-1 bg-muted rounded-full overflow-hidden">
+        <div className="w-48 h-1 rounded-full overflow-hidden" style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}>
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
-            className="h-full bg-gradient-to-r from-primary to-primary/50 rounded-full"
+            className="h-full rounded-full"
+            style={{ background: "linear-gradient(to right, #8b5cf6, rgba(139, 92, 246, 0.5))" }}
           />
         </div>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-xs text-muted-foreground mt-2"
+          className="text-xs mt-2"
+          style={{ color: "rgba(255, 255, 255, 0.6)" }}
         >
           {progress}%
         </motion.p>
@@ -132,10 +146,11 @@ const PreLoader = ({ onComplete }: PreLoaderProps) => {
             repeat: Infinity,
             delay: i * 0.3,
           }}
-          className="absolute w-2 h-2 rounded-full bg-primary/30"
+          className="absolute w-2 h-2 rounded-full"
           style={{
             left: `${20 + i * 12}%`,
             top: `${30 + (i % 3) * 20}%`,
+            backgroundColor: "rgba(139, 92, 246, 0.3)"
           }}
         />
       ))}
