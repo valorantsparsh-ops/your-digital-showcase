@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Code2, FileText } from "lucide-react";
+import { Menu, X, Code2, FileText, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ResumePreviewDialog from "@/components/ResumePreviewDialog";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -69,8 +69,19 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Resume Button & Theme Toggle */}
+            {/* Settings, Resume Button & Theme Toggle */}
             <div className="hidden lg:flex items-center gap-2 xl:gap-4">
+              <Link
+                to="/settings"
+                className={`p-2 rounded-lg transition-colors ${
+                  location.pathname === "/settings"
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                }`}
+                title="Settings"
+              >
+                <Settings className="w-4 h-4 xl:w-5 xl:h-5" />
+              </Link>
               <ThemeToggle />
               <Button
                 variant="default"
@@ -156,11 +167,31 @@ const Navbar = () => {
                 className="h-px bg-border my-2"
               />
               
+              {/* Settings Link */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.35, duration: 0.3 }}
+              >
+                <Link
+                  to="/settings"
+                  onClick={() => setIsOpen(false)}
+                  className={`flex items-center gap-2 py-2.5 px-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    location.pathname === "/settings"
+                      ? "bg-primary/10 text-primary border-l-2 border-primary"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50 border-l-2 border-transparent"
+                  }`}
+                >
+                  <Settings className="w-4 h-4" />
+                  Settings
+                </Link>
+              </motion.div>
+              
               {/* Theme Toggle Row */}
               <motion.div 
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.35, duration: 0.3 }}
+                transition={{ delay: 0.4, duration: 0.3 }}
                 className="flex items-center justify-between py-2 px-3"
               >
                 <span className="text-sm text-muted-foreground">Theme</span>
