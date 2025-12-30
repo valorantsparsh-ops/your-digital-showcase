@@ -10,7 +10,6 @@ import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
 import { sendEmail, contactFormSchema } from "@/lib/emailjs";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 /* ✏️ EDIT: Your social links */
 const socialLinks = [
@@ -24,13 +23,9 @@ const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   
-  // Use localStorage to remember user's name and email for convenience
-  const [savedName, setSavedName] = useLocalStorage('contact_name', '');
-  const [savedEmail, setSavedEmail] = useLocalStorage('contact_email', '');
-  
   const [formData, setFormData] = useState({
-    name: savedName,
-    email: savedEmail,
+    name: "",
+    email: "",
     subject: "",
     message: "",
   });
@@ -61,16 +56,13 @@ const ContactPage = () => {
     setIsSubmitting(false);
     
     if (response.success) {
-      // Save name and email to localStorage for future use
-      setSavedName(formData.name);
-      setSavedEmail(formData.email);
       setIsSuccess(true);
       
       toast({
         title: "Message sent!",
         description: "Thanks for reaching out. I'll get back to you soon!",
       });
-      setFormData({ name: formData.name, email: formData.email, subject: "", message: "" });
+      setFormData({ name: "", email: "", subject: "", message: "" });
     } else {
       toast({
         title: "Failed to send",
