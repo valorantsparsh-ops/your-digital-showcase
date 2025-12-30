@@ -1,3 +1,23 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════
+ * CONTACT PAGE - Contact form and information
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 
+ * This page displays your contact information and a form for visitors to
+ * reach out to you. The form uses EmailJS to send messages.
+ * 
+ * WHAT TO EDIT:
+ * - Line 33-37: Your social media links
+ * - Line 127-131: Your email address
+ * - Line 143-147: Your phone number
+ * - Line 159: Your location
+ * 
+ * EMAIL SETUP:
+ * Configure EmailJS in src/lib/emailjs.ts with your credentials
+ * 
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, MapPin, Send, Github, Linkedin, Twitter, Phone, Loader2, CheckCircle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,11 +31,16 @@ import BackgroundEffects from "@/components/BackgroundEffects";
 import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
 import { sendEmail, contactFormSchema } from "@/lib/emailjs";
 
-/* ✏️ EDIT: Your social links */
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ✏️ EDIT: Your social media links
+ * Update the href URLs with your actual profile links
+ * Available icons: Github, Linkedin, Twitter, Instagram, Facebook, Youtube, etc.
+ * Import additional icons from "lucide-react" as needed
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const socialLinks = [
-  { icon: Github, href: "https://github.com/yourusername", label: "GitHub" }, /* ✏️ EDIT */
-  { icon: Linkedin, href: "https://linkedin.com/in/yourusername", label: "LinkedIn" }, /* ✏️ EDIT */
-  { icon: Twitter, href: "https://twitter.com/yourusername", label: "Twitter" }, /* ✏️ EDIT */
+  { icon: Github, href: "https://github.com/yourusername", label: "GitHub" },       // ✏️ EDIT
+  { icon: Linkedin, href: "https://linkedin.com/in/yourusername", label: "LinkedIn" }, // ✏️ EDIT
+  { icon: Twitter, href: "https://twitter.com/yourusername", label: "Twitter" },    // ✏️ EDIT
 ];
 
 const ContactPage = () => {
@@ -23,6 +48,7 @@ const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   
+  // Form state
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -32,6 +58,7 @@ const ContactPage = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
@@ -93,13 +120,16 @@ const ContactPage = () => {
           </ScrollAnimationWrapper>
 
           <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-            {/* Contact Info */}
+            {/* ═══════════════════════════════════════════════════════════
+             * CONTACT INFO SECTION
+             * ✏️ EDIT: Your email, phone, and location below
+             * ═══════════════════════════════════════════════════════════ */}
             <ScrollAnimationWrapper direction="left">
               <div className="glass-card rounded-xl p-8 h-full contact-card-hover">
                 <h3 className="font-display text-xl font-semibold mb-6">Contact Information</h3>
 
                 <div className="space-y-6 mb-8">
-                  {/* ✏️ EDIT: Your email */}
+                  {/* ✏️ EDIT: Your email address */}
                   <motion.div 
                     className="flex items-center gap-4 p-3 rounded-xl transition-all duration-300 hover:bg-primary/5 cursor-pointer group"
                     whileHover={{ x: 8, scale: 1.02 }}
@@ -118,7 +148,7 @@ const ContactPage = () => {
                     </div>
                   </motion.div>
 
-                  {/* ✏️ EDIT: Your phone */}
+                  {/* ✏️ EDIT: Your phone number */}
                   <motion.div 
                     className="flex items-center gap-4 p-3 rounded-xl transition-all duration-300 hover:bg-primary/5 cursor-pointer group"
                     whileHover={{ x: 8, scale: 1.02 }}
@@ -152,6 +182,7 @@ const ContactPage = () => {
                   </motion.div>
                 </div>
 
+                {/* Social Links */}
                 <div>
                   <p className="text-sm text-muted-foreground mb-4">Follow me on</p>
                   <div className="flex gap-3">
@@ -177,11 +208,15 @@ const ContactPage = () => {
               </div>
             </ScrollAnimationWrapper>
 
-            {/* Contact Form */}
+            {/* ═══════════════════════════════════════════════════════════
+             * CONTACT FORM
+             * Form sends emails via EmailJS (configure in src/lib/emailjs.ts)
+             * ═══════════════════════════════════════════════════════════ */}
             <ScrollAnimationWrapper direction="right" delay={0.1}>
               <div className="glass-card rounded-xl p-8 relative overflow-hidden">
                 <AnimatePresence mode="wait">
                   {isSuccess ? (
+                    /* Success State */
                     <motion.div
                       key="success"
                       initial={{ opacity: 0, scale: 0.8 }}
@@ -206,7 +241,7 @@ const ContactPage = () => {
                         </div>
                       </motion.div>
 
-                      {/* Sparkles */}
+                      {/* Sparkles animation */}
                       {[...Array(6)].map((_, i) => (
                         <motion.div
                           key={i}
@@ -255,6 +290,7 @@ const ContactPage = () => {
                       </motion.div>
                     </motion.div>
                   ) : (
+                    /* Form State */
                     <motion.form
                       key="form"
                       initial={{ opacity: 0 }}
@@ -266,6 +302,7 @@ const ContactPage = () => {
 
                       <div className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
+                          {/* Name field */}
                           <div>
                             <label htmlFor="name" className="block text-sm font-medium mb-2">
                               Name
@@ -280,6 +317,7 @@ const ContactPage = () => {
                             />
                             {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
                           </div>
+                          {/* Email field */}
                           <div>
                             <label htmlFor="email" className="block text-sm font-medium mb-2">
                               Email
@@ -297,6 +335,7 @@ const ContactPage = () => {
                           </div>
                         </div>
 
+                        {/* Subject field */}
                         <div>
                           <label htmlFor="subject" className="block text-sm font-medium mb-2">
                             Subject
@@ -312,6 +351,7 @@ const ContactPage = () => {
                           {errors.subject && <p className="text-xs text-destructive mt-1">{errors.subject}</p>}
                         </div>
 
+                        {/* Message field */}
                         <div>
                           <label htmlFor="message" className="block text-sm font-medium mb-2">
                             Message
@@ -328,6 +368,7 @@ const ContactPage = () => {
                           {errors.message && <p className="text-xs text-destructive mt-1">{errors.message}</p>}
                         </div>
 
+                        {/* Submit button */}
                         <Button
                           type="submit"
                           size="lg"

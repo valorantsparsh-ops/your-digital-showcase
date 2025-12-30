@@ -1,3 +1,33 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════
+ * PROJECTS PAGE - Showcase your work
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 
+ * This page displays your portfolio projects with 3D tilt effect cards.
+ * 
+ * WHAT TO EDIT:
+ * - Line 28-115: Your projects array (add/remove/modify projects)
+ * - Line 308: Your GitHub profile URL in the CTA button
+ * 
+ * PROJECT STRUCTURE:
+ * {
+ *   title: "Project Name",
+ *   emoji: "🔬",                    // Displayed if no image
+ *   description: "What it does...",
+ *   techStack: ["React", "Node"],   // Technologies used
+ *   link: "https://live-demo.com",  // Live demo URL
+ *   github: "https://github.com/", // Source code URL
+ *   image: null,                    // Project screenshot (optional)
+ * }
+ * 
+ * HOW TO ADD PROJECT IMAGES:
+ * 1. Add image to src/assets/projects/ folder
+ * 2. Import: import myProject from "@/assets/projects/my-project.png";
+ * 3. Use: image: myProject
+ * 
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef } from "react";
 import { FolderGit2, ExternalLink, Github } from "lucide-react";
@@ -8,101 +38,108 @@ import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
 
-/* ✏️ EDIT: Replace with your actual projects */
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ✏️ EDIT: Your projects
+ * Add, remove, or modify projects in this array
+ * Each project will be displayed as a card with 3D tilt effect
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const projects = [
   {
-    title: "Mammogram Malignancy Detector" /* ✏️ EDIT */,
-    emoji: "🔬",
+    title: "Mammogram Malignancy Detector",     // ✏️ EDIT: Project title
+    emoji: "🔬",                                 // ✏️ EDIT: Emoji (shown if no image)
     description:
-      "Hybrid CNN + YOLOv8 ensemble for full-image breast cancer detection with ROI preprocessing and sliding-window inference." /* ✏️ EDIT */,
-    techStack: ["TensorFlow", "Keras", "OpenCV", "YOLOv8"],
-    link: "#" /* ✏️ EDIT: Live demo URL */,
-    github: "#" /* ✏️ EDIT: GitHub repo URL */,
-    image: null /* ✏️ EDIT: Add project screenshot */,
+      "Hybrid CNN + YOLOv8 ensemble for full-image breast cancer detection with ROI preprocessing and sliding-window inference.", // ✏️ EDIT
+    techStack: ["TensorFlow", "Keras", "OpenCV", "YOLOv8"],  // ✏️ EDIT: Technologies
+    link: "#",                                   // ✏️ EDIT: Live demo URL
+    github: "#",                                 // ✏️ EDIT: GitHub repo URL
+    image: null,                                 // ✏️ EDIT: Import and add project screenshot
   },
   {
-    title: "Mental Health Analyzer" /* ✏️ EDIT */,
+    title: "Mental Health Analyzer",
     emoji: "🧠",
     description:
-      "NLP-based system that analyzes user text to detect signs of anxiety, stress, and depression using sentiment analysis and transformer models." /* ✏️ EDIT */,
+      "NLP-based system that analyzes user text to detect signs of anxiety, stress, and depression using sentiment analysis and transformer models.",
     techStack: ["Python", "Transformers", "NLTK", "scikit-learn"],
-    link: "#" /* ✏️ EDIT */,
-    github: "#" /* ✏️ EDIT */,
+    link: "#",
+    github: "#",
     image: null,
   },
   {
-    title: "Sign Language Interpreter" /* ✏️ EDIT */,
+    title: "Sign Language Interpreter",
     emoji: "🤟",
     description:
-      "Real-time gesture recognition and translation using Mediapipe + TensorFlow, enabling live sign-to-text interpretation." /* ✏️ EDIT */,
+      "Real-time gesture recognition and translation using Mediapipe + TensorFlow, enabling live sign-to-text interpretation.",
     techStack: ["Mediapipe", "TensorFlow", "React", "Flask"],
-    link: "#" /* ✏️ EDIT */,
-    github: "#" /* ✏️ EDIT */,
+    link: "#",
+    github: "#",
     image: null,
   },
   {
-    title: "Portfolio Website" /* ✏️ EDIT */,
+    title: "Portfolio Website",
     emoji: "💼",
     description:
-      "A modern and responsive portfolio built with React and Framer Motion, showcasing projects, skills, and achievements with smooth animations and interactive UI." /* ✏️ EDIT */,
+      "A modern and responsive portfolio built with React and Framer Motion, showcasing projects, skills, and achievements with smooth animations and interactive UI.",
     techStack: ["React", "Framer Motion", "Tailwind CSS"],
-    link: "#" /* ✏️ EDIT */,
-    github: "#" /* ✏️ EDIT */,
+    link: "#",
+    github: "#",
     image: null,
   },
   {
-    title: "AI Chatbot Assistant" /* ✏️ EDIT */,
+    title: "AI Chatbot Assistant",
     emoji: "🤖",
     description:
-      "Intelligent conversational agent powered by OpenAI GPT, featuring context-aware responses and memory capabilities." /* ✏️ EDIT */,
+      "Intelligent conversational agent powered by OpenAI GPT, featuring context-aware responses and memory capabilities.",
     techStack: ["Node.js", "OpenAI", "MongoDB", "Express"],
-    link: "#" /* ✏️ EDIT */,
-    github: "#" /* ✏️ EDIT */,
+    link: "#",
+    github: "#",
     image: null,
   },
   {
-    title: "E-commerce Platform" /* ✏️ EDIT */,
+    title: "E-commerce Platform",
     emoji: "🛒",
     description:
-      "Full-stack shopping platform with payment integration, inventory management, and real-time order tracking." /* ✏️ EDIT */,
+      "Full-stack shopping platform with payment integration, inventory management, and real-time order tracking.",
     techStack: ["Next.js", "Stripe", "PostgreSQL", "Prisma"],
-    link: "#" /* ✏️ EDIT */,
-    github: "#" /* ✏️ EDIT */,
+    link: "#",
+    github: "#",
     image: null,
   },
   {
-    title: "E-commerce Platform" /* ✏️ EDIT */,
+    title: "E-commerce Platform",
     emoji: "🛒",
     description:
-      "Full-stack shopping platform with payment integration, inventory management, and real-time order tracking." /* ✏️ EDIT */,
+      "Full-stack shopping platform with payment integration, inventory management, and real-time order tracking.",
     techStack: ["Next.js", "Stripe", "PostgreSQL", "Prisma"],
-    link: "#" /* ✏️ EDIT */,
-    github: "#" /* ✏️ EDIT */,
+    link: "#",
+    github: "#",
     image: null,
   },
   {
-    title: "E-commerce Platform" /* ✏️ EDIT */,
+    title: "E-commerce Platform",
     emoji: "🛒",
     description:
-      "Full-stack shopping platform with payment integration, inventory management, and real-time order tracking." /* ✏️ EDIT */,
+      "Full-stack shopping platform with payment integration, inventory management, and real-time order tracking.",
     techStack: ["Next.js", "Stripe", "PostgreSQL", "Prisma"],
-    link: "#" /* ✏️ EDIT */,
-    github: "#" /* ✏️ EDIT */,
+    link: "#",
+    github: "#",
     image: null,
   },
   {
-    title: "E-commerce Platform" /* ✏️ EDIT */,
+    title: "E-commerce Platform",
     emoji: "🛒",
     description:
-      "Full-stack shopping platform with payment integration, inventory management, and real-time order tracking." /* ✏️ EDIT */,
+      "Full-stack shopping platform with payment integration, inventory management, and real-time order tracking.",
     techStack: ["Next.js", "Stripe", "PostgreSQL", "Prisma"],
-    link: "#" /* ✏️ EDIT */,
-    github: "#" /* ✏️ EDIT */,
+    link: "#",
+    github: "#",
     image: null,
   },
 ];
 
-// 3D Tilt Card Component (matching Skills page)
+/* ═══════════════════════════════════════════════════════════════════════════
+ * 3D Tilt Card Component
+ * Creates an interactive card with 3D tilt effect on hover
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index: number }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -114,7 +151,7 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
   const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
   const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
   
-  // Reduced tilt angle for mobile/tablet (5deg mobile, 10deg tablet, 15deg desktop)
+  // Reduced tilt angle for mobile/tablet
   const isTablet = typeof window !== 'undefined' && window.innerWidth >= 640 && window.innerWidth < 1024;
   const tiltAngle = isMobile ? 5 : isTablet ? 10 : 15;
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [`${tiltAngle}deg`, `-${tiltAngle}deg`]);
@@ -139,7 +176,7 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
     y.set(0);
   };
 
-  // Prevent 3D stacking from covering the page header on small/medium screens
+  // Responsive z-lift for 3D effect
   const zLift = isHovered ? (isMobile ? 12 : isTablet ? 30 : 56) : 0;
 
   return (
@@ -166,7 +203,7 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
         }}
         className={`h-full bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden transition-all duration-300 ${isHovered ? "scale-[1.02] border-primary/30" : ""}`}
       >
-        {/* Project Image */}
+        {/* Project Image or Emoji */}
         <div className="relative h-32 sm:h-40 md:h-44 lg:h-48 bg-gradient-to-br from-primary/5 to-secondary/20 overflow-hidden">
           {project.image ? (
             <img
@@ -188,7 +225,7 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
               </motion.div>
             </div>
           )}
-          {/* Gradient overlay */}
+          {/* Gradient overlay on hover */}
           <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
 
@@ -238,7 +275,8 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
           </div>
         </div>
       </div>
-      {/* Glow effect */}
+
+      {/* Glow effect on hover */}
       <motion.div
         className="absolute -inset-2 rounded-xl bg-gradient-to-r from-primary/40 via-primary/20 to-primary/40 blur-2xl -z-10"
         animate={{ 
@@ -282,9 +320,8 @@ const ProjectsPage = () => {
             ))}
           </div>
 
-          {/* CTA */}
+          {/* ✏️ EDIT: GitHub CTA - Update with your GitHub URL */}
           <ScrollAnimationWrapper delay={0.3} className="text-center">
-            {/* ✏️ EDIT: Your GitHub URL */}
             <Button
               variant="outline"
               size="lg"
@@ -303,11 +340,5 @@ const ProjectsPage = () => {
     </div>
   );
 };
-
-{
-  /* variant="outline"
-                size="lg"
-                className="rounded-full border-border hover:border-primary/50 hover:bg-primary/5 transition-all duration-300" */
-}
 
 export default ProjectsPage;

@@ -1,3 +1,22 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════
+ * HOME PAGE - Main landing page of your portfolio
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 
+ * This is the first page visitors see. Customize your personal information,
+ * social links, and professional details here.
+ * 
+ * WHAT TO EDIT:
+ * - Line 22-28: Your role tags (skill badges)
+ * - Line 34-39: Social media links (LinkedIn, Email, Instagram, Facebook)
+ * - Line 50-53: GitHub and LeetCode profile links
+ * - Line 55: Rotating taglines
+ * - Line 129: Your name in the greeting
+ * - Line 163-165: Info cards (location, expertise, email)
+ * 
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Briefcase, Mail, Github, Linkedin, Instagram, Facebook, Download } from "lucide-react";
@@ -10,9 +29,10 @@ import ResumePreviewDialog from "@/components/ResumePreviewDialog";
 import ProfileImage from "@/components/ProfileImage";
 import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
 
-// ═══════════════════════════════════════════════════════════════════════════
-// ✏️ EDIT: Your role tags - Update these with your actual skills/interests
-// ═══════════════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ✏️ EDIT: Your role tags - These appear as badges below your name
+ * Add, remove, or modify roles that describe your expertise
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const roles = [
   "AI Enthusiast",
   "Machine Learning Engineer",
@@ -21,9 +41,12 @@ const roles = [
   "Developer",
 ];
 
-// ═══════════════════════════════════════════════════════════════════════════
-// ✏️ EDIT: Your social media links - Update the href URLs with your profiles
-// ═══════════════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ✏️ EDIT: Your social media links
+ * Update the href URLs with your actual profile links
+ * You can add/remove platforms by modifying this array
+ * Available icons: Linkedin, Mail, Instagram, Facebook, Twitter, Youtube, etc.
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const socialLinks = [
   { icon: Linkedin, href: "https://linkedin.com/in/yourusername", label: "LinkedIn" },
   { icon: Mail, href: "mailto:hello@yourname.com", label: "Email" },
@@ -31,21 +54,28 @@ const socialLinks = [
   { icon: Facebook, href: "https://facebook.com/yourusername", label: "Facebook" },
 ];
 
-// LeetCode Icon Component
+/* ═══════════════════════════════════════════════════════════════════════════
+ * LeetCode Icon Component - Custom SVG icon for LeetCode
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const LeetCodeIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   <svg role="img" viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" />
   </svg>
 );
 
-// ═══════════════════════════════════════════════════════════════════════════
-// ✏️ EDIT: Your coding profile links - Update with your GitHub and LeetCode usernames
-// ═══════════════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ✏️ EDIT: Your coding profile links (GitHub, LeetCode)
+ * Update with your actual profile URLs
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const workLinks = [
   { icon: Github, href: "https://github.com/yourusername", label: "GitHub" },
   { icon: LeetCodeIcon, href: "https://leetcode.com/yourusername", label: "LeetCode" },
 ];
 
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ✏️ EDIT: Rotating taglines - These cycle in the hero section
+ * Add your professional titles or descriptions
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const taglines = ["Full Stack Developer", "Tech Explorer", "Problem Solver", "Code Enthusiast"];
 
 const HomePage = () => {
@@ -58,9 +88,11 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {/* Resume Preview Modal */}
       <ResumePreviewDialog open={resumeOpen} onOpenChange={setResumeOpen} />
       <Navbar />
       <BackgroundEffects />
+      
       <main>
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-16 pb-8">
           <div className="container mx-auto px-4 sm:px-6 relative z-10">
@@ -70,16 +102,22 @@ const HomePage = () => {
               transition={{ duration: 0.6 }}
               className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-20"
             >
-              {/* Profile Image - only border rotates */}
+              {/* ═══════════════════════════════════════════════════════════
+               * PROFILE IMAGE SECTION
+               * Image is handled by ProfileImage component
+               * To change: Replace images in src/assets/
+               * - profile-image.png (dark mode)
+               * - profile-image-light.png (light mode)
+               * ═══════════════════════════════════════════════════════════ */}
               <ScrollAnimationWrapper direction="left" delay={0.2}>
                 <motion.div className="relative">
-                  {/* Rotating border */}
+                  {/* Rotating border animation */}
                   <motion.div
                     className="absolute inset-0 w-48 h-48 sm:w-56 sm:h-56 md:w-80 md:h-80 rounded-full border-2 border-dashed border-primary/50"
                     animate={{ rotateZ: [0, 360] }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                   />
-                  {/* ✏️ EDIT: Replace "YN" with your photo - use <img src="..." /> */}
+                  {/* Profile image container */}
                   <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-80 md:h-80 rounded-full p-2 animate-glow">
                     <motion.div
                       className="w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden"
@@ -114,17 +152,19 @@ const HomePage = () => {
                 </motion.div>
               </ScrollAnimationWrapper>
 
-              {/* Content */}
+              {/* ═══════════════════════════════════════════════════════════
+               * CONTENT SECTION - Name, tagline, info cards
+               * ═══════════════════════════════════════════════════════════ */}
               <div className="flex-1 text-center lg:text-left">
-                {/* Main Heading */}
+                {/* ✏️ EDIT: Your name - Replace "Atul Patel" with your name */}
                 <ScrollAnimationWrapper delay={0.3}>
                   <motion.h1 className="font-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-4">
-                    Hi, I'm {/* ✏️ EDIT: Replace "Your Name" with your actual name */}
+                    Hi, I'm{" "}
                     <span className="gradient-text animate-glow-text">Atul Patel</span>
                   </motion.h1>
                 </ScrollAnimationWrapper>
 
-                {/* Typing tagline */}
+                {/* Typing tagline animation */}
                 <ScrollAnimationWrapper delay={0.4}>
                   <motion.p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8 h-7 sm:h-8">
                     <span>{typedText}</span>
@@ -132,7 +172,7 @@ const HomePage = () => {
                   </motion.p>
                 </ScrollAnimationWrapper>
 
-                {/* Role Tags with stagger animation */}
+                {/* Role Tags - Skill badges */}
                 <ScrollAnimationWrapper delay={0.5}>
                   <motion.div className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:justify-center lg:justify-start gap-1.5 sm:gap-2 mb-6 sm:mb-8">
                     {roles.map((role, index) => (
@@ -150,10 +190,9 @@ const HomePage = () => {
                   </motion.div>
                 </ScrollAnimationWrapper>
 
-                {/* Info Cards */}
+                {/* ✏️ EDIT: Info Cards - Update location, expertise, and email */}
                 <ScrollAnimationWrapper delay={0.6}>
                   <motion.div className="flex flex-col items-stretch sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start gap-2 sm:gap-4 mb-6 sm:mb-8 w-full sm:w-auto">
-                    {/* ✏️ EDIT: Update these info cards with your actual data */}
                     {[
                       { icon: MapPin, label: "Location", value: "Your City, Country" },
                       { icon: Briefcase, label: "Expertise", value: "Web Dev, AI/ML" },
@@ -195,10 +234,12 @@ const HomePage = () => {
               </div>
             </motion.div>
 
-            {/* Social Links Section */}
+            {/* ═══════════════════════════════════════════════════════════
+             * SOCIAL LINKS SECTION
+             * ═══════════════════════════════════════════════════════════ */}
             <ScrollAnimationWrapper delay={0.8}>
               <motion.div className="mt-10 sm:mt-16 flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12">
-                {/* Connect with me */}
+                {/* Connect with me - Social media links */}
                 <div className="text-center">
                   <motion.h3
                     initial={{ opacity: 0 }}
@@ -229,7 +270,7 @@ const HomePage = () => {
                   </div>
                 </div>
 
-                {/* See what I'm doing */}
+                {/* See what I'm doing - Coding profiles */}
                 <div className="text-center">
                   <motion.h3
                     initial={{ opacity: 0 }}

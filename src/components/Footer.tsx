@@ -1,7 +1,25 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════
+ * FOOTER COMPONENT - Site footer with links and social media
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 
+ * The footer that appears at the bottom of every page.
+ * 
+ * WHAT TO EDIT:
+ * - Line 24-28: Your social media links (GitHub, LinkedIn, Email)
+ * - Line 61: Your name in the brand section
+ * - Line 114: Your name in the copyright
+ * 
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Code2, Heart, Github, Linkedin, Mail, ArrowUp } from "lucide-react";
 
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Footer Navigation Links
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const footerLinks = [
   { to: "/", label: "Home" },
   { to: "/projects", label: "Projects" },
@@ -11,7 +29,10 @@ const footerLinks = [
   { to: "/contact", label: "Contact" },
 ];
 
-/* ✏️ EDIT: Your social links */
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ✏️ EDIT: Your social media links
+ * Update the href URLs with your actual profile links
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const socialLinks = [
   { icon: Github, href: "https://github.com/yourusername", label: "GitHub" },
   { icon: Linkedin, href: "https://linkedin.com/in/yourusername", label: "LinkedIn" },
@@ -21,20 +42,24 @@ const socialLinks = [
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  // Smooth scroll to top function
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <footer className="relative border-t border-border/50 bg-card/30 backdrop-blur-sm">
-      {/* Background glow */}
+      {/* Background glow effect */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-32 bg-primary/5 rounded-full blur-[100px]" />
       </div>
 
       <div className="container mx-auto px-6 py-12 relative z-10">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
-          {/* Brand Section */}
+          {/* ═══════════════════════════════════════════════════════════
+           * BRAND SECTION
+           * ✏️ EDIT: Your name and tagline
+           * ═══════════════════════════════════════════════════════════ */}
           <div className="text-center md:text-left">
             <Link to="/" className="inline-flex items-center gap-2 mb-4 group">
               <motion.div
@@ -44,14 +69,15 @@ const Footer = () => {
               >
                 <Code2 className="w-5 h-5 text-primary" />
               </motion.div>
-              <span className="font-display text-xl font-bold">YourName</span> {/* ✏️ EDIT */}
+              {/* ✏️ EDIT: Your Name */}
+              <span className="font-display text-xl font-bold">YourName</span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs mx-auto md:mx-0">
               Building digital experiences that matter. Let's create something amazing together.
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links Section */}
           <div className="text-center">
             <h4 className="font-display font-semibold mb-4">Quick Links</h4>
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
@@ -67,7 +93,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Social Links */}
+          {/* Social Links Section */}
           <div className="text-center md:text-right">
             <h4 className="font-display font-semibold mb-4">Connect</h4>
             <div className="flex justify-center md:justify-end gap-3">
@@ -89,18 +115,21 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Divider */}
+        {/* ═══════════════════════════════════════════════════════════
+         * COPYRIGHT SECTION
+         * ✏️ EDIT: Your name in the copyright
+         * ═══════════════════════════════════════════════════════════ */}
         <div className="border-t border-border/50 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          {/* Copyright */}
           <p className="text-sm text-muted-foreground flex items-center gap-1.5">
             © {currentYear} Built with
             <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1, repeat: Infinity }}>
               <Heart className="w-4 h-4 text-red-500 fill-red-500" />
             </motion.span>
-            by <span className="text-foreground font-medium">YourName</span> {/* ✏️ EDIT */}
+            {/* ✏️ EDIT: Your Name */}
+            by <span className="text-foreground font-medium">YourName</span>
           </p>
 
-          {/* Back to top */}
+          {/* Back to top button */}
           <motion.button
             onClick={scrollToTop}
             whileHover={{ y: -3 }}

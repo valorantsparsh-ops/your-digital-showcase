@@ -1,3 +1,20 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════
+ * ABOUT PAGE - Personal information and background
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 
+ * This page showcases your personal story, interests, education, and certifications.
+ * 
+ * WHAT TO EDIT:
+ * - Line 30-35: Your interests/hobbies
+ * - Line 42-60: Your education history
+ * - Line 67-71: Your certifications
+ * - Line 178: Your name
+ * - Line 179-186: Your bio paragraphs
+ * 
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { User, Heart, Code2, Gamepad2, Lightbulb, Award, GraduationCap, Download, Sparkles } from "lucide-react";
@@ -9,9 +26,12 @@ import ProfileImage from "@/components/ProfileImage";
 import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
 import ResumePreviewDialog from "@/components/ResumePreviewDialog";
 
-// ═══════════════════════════════════════════════════════════════════════════
-// ✏️ EDIT: Your interests - Update with your actual hobbies/interests
-// ═══════════════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ✏️ EDIT: Your interests/hobbies
+ * Each interest has an icon, label, and description
+ * Available icons: Code2, Gamepad2, Lightbulb, Heart, Music, Camera, Book, etc.
+ * Import additional icons from "lucide-react" as needed
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const interests = [
   { icon: Code2, label: "Coding", description: "Building things that matter" },
   { icon: Gamepad2, label: "Gaming", description: "Built on grind,focus and dominance" },
@@ -19,14 +39,16 @@ const interests = [
   { icon: Heart, label: "Open Source", description: "Contributing to community" },
 ];
 
-// ═══════════════════════════════════════════════════════════════════════════
-// ✏️ EDIT: Your education - Update with your actual education details
-// ═══════════════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ✏️ EDIT: Your education history
+ * Add your degrees, universities, and years
+ * You can add multiple education entries
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const education = [
   {
-    degree: "Your Degree",
-    institution: "University Name",
-    year: "2019",
+    degree: "Your Degree",                    // e.g., "Bachelor of Technology"
+    institution: "University Name",           // e.g., "MIT"
+    year: "2019",                             // Graduation year
     description: "Your specialization or notable achievements",
   },
   {
@@ -36,6 +58,8 @@ const education = [
     description: "Your specialization or notable achievements",
   },
 ];
+
+// Additional education (displayed in second column if needed)
 const education2 = [
   {
     degree: "Your Degree",
@@ -45,16 +69,19 @@ const education2 = [
   },
 ];
 
-// ═══════════════════════════════════════════════════════════════════════════
-// ✏️ EDIT: Your certifications - Update with your actual certifications
-// ═══════════════════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ✏️ EDIT: Your certifications
+ * Add your professional certifications
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const certifications = [
   { name: "Certification Name 1", issuer: "Issuing Organization", year: "2023" },
   { name: "Certification Name 2", issuer: "Issuing Organization", year: "2022" },
   { name: "Certification Name 3", issuer: "Issuing Organization", year: "2022" },
 ];
 
-// Animation variants
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Animation variants for smooth page transitions
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -94,7 +121,9 @@ const AboutPage = () => {
       <BackgroundEffects />
       <main className="pt-24 pb-16 relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
-          {/* Page Header */}
+          {/* ═══════════════════════════════════════════════════════════
+           * PAGE HEADER
+           * ═══════════════════════════════════════════════════════════ */}
           <ScrollAnimationWrapper className="text-center mb-16">
             <motion.div
               initial={{ scale: 0 }}
@@ -114,25 +143,25 @@ const AboutPage = () => {
           </ScrollAnimationWrapper>
 
           <div className="max-w-5xl mx-auto">
-            {/* Bio Section */}
+            {/* ═══════════════════════════════════════════════════════════
+             * BIO SECTION - Profile image and personal bio
+             * ═══════════════════════════════════════════════════════════ */}
             <ScrollAnimationWrapper className="mb-12">
               <motion.div whileHover={{ y: -5 }} className="glass-card rounded-xl p-8 relative overflow-hidden group">
-                {/* Animated border glow */}
+                {/* Animated border glow on hover */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   animate={{ x: ["-100%", "100%"] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 />
                 <div className="flex flex-col lg:flex-row gap-8 items-center relative z-10">
-                  {/* ✏️ EDIT: Add your profile photo */}
+                  {/* Profile Image with rotating border */}
                   <motion.div className="relative">
-                    {/* Rotating border */}
                     <motion.div
                       animate={{ rotateZ: [0, 360] }}
                       transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                       className="absolute inset-0 w-48 h-48 rounded-full border-2 border-dashed border-primary/50"
                     />
-                    {/* Static image */}
                     <div className="w-48 h-48 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 p-1 overflow-hidden">
                       <motion.div
                         className="w-full h-full rounded-full overflow-hidden"
@@ -156,7 +185,7 @@ const AboutPage = () => {
                   </motion.div>
 
                   <div className="flex-1 text-center lg:text-left">
-                    {/* ✏️ EDIT: Your name and bio */}
+                    {/* ✏️ EDIT: Your name and bio paragraphs */}
                     <h2 className="font-display text-2xl font-bold mb-4">Hello! I'm Your Name</h2>
                     <p className="text-muted-foreground leading-relaxed mb-4">
                       Write your bio here. Tell visitors about yourself, your background, and what drives you as a
@@ -183,7 +212,9 @@ const AboutPage = () => {
               </motion.div>
             </ScrollAnimationWrapper>
 
-            {/* Interests Grid */}
+            {/* ═══════════════════════════════════════════════════════════
+             * INTERESTS GRID - Your hobbies and passions
+             * ═══════════════════════════════════════════════════════════ */}
             <ScrollAnimationWrapper delay={0.1} className="mb-12">
               <h2 className="font-display text-2xl font-bold text-center mb-8">What I Love</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -209,9 +240,11 @@ const AboutPage = () => {
               </div>
             </ScrollAnimationWrapper>
 
-            {/* Education & Certifications */}
+            {/* ═══════════════════════════════════════════════════════════
+             * EDUCATION & CERTIFICATIONS - Two column layout
+             * ═══════════════════════════════════════════════════════════ */}
             <div className="grid md:grid-cols-2 gap-8">
-              {/* Education */}
+              {/* Education Column */}
               <ScrollAnimationWrapper direction="left">
                 <motion.div whileHover={{ y: -5 }}>
                   <div className="glass-card rounded-xl p-6 h-full group">
@@ -242,7 +275,7 @@ const AboutPage = () => {
                 </motion.div>
               </ScrollAnimationWrapper>
 
-              {/* Certifications */}
+              {/* Certifications Column */}
               <ScrollAnimationWrapper direction="right">
                 <motion.div whileHover={{ y: -5 }}>
                   <div className="glass-card rounded-xl p-6 h-full group">

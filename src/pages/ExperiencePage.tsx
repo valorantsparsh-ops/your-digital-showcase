@@ -1,3 +1,27 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════
+ * EXPERIENCE PAGE - Work history and career journey
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 
+ * This page displays your professional experience in a timeline format.
+ * 
+ * WHAT TO EDIT:
+ * - Line 27-77: Your work experience entries
+ * 
+ * EXPERIENCE STRUCTURE:
+ * {
+ *   title: "Job Title",
+ *   company: "Company Name",
+ *   period: "2023 - Present",
+ *   location: "City, Country or Remote",
+ *   description: "Brief role description",
+ *   achievements: ["Achievement 1", "Achievement 2"],
+ *   skills: ["Skill 1", "Skill 2"],
+ * }
+ * 
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
 import { motion } from "framer-motion";
 import { Briefcase, MapPin, Calendar } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -5,61 +29,65 @@ import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
 
-/* ✏️ EDIT: Replace with your actual work experience */
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ✏️ EDIT: Your work experience
+ * Add your jobs in reverse chronological order (most recent first)
+ * Each entry creates a timeline card with achievements and skills
+ * ═══════════════════════════════════════════════════════════════════════════ */
 const experiences = [
   {
-    title: "Your Job Title" /* ✏️ EDIT */,
-    company: "Company Name" /* ✏️ EDIT */,
-    period: "2023 - Present" /* ✏️ EDIT */,
-    location: "Remote / City" /* ✏️ EDIT */,
-    description: "Describe your role and main responsibilities here." /* ✏️ EDIT */,
+    title: "Your Job Title",           // ✏️ EDIT: e.g., "Senior Software Engineer"
+    company: "Company Name",           // ✏️ EDIT: e.g., "Google"
+    period: "2023 - Present",          // ✏️ EDIT: Date range
+    location: "Remote / City",         // ✏️ EDIT: Location
+    description: "Describe your role and main responsibilities here.",  // ✏️ EDIT
     achievements: [
-      "Key achievement or responsibility #1" /* ✏️ EDIT */,
-      "Key achievement or responsibility #2" /* ✏️ EDIT */,
-      "Key achievement or responsibility #3" /* ✏️ EDIT */,
-      "Key achievement or responsibility #4" /* ✏️ EDIT */,
+      "Key achievement or responsibility #1",  // ✏️ EDIT
+      "Key achievement or responsibility #2",  // ✏️ EDIT
+      "Key achievement or responsibility #3",  // ✏️ EDIT
+      "Key achievement or responsibility #4",  // ✏️ EDIT
     ],
-    skills: ["Skill 1", "Skill 2", "Skill 3", "Skill 4"] /* ✏️ EDIT */,
+    skills: ["Skill 1", "Skill 2", "Skill 3", "Skill 4"],  // ✏️ EDIT
   },
   {
-    title: "Previous Job Title" /* ✏️ EDIT */,
-    company: "Previous Company" /* ✏️ EDIT */,
-    period: "2021 - 2023" /* ✏️ EDIT */,
-    location: "City, Country" /* ✏️ EDIT */,
-    description: "Description of your previous role and what you accomplished." /* ✏️ EDIT */,
+    title: "Previous Job Title",
+    company: "Previous Company",
+    period: "2021 - 2023",
+    location: "City, Country",
+    description: "Description of your previous role and what you accomplished.",
     achievements: [
-      "Achievement from this role #1" /* ✏️ EDIT */,
-      "Achievement from this role #2" /* ✏️ EDIT */,
-      "Achievement from this role #3" /* ✏️ EDIT */,
-      "Achievement from this role #4" /* ✏️ EDIT */,
+      "Achievement from this role #1",
+      "Achievement from this role #2",
+      "Achievement from this role #3",
+      "Achievement from this role #4",
     ],
-    skills: ["Skill A", "Skill B", "Skill C", "Skill D"] /* ✏️ EDIT */,
+    skills: ["Skill A", "Skill B", "Skill C", "Skill D"],
   },
   {
-    title: "Earlier Position" /* ✏️ EDIT */,
-    company: "First Company" /* ✏️ EDIT */,
-    period: "2019 - 2021" /* ✏️ EDIT */,
-    location: "On-site" /* ✏️ EDIT */,
-    description: "Description of your early career experience." /* ✏️ EDIT */,
+    title: "Earlier Position",
+    company: "First Company",
+    period: "2019 - 2021",
+    location: "On-site",
+    description: "Description of your early career experience.",
     achievements: [
-      "What you learned or accomplished #1" /* ✏️ EDIT */,
-      "What you learned or accomplished #2" /* ✏️ EDIT */,
-      "What you learned or accomplished #3" /* ✏️ EDIT */,
+      "What you learned or accomplished #1",
+      "What you learned or accomplished #2",
+      "What you learned or accomplished #3",
     ],
-    skills: ["Tool 1", "Tool 2", "Tool 3"] /* ✏️ EDIT */,
+    skills: ["Tool 1", "Tool 2", "Tool 3"],
   },
   {
-    title: "Earlier Position" /* ✏️ EDIT */,
-    company: "First Company" /* ✏️ EDIT */,
-    period: "2019 - 2021" /* ✏️ EDIT */,
-    location: "On-site" /* ✏️ EDIT */,
-    description: "Description of your early career experience." /* ✏️ EDIT */,
+    title: "Earlier Position",
+    company: "First Company",
+    period: "2019 - 2021",
+    location: "On-site",
+    description: "Description of your early career experience.",
     achievements: [
-      "What you learned or accomplished #1" /* ✏️ EDIT */,
-      "What you learned or accomplished #2" /* ✏️ EDIT */,
-      "What you learned or accomplished #3" /* ✏️ EDIT */,
+      "What you learned or accomplished #1",
+      "What you learned or accomplished #2",
+      "What you learned or accomplished #3",
     ],
-    skills: ["Tool 1", "Tool 2", "Tool 3"] /* ✏️ EDIT */,
+    skills: ["Tool 1", "Tool 2", "Tool 3"],
   },
 ];
 
@@ -82,7 +110,10 @@ const ExperiencePage = () => {
             </p>
           </ScrollAnimationWrapper>
 
-          {/* Timeline */}
+          {/* ═══════════════════════════════════════════════════════════
+           * TIMELINE
+           * Each experience entry is displayed as a card in the timeline
+           * ═══════════════════════════════════════════════════════════ */}
           <div className="max-w-4xl mx-auto">
             {experiences.map((exp, index) => (
               <ScrollAnimationWrapper
@@ -91,7 +122,7 @@ const ExperiencePage = () => {
                 direction={index % 2 === 0 ? "left" : "right"}
                 className="relative pl-8 pb-12 last:pb-0"
               >
-                {/* Timeline line */}
+                {/* Timeline line (connects cards) */}
                 {index < experiences.length - 1 && (
                   <div className="absolute left-[11px] top-6 bottom-0 w-px bg-border" />
                 )}
@@ -101,8 +132,9 @@ const ExperiencePage = () => {
                   <div className="w-2 h-2 rounded-full bg-primary" />
                 </div>
 
-                {/* Content Card */}
+                {/* Experience Card */}
                 <div className="glass-card rounded-xl p-6 ml-4 hover:border-primary/30 transition-colors duration-300 edit-highlight">
+                  {/* Header with title and meta info */}
                   <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                     <div>
                       <h3 className="font-display text-xl font-semibold mb-1">{exp.title}</h3>
@@ -120,8 +152,10 @@ const ExperiencePage = () => {
                     </div>
                   </div>
 
+                  {/* Description */}
                   <p className="text-muted-foreground mb-4 leading-relaxed">{exp.description}</p>
 
+                  {/* Achievements list */}
                   <ul className="space-y-2 mb-4">
                     {exp.achievements.map((achievement, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
@@ -131,6 +165,7 @@ const ExperiencePage = () => {
                     ))}
                   </ul>
 
+                  {/* Skills tags */}
                   <div className="flex flex-wrap gap-2">
                     {exp.skills.map((skill) => (
                       <span key={skill} className="skill-badge">
