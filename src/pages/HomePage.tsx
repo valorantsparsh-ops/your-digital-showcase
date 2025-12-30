@@ -134,7 +134,7 @@ const HomePage = () => {
 
                 {/* Role Tags with stagger animation */}
                 <ScrollAnimationWrapper delay={0.5}>
-                  <motion.div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center lg:justify-start gap-1.5 sm:gap-2 mb-6 sm:mb-8 max-w-xs sm:max-w-none mx-auto lg:mx-0">
+                  <motion.div className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:justify-center lg:justify-start gap-1.5 sm:gap-2 mb-6 sm:mb-8">
                     {roles.map((role, index) => (
                       <motion.span
                         key={role}
@@ -142,7 +142,7 @@ const HomePage = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.5 + index * 0.1 }}
                         whileHover={{ scale: 1.05, borderColor: "hsl(var(--primary))" }}
-                        className="px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-border bg-card/50 text-[11px] sm:text-sm text-muted-foreground hover:text-foreground transition-all duration-300 cursor-default text-center whitespace-nowrap"
+                        className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-border bg-card/50 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-all duration-300 cursor-default text-center"
                       >
                         {role}
                       </motion.span>
