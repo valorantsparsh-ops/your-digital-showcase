@@ -17,7 +17,7 @@ const RESUME_URL = "#";
 // ═══════════════════════════════════════════════════════════════════════════
 const interests = [
   { icon: Code2, label: "Coding", description: "Building things that matter" },
-  { icon: Gamepad2, label: "Gaming", description: "Strategy, focus, and fun" },
+  { icon: Gamepad2, label: "Gaming", description: "Built on grind,focus and dominance" },
   { icon: Lightbulb, label: "Learning", description: "Always exploring new tech" },
   { icon: Heart, label: "Open Source", description: "Contributing to community" },
 ];
