@@ -105,6 +105,15 @@ const projects = [
 const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index: number }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Check for mobile on mount
+  useState(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  });
   
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -112,8 +121,10 @@ const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index:
   const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
   const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
   
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+  // Reduced tilt angle for mobile (5deg vs 15deg)
+  const tiltAngle = isMobile ? 5 : 15;
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [`${tiltAngle}deg`, `-${tiltAngle}deg`]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [`-${tiltAngle}deg`, `${tiltAngle}deg`]);
   
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
@@ -256,13 +267,13 @@ const ProjectsPage = () => {
       <main className="pt-24 pb-16 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Page Header */}
-          <ScrollAnimationWrapper className="text-center mb-12 md:mb-16">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <FolderGit2 className="w-5 h-5 text-primary" />
-              <span className="text-sm text-muted-foreground uppercase tracking-widest">My Work</span>
+          <ScrollAnimationWrapper className="text-center mb-8 sm:mb-12 md:mb-16">
+            <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
+              <FolderGit2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+              <span className="text-xs sm:text-sm text-muted-foreground uppercase tracking-widest">My Work</span>
             </div>
-            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Projects</h1>
-            <p className="text-muted-foreground max-w-lg mx-auto text-sm sm:text-base">
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">Projects</h1>
+            <p className="text-muted-foreground max-w-lg mx-auto text-xs sm:text-sm md:text-base leading-relaxed">
               A collection of my recent projects and open source contributions
             </p>
           </ScrollAnimationWrapper>
