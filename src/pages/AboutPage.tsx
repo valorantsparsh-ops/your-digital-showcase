@@ -227,17 +227,19 @@ const AboutPage = () => {
                       </motion.div>
                       <h2 className="font-display text-xl font-bold">Education</h2>
                     </div>
-                    {education.map((edu, index) => (
-                      <div
-                        key={index}
-                        className="border-l-2 border-primary/30 pl-4 group-hover:border-primary/60 transition-colors"
-                      >
-                        <h3 className="font-medium">{edu.degree}</h3>
-                        <p className="text-primary text-sm">{edu.institution}</p>
-                        <p className="text-muted-foreground text-sm mb-2">{edu.year}</p>
-                        <p className="text-muted-foreground text-sm">{edu.description}</p>
-                      </div>
-                    ))}
+                    <div className="space-y-5">
+                      {education.map((edu, index) => (
+                        <div
+                          key={index}
+                          className="border-l-2 border-primary/30 pl-4 group-hover:border-primary/60 transition-colors"
+                        >
+                          <h3 className="font-medium">{edu.degree}</h3>
+                          <p className="text-primary text-sm">{edu.institution}</p>
+                          <p className="text-muted-foreground text-sm mb-2">{edu.year}</p>
+                          <p className="text-muted-foreground text-sm">{edu.description}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </motion.div>
               </ScrollAnimationWrapper>
