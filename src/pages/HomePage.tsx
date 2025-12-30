@@ -152,7 +152,7 @@ const HomePage = () => {
 
                 {/* Info Cards */}
                 <ScrollAnimationWrapper delay={0.6}>
-                  <motion.div className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-2 sm:gap-4 mb-6 sm:mb-8">
+                  <motion.div className="flex flex-col items-stretch sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start gap-2 sm:gap-4 mb-6 sm:mb-8 w-full sm:w-auto">
                     {/* ✏️ EDIT: Update these info cards with your actual data */}
                     {[
                       { icon: MapPin, label: "Location", value: "Your City, Country" },
@@ -165,10 +165,10 @@ const HomePage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 + index * 0.1 }}
                         whileHover={{ y: -5, scale: 1.02 }}
-                        className="glass-card rounded-xl px-4 py-3 sm:px-6 sm:py-4 flex items-center gap-2 sm:gap-3 cursor-pointer"
+                        className="glass-card rounded-xl px-4 py-3 sm:px-6 sm:py-4 flex items-center gap-2 sm:gap-3 cursor-pointer w-full sm:w-auto"
                       >
                         <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
-                        <div className="min-w-0">
+                        <div className="min-w-0 flex-1">
                           <p className="text-[10px] sm:text-xs text-muted-foreground">{item.label}</p>
                           <p className="text-xs sm:text-sm font-medium truncate">{item.value}</p>
                         </div>
