@@ -134,7 +134,7 @@ const HomePage = () => {
 
                 {/* Role Tags with stagger animation */}
                 <ScrollAnimationWrapper delay={0.5}>
-                  <motion.div className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:justify-center lg:justify-start gap-1.5 sm:gap-2 mb-6 sm:mb-8">
+                  <motion.div className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:justify-center lg:justify-start gap-2.5 sm:gap-2 mb-6 sm:mb-8">
                     {roles.map((role, index) => (
                       <motion.span
                         key={role}
