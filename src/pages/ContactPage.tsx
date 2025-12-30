@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { Mail, MapPin, Send, Github, Linkedin, Twitter, Phone, Loader2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, MapPin, Send, Github, Linkedin, Twitter, Phone, Loader2, CheckCircle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -22,6 +22,7 @@ const socialLinks = [
 const ContactPage = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   
   // Use localStorage to remember user's name and email for convenience
   const [savedName, setSavedName] = useLocalStorage('contact_name', '');
@@ -63,6 +64,7 @@ const ContactPage = () => {
       // Save name and email to localStorage for future use
       setSavedName(formData.name);
       setSavedEmail(formData.email);
+      setIsSuccess(true);
       
       toast({
         title: "Message sent!",
@@ -185,93 +187,178 @@ const ContactPage = () => {
 
             {/* Contact Form */}
             <ScrollAnimationWrapper direction="right" delay={0.1}>
-              <form onSubmit={handleSubmit} className="glass-card rounded-xl p-8">
-                <h3 className="font-display text-xl font-semibold mb-6">Send a Message</h3>
+              <div className="glass-card rounded-xl p-8 relative overflow-hidden">
+                <AnimatePresence mode="wait">
+                  {isSuccess ? (
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      className="flex flex-col items-center justify-center py-12 text-center"
+                    >
+                      {/* Animated checkmark */}
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.1 }}
+                        className="relative mb-6"
+                      >
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                          className="absolute inset-0 w-20 h-20 rounded-full border-2 border-dashed border-primary/30"
+                        />
+                        <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center">
+                          <CheckCircle className="w-10 h-10 text-primary" />
+                        </div>
+                      </motion.div>
 
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium mb-2">
-                        Name
-                      </label>
-                      <Input
-                        id="name"
-                        placeholder="Your name"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className={`bg-secondary/50 border-border focus:border-primary ${errors.name ? 'border-destructive' : ''}`}
-                        required
-                      />
-                      {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium mb-2">
-                        Email
-                      </label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="your@email.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className={`bg-secondary/50 border-border focus:border-primary ${errors.email ? 'border-destructive' : ''}`}
-                        required
-                      />
-                      {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
-                    </div>
-                  </div>
+                      {/* Sparkles */}
+                      {[...Array(6)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ 
+                            opacity: [0, 1, 0], 
+                            scale: [0, 1, 0],
+                            x: Math.cos(i * 60 * Math.PI / 180) * 60,
+                            y: Math.sin(i * 60 * Math.PI / 180) * 60
+                          }}
+                          transition={{ duration: 1, delay: 0.2 + i * 0.1, repeat: Infinity, repeatDelay: 2 }}
+                          className="absolute top-1/3"
+                        >
+                          <Sparkles className="w-4 h-4 text-primary" />
+                        </motion.div>
+                      ))}
 
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                      Subject
-                    </label>
-                    <Input
-                      id="subject"
-                      placeholder="What's this about?"
-                      value={formData.subject}
-                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className={`bg-secondary/50 border-border focus:border-primary ${errors.subject ? 'border-destructive' : ''}`}
-                      required
-                    />
-                    {errors.subject && <p className="text-xs text-destructive mt-1">{errors.subject}</p>}
-                  </div>
+                      <motion.h3
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="font-display text-2xl font-semibold mb-2"
+                      >
+                        Message Sent!
+                      </motion.h3>
+                      <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 }}
+                        className="text-muted-foreground mb-6"
+                      >
+                        Thank you for reaching out. I'll get back to you soon!
+                      </motion.p>
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 }}
+                      >
+                        <Button
+                          variant="outline"
+                          onClick={() => setIsSuccess(false)}
+                          className="rounded-full"
+                        >
+                          Send Another Message
+                        </Button>
+                      </motion.div>
+                    </motion.div>
+                  ) : (
+                    <motion.form
+                      key="form"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      onSubmit={handleSubmit}
+                    >
+                      <h3 className="font-display text-xl font-semibold mb-6">Send a Message</h3>
 
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2">
-                      Message
-                    </label>
-                    <Textarea
-                      id="message"
-                      placeholder="Your message..."
-                      rows={5}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className={`bg-secondary/50 border-border focus:border-primary resize-none ${errors.message ? 'border-destructive' : ''}`}
-                      required
-                    />
-                    {errors.message && <p className="text-xs text-destructive mt-1">{errors.message}</p>}
-                  </div>
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <label htmlFor="name" className="block text-sm font-medium mb-2">
+                              Name
+                            </label>
+                            <Input
+                              id="name"
+                              placeholder="Your name"
+                              value={formData.name}
+                              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                              className={`bg-secondary/50 border-border focus:border-primary ${errors.name ? 'border-destructive' : ''}`}
+                              required
+                            />
+                            {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
+                          </div>
+                          <div>
+                            <label htmlFor="email" className="block text-sm font-medium mb-2">
+                              Email
+                            </label>
+                            <Input
+                              id="email"
+                              type="email"
+                              placeholder="your@email.com"
+                              value={formData.email}
+                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                              className={`bg-secondary/50 border-border focus:border-primary ${errors.email ? 'border-destructive' : ''}`}
+                              required
+                            />
+                            {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
+                          </div>
+                        </div>
 
-                  <Button
-                    type="submit"
-                    size="lg"
-                    disabled={isSubmitting}
-                    className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4 mr-2" />
-                        Send Message
-                      </>
-                    )}
-                  </Button>
-                </div>
-              </form>
+                        <div>
+                          <label htmlFor="subject" className="block text-sm font-medium mb-2">
+                            Subject
+                          </label>
+                          <Input
+                            id="subject"
+                            placeholder="What's this about?"
+                            value={formData.subject}
+                            onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                            className={`bg-secondary/50 border-border focus:border-primary ${errors.subject ? 'border-destructive' : ''}`}
+                            required
+                          />
+                          {errors.subject && <p className="text-xs text-destructive mt-1">{errors.subject}</p>}
+                        </div>
+
+                        <div>
+                          <label htmlFor="message" className="block text-sm font-medium mb-2">
+                            Message
+                          </label>
+                          <Textarea
+                            id="message"
+                            placeholder="Your message..."
+                            rows={5}
+                            value={formData.message}
+                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                            className={`bg-secondary/50 border-border focus:border-primary resize-none ${errors.message ? 'border-destructive' : ''}`}
+                            required
+                          />
+                          {errors.message && <p className="text-xs text-destructive mt-1">{errors.message}</p>}
+                        </div>
+
+                        <Button
+                          type="submit"
+                          size="lg"
+                          disabled={isSubmitting}
+                          className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300"
+                        >
+                          {isSubmitting ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Sending...
+                            </>
+                          ) : (
+                            <>
+                              <Send className="w-4 h-4 mr-2" />
+                              Send Message
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </motion.form>
+                  )}
+                </AnimatePresence>
+              </div>
             </ScrollAnimationWrapper>
           </div>
         </div>
