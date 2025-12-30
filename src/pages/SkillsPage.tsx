@@ -8,6 +8,7 @@ import BackgroundEffects from "@/components/BackgroundEffects";
 import { Button } from "@/components/ui/button";
 import SkillIcon from "@/components/SkillIcons";
 import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 /* ✏️ EDIT: Your floating skill icons - positions and sizes only
  * To change skill images, edit src/components/SkillIcons.tsx
@@ -270,6 +271,10 @@ const FloatingSkillIcon = ({
 
 const SkillsPage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+  
+  // Show fewer skills on mobile for better performance
+  const visibleSkills = isMobile ? floatingSkills.slice(0, 8) : floatingSkills;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -307,7 +312,7 @@ const SkillsPage = () => {
               </div>
               
               {/* Floating skill icons */}
-              {floatingSkills.map((skill, index) => (
+              {visibleSkills.map((skill, index) => (
                 <FloatingSkillIcon key={skill.name} skill={skill} index={index} />
               ))}
               
