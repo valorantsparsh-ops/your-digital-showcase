@@ -126,7 +126,7 @@ const HomePage = () => {
 
                 {/* Typing tagline */}
                 <ScrollAnimationWrapper delay={0.4}>
-                  <motion.p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-4 sm:mb-6 h-7 sm:h-8">
+                  <motion.p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8 h-7 sm:h-8">
                     <span>{typedText}</span>
                     <span className="animate-pulse text-primary">|</span>
                   </motion.p>
@@ -134,7 +134,7 @@ const HomePage = () => {
 
                 {/* Role Tags with stagger animation */}
                 <ScrollAnimationWrapper delay={0.5}>
-                  <motion.div className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:justify-center lg:justify-start gap-2.5 sm:gap-2 mb-6 sm:mb-8">
+                  <motion.div className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:justify-center lg:justify-start gap-1.5 sm:gap-2 mb-6 sm:mb-8">
                     {roles.map((role, index) => (
                       <motion.span
                         key={role}
