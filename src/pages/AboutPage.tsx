@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { User, Heart, Code2, Gamepad2, Lightbulb, Award, GraduationCap, Download, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,11 +7,7 @@ import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import ProfileImage from "@/components/ProfileImage";
 import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
-
-// ═══════════════════════════════════════════════════════════════════════════
-// ✏️ EDIT: Your resume URL - Replace "#" with your actual resume link
-// ═══════════════════════════════════════════════════════════════════════════
-const RESUME_URL = "#";
+import ResumePreviewDialog from "@/components/ResumePreviewDialog";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // ✏️ EDIT: Your interests - Update with your actual hobbies/interests
@@ -88,8 +85,11 @@ const scaleVariants = {
 };
 
 const AboutPage = () => {
+  const [resumeOpen, setResumeOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <ResumePreviewDialog open={resumeOpen} onOpenChange={setResumeOpen} />
       <Navbar />
       <BackgroundEffects />
       <main className="pt-24 pb-16 relative overflow-hidden">
@@ -170,14 +170,12 @@ const AboutPage = () => {
                     {/* Resume Download Button */}
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
                       <Button
-                        asChild
                         size="lg"
                         className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 gap-2 shadow-lg shadow-primary/25"
+                        onClick={() => setResumeOpen(true)}
                       >
-                        <a href={RESUME_URL} download target="_blank" rel="noopener noreferrer">
-                          <Download className="w-5 h-5" />
-                          Download Resume
-                        </a>
+                        <Download className="w-5 h-5" />
+                        Download Resume
                       </Button>
                     </motion.div>
                   </div>
