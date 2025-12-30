@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Code2, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ResumePreviewDialog from "@/components/ResumePreviewDialog";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -68,8 +69,9 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Resume Button */}
+            {/* Resume Button & Theme Toggle */}
             <div className="hidden md:flex items-center gap-4">
+              <ThemeToggle />
               <Button
                 variant="default"
                 size="sm"
@@ -115,6 +117,10 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
+              <div className="flex items-center justify-between py-3 px-4">
+                <span className="text-sm text-muted-foreground">Theme</span>
+                <ThemeToggle />
+              </div>
               <button
                 onClick={() => {
                   setIsOpen(false);
