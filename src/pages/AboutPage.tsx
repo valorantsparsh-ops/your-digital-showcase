@@ -32,7 +32,8 @@ const education = [
     year: "2019",
     description: "Your specialization or notable achievements",
   },
-  degree: "Your Degree",
+  {
+    degree: "Your Degree",
     institution: "University Name",
     year: "2019",
     description: "Your specialization or notable achievements",
@@ -115,10 +116,7 @@ const AboutPage = () => {
           <div className="max-w-5xl mx-auto">
             {/* Bio Section */}
             <ScrollAnimationWrapper className="mb-12">
-              <motion.div
-                whileHover={{ y: -5 }}
-                className="glass-card rounded-xl p-8 relative overflow-hidden group"
-              >
+              <motion.div whileHover={{ y: -5 }} className="glass-card rounded-xl p-8 relative overflow-hidden group">
                 {/* Animated border glow */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -159,9 +157,7 @@ const AboutPage = () => {
 
                   <div className="flex-1 text-center lg:text-left">
                     {/* ✏️ EDIT: Your name and bio */}
-                    <h2 className="font-display text-2xl font-bold mb-4">
-                      Hello! I'm Your Name
-                    </h2>
+                    <h2 className="font-display text-2xl font-bold mb-4">Hello! I'm Your Name</h2>
                     <p className="text-muted-foreground leading-relaxed mb-4">
                       Write your bio here. Tell visitors about yourself, your background, and what drives you as a
                       developer. This is your chance to make a personal connection.
@@ -172,11 +168,7 @@ const AboutPage = () => {
                     </p>
 
                     {/* Resume Download Button */}
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="inline-block"
-                    >
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
                       <Button
                         asChild
                         size="lg"
