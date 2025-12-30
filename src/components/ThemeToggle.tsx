@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 const ThemeToggle = () => {
   const [isDark, setIsDark] = useState(true);
   const [ripple, setRipple] = useState<{ x: number; y: number; toLight: boolean } | null>(null);
+  const [showFlash, setShowFlash] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const ThemeToggle = () => {
       const x = rect.left + rect.width / 2;
       const y = rect.top + rect.height / 2;
       setRipple({ x, y, toLight: isDark });
+      setShowFlash(true);
     }
     
     // Change theme after ripple starts
@@ -34,9 +36,10 @@ const ThemeToggle = () => {
       document.documentElement.classList.toggle("light", newTheme === "light");
     }, 200);
     
-    // Hide ripple after animation
+    // Hide ripple and flash after animation
     setTimeout(() => {
       setRipple(null);
+      setShowFlash(false);
     }, 800);
   };
 
@@ -53,7 +56,7 @@ const ThemeToggle = () => {
 
   return (
     <>
-      {/* Ripple overlay using portal */}
+      {/* Ripple and flash overlay using portal */}
       {createPortal(
         <AnimatePresence>
           {ripple && (
@@ -76,6 +79,21 @@ const ThemeToggle = () => {
                 background: ripple.toLight 
                   ? "linear-gradient(135deg, hsl(0 0% 96%) 0%, hsl(0 0% 98%) 100%)"
                   : "linear-gradient(135deg, hsl(0 0% 6%) 0%, hsl(0 0% 4%) 100%)"
+              }}
+            />
+          )}
+          {/* Subtle flash overlay */}
+          {showFlash && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15, ease: "easeOut" }}
+              className="fixed inset-0 pointer-events-none z-[10000]"
+              style={{
+                background: isDark 
+                  ? "radial-gradient(ellipse at top right, rgba(255,255,255,0.12) 0%, transparent 50%)"
+                  : "radial-gradient(ellipse at top right, rgba(0,0,0,0.08) 0%, transparent 50%)"
               }}
             />
           )}
