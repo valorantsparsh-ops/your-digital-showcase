@@ -84,12 +84,35 @@ const Navbar = () => {
             </div>
 
           {/* Mobile Menu Button */}
-          <button
+          <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
+            className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors relative"
+            whileTap={{ scale: 0.9 }}
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+            <AnimatePresence mode="wait">
+              {isOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="w-5 h-5" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu className="w-5 h-5" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.button>
         </div>
       </div>
 
@@ -100,37 +123,65 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background border-t border-border overflow-hidden"
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="md:hidden bg-background/95 backdrop-blur-lg border-t border-border overflow-hidden"
           >
-            <div className="container mx-auto px-6 py-4 flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <Link
+            <div className="container mx-auto px-4 py-3 flex flex-col gap-1">
+              {navLinks.map((link, index) => (
+                <motion.div
                   key={link.to}
-                  to={link.to}
-                  onClick={() => setIsOpen(false)}
-                  className={`py-3 px-4 rounded-lg transition-colors ${
-                    location.pathname === link.to
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                  }`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05, duration: 0.3 }}
                 >
-                  {link.label}
-                </Link>
+                  <Link
+                    to={link.to}
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-center py-2.5 px-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      location.pathname === link.to
+                        ? "bg-primary/10 text-primary border-l-2 border-primary"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary/50 border-l-2 border-transparent"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
               ))}
-              <div className="flex items-center justify-between py-3 px-4">
+              
+              {/* Divider */}
+              <motion.div 
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{ opacity: 1, scaleX: 1 }}
+                transition={{ delay: 0.3, duration: 0.3 }}
+                className="h-px bg-border my-2"
+              />
+              
+              {/* Theme Toggle Row */}
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.35, duration: 0.3 }}
+                className="flex items-center justify-between py-2 px-3"
+              >
                 <span className="text-sm text-muted-foreground">Theme</span>
                 <ThemeToggle />
-              </div>
-              <button
+              </motion.div>
+              
+              {/* Resume Button */}
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.3 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => {
                   setIsOpen(false);
                   setResumeOpen(true);
                 }}
-                className="flex items-center gap-2 py-3 px-4 mt-2 rounded-lg bg-primary text-primary-foreground w-full"
+                className="flex items-center justify-center gap-2 py-2.5 px-4 mt-1 rounded-lg bg-primary text-primary-foreground text-sm font-medium w-full hover:bg-primary/90 transition-colors"
               >
                 <FileText className="w-4 h-4" />
                 View Resume
-              </button>
+              </motion.button>
             </div>
           </motion.div>
         )}
