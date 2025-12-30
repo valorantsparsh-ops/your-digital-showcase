@@ -30,28 +30,28 @@ const Navbar = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border"
       >
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between h-16">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex items-center justify-between h-14 md:h-16">
             {/* Logo - EDIT THIS */}
-            <Link to="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
-              <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
-                <Code2 className="w-5 h-5 text-primary" />
+            <Link to="/" className="flex items-center gap-1.5 md:gap-2 text-foreground hover:text-primary transition-colors">
+              <div className="w-8 h-8 md:w-9 md:h-9 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
+                <Code2 className="w-4 h-4 md:w-5 md:h-5 text-primary" />
               </div>
               <div className="flex flex-col">
                 {/* ✏️ EDIT: Your Name */}
-                <span className="font-display font-semibold text-lg leading-tight">YourName</span>
+                <span className="font-display font-semibold text-base md:text-lg leading-tight">YourName</span>
                 {/* ✏️ EDIT: Your Title */}
-                <span className="text-xs text-muted-foreground leading-tight">ML • AI • Developer</span>
+                <span className="text-[10px] md:text-xs text-muted-foreground leading-tight">ML • AI • Developer</span>
               </div>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-3 xl:gap-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`text-sm font-medium transition-colors relative ${
+                  className={`text-xs xl:text-sm font-medium transition-colors relative whitespace-nowrap ${
                     location.pathname === link.to
                       ? "text-primary"
                       : "text-muted-foreground hover:text-foreground"
@@ -70,15 +70,15 @@ const Navbar = () => {
             </div>
 
             {/* Resume Button & Theme Toggle */}
-            <div className="hidden md:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-2 xl:gap-4">
               <ThemeToggle />
               <Button
                 variant="default"
                 size="sm"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-5 gap-2"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-3 xl:px-5 gap-1.5 xl:gap-2 text-xs xl:text-sm"
                 onClick={() => setResumeOpen(true)}
               >
-                <FileText className="w-4 h-4" />
+                <FileText className="w-3.5 h-3.5 xl:w-4 xl:h-4" />
                 Resume
               </Button>
             </div>
@@ -86,7 +86,7 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors relative"
+            className="lg:hidden p-2 text-muted-foreground hover:text-foreground transition-colors relative"
             whileTap={{ scale: 0.9 }}
           >
             <AnimatePresence mode="wait">
@@ -124,7 +124,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            className="md:hidden bg-background/95 backdrop-blur-lg border-t border-border overflow-hidden"
+            className="lg:hidden bg-background/95 backdrop-blur-lg border-t border-border overflow-hidden"
           >
             <div className="container mx-auto px-4 py-3 flex flex-col gap-1">
               {navLinks.map((link, index) => (
