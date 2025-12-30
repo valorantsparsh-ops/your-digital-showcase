@@ -215,16 +215,17 @@ const FloatingSkillIcon = ({
   skill: typeof floatingSkills[0]; 
   index: number 
 }) => {
+  // Responsive size classes - smaller on mobile
   const sizeClasses = {
-    sm: "w-20 h-20",
-    md: "w-24 h-24",
-    lg: "w-28 h-28",
+    sm: "w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20",
+    md: "w-14 h-14 sm:w-18 sm:h-18 md:w-24 md:h-24",
+    lg: "w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28",
   };
 
   const iconSizeClasses = {
-    sm: "w-10 h-10",
-    md: "w-12 h-12",
-    lg: "w-14 h-14",
+    sm: "w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10",
+    md: "w-7 h-7 sm:w-9 sm:h-9 md:w-12 md:h-12",
+    lg: "w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14",
   };
   
   return (
@@ -233,15 +234,15 @@ const FloatingSkillIcon = ({
       animate={{ 
         opacity: 1, 
         scale: 1,
-        y: [0, -8, 0],
+        y: [0, -6, 0],
       }}
       transition={{
-        opacity: { duration: 0.5, delay: index * 0.1 },
-        scale: { duration: 0.5, delay: index * 0.1, type: "spring" },
-        y: { duration: 3 + Math.random() * 2, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 }
+        opacity: { duration: 0.5, delay: index * 0.08 },
+        scale: { duration: 0.5, delay: index * 0.08, type: "spring" },
+        y: { duration: 3 + Math.random() * 2, repeat: Infinity, ease: "easeInOut", delay: index * 0.15 }
       }}
       whileHover={{ scale: 1.1, zIndex: 10 }}
-      className="absolute cursor-pointer flex flex-col items-center gap-2"
+      className="absolute cursor-pointer flex flex-col items-center gap-1 sm:gap-2"
       style={{ 
         left: `${skill.x}%`, 
         top: `${skill.y}%`,
@@ -259,8 +260,8 @@ const FloatingSkillIcon = ({
       >
         <SkillIcon name={skill.name} className={iconSizeClasses[skill.size as keyof typeof iconSizeClasses]} />
       </div>
-      {/* Label always visible below */}
-      <span className="text-xs font-medium text-primary/80 whitespace-nowrap">
+      {/* Label - hidden on very small screens, visible on sm+ */}
+      <span className="text-[10px] sm:text-xs font-medium text-primary/80 whitespace-nowrap hidden sm:block">
         {skill.name}
       </span>
     </motion.div>
@@ -291,7 +292,7 @@ const SkillsPage = () => {
           <ScrollAnimationWrapper delay={0.2} direction="scale">
             <motion.div
               ref={containerRef}
-              className="relative w-full h-[500px] md:h-[600px] rounded-3xl bg-card/30 backdrop-blur-sm border border-border/50 mb-16 overflow-hidden cursor-crosshair"
+              className="relative w-full h-[350px] sm:h-[450px] md:h-[600px] rounded-2xl sm:rounded-3xl bg-card/30 backdrop-blur-sm border border-border/50 mb-12 sm:mb-16 overflow-hidden cursor-crosshair"
               style={{ perspective: "1000px" }}
             >
               {/* Mouse following particles */}
