@@ -1,13 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 import { createPortal } from "react-dom";
 
 const ThemeToggle = () => {
   const [isDark, setIsDark] = useState(true);
-  const [ripple, setRipple] = useState<{ x: number; y: number; toLight: boolean } | null>(null);
   const [showFlash, setShowFlash] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -20,80 +18,38 @@ const ThemeToggle = () => {
   const toggleTheme = () => {
     const newTheme = isDark ? "light" : "dark";
     
-    // Get button position for ripple origin
-    if (buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect();
-      const x = rect.left + rect.width / 2;
-      const y = rect.top + rect.height / 2;
-      setRipple({ x, y, toLight: isDark });
-      setShowFlash(true);
-    }
+    // Trigger flash animation
+    setShowFlash(true);
     
-    // Change theme after ripple starts
+    // Change theme after flash starts
     setTimeout(() => {
       setIsDark(!isDark);
       localStorage.setItem("theme", newTheme);
       document.documentElement.classList.toggle("light", newTheme === "light");
-    }, 200);
+    }, 150);
     
-    // Hide ripple and flash after animation
+    // Hide flash after animation
     setTimeout(() => {
-      setRipple(null);
       setShowFlash(false);
-    }, 800);
-  };
-
-  // Calculate the maximum distance from ripple origin to screen corners
-  const getMaxRadius = (x: number, y: number) => {
-    const corners = [
-      { x: 0, y: 0 },
-      { x: window.innerWidth, y: 0 },
-      { x: 0, y: window.innerHeight },
-      { x: window.innerWidth, y: window.innerHeight },
-    ];
-    return Math.max(...corners.map(c => Math.sqrt((c.x - x) ** 2 + (c.y - y) ** 2)));
+    }, 500);
   };
 
   return (
     <>
-      {/* Ripple and flash overlay using portal */}
+      {/* Flash overlay using portal */}
       {createPortal(
         <AnimatePresence>
-          {ripple && (
-            <motion.div
-              initial={{ 
-                clipPath: `circle(0px at ${ripple.x}px ${ripple.y}px)`,
-                opacity: 1
-              }}
-              animate={{ 
-                clipPath: `circle(${getMaxRadius(ripple.x, ripple.y)}px at ${ripple.x}px ${ripple.y}px)`,
-                opacity: 1
-              }}
-              exit={{ opacity: 0 }}
-              transition={{ 
-                clipPath: { duration: 0.6, ease: [0.4, 0, 0.2, 1] },
-                opacity: { duration: 0.3, delay: 0.4 }
-              }}
-              className="fixed inset-0 pointer-events-none z-[9999]"
-              style={{
-                background: ripple.toLight 
-                  ? "linear-gradient(135deg, hsl(0 0% 96%) 0%, hsl(0 0% 98%) 100%)"
-                  : "linear-gradient(135deg, hsl(0 0% 6%) 0%, hsl(0 0% 4%) 100%)"
-              }}
-            />
-          )}
-          {/* Subtle flash overlay */}
           {showFlash && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15, ease: "easeOut" }}
-              className="fixed inset-0 pointer-events-none z-[10000]"
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="fixed inset-0 pointer-events-none z-[9999]"
               style={{
                 background: isDark 
-                  ? "radial-gradient(ellipse at top right, rgba(255,255,255,0.12) 0%, transparent 50%)"
-                  : "radial-gradient(ellipse at top right, rgba(0,0,0,0.08) 0%, transparent 50%)"
+                  ? "radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 60%)"
+                  : "radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, transparent 60%)"
               }}
             />
           )}
@@ -102,7 +58,6 @@ const ThemeToggle = () => {
       )}
       
       <motion.button
-        ref={buttonRef}
         onClick={toggleTheme}
         className="relative w-14 h-7 rounded-full bg-secondary border border-border flex items-center px-1 cursor-pointer overflow-hidden"
         whileTap={{ scale: 0.95 }}
