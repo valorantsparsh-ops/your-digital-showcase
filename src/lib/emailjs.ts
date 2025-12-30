@@ -1,11 +1,10 @@
 import emailjs from '@emailjs/browser';
 import { z } from 'zod';
 
-// ✏️ EDIT: Replace these with your EmailJS credentials from https://www.emailjs.com/
 export const EMAILJS_CONFIG = {
-  serviceId: 'YOUR_SERVICE_ID', // Get from EmailJS dashboard
-  templateId: 'YOUR_TEMPLATE_ID', // Get from EmailJS dashboard
-  publicKey: 'YOUR_PUBLIC_KEY', // Get from EmailJS dashboard
+  serviceId: 'service_7mq36t7',
+  templateId: 'template_m92zz1x',
+  publicKey: 'mo9nslnBBQDYnqjjq',
 };
 
 // Validation schema for contact form
