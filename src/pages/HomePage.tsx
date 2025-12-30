@@ -62,25 +62,25 @@ const HomePage = () => {
       <Navbar />
       <BackgroundEffects />
       <main>
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-          <div className="container mx-auto px-6 relative z-10">
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-16 pb-8">
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
-              className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20"
+              className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-20"
             >
               {/* Profile Image - only border rotates */}
               <ScrollAnimationWrapper direction="left" delay={0.2}>
                 <motion.div className="relative">
                   {/* Rotating border */}
                   <motion.div
-                    className="absolute inset-0 w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-dashed border-primary/50"
+                    className="absolute inset-0 w-48 h-48 sm:w-56 sm:h-56 md:w-80 md:h-80 rounded-full border-2 border-dashed border-primary/50"
                     animate={{ rotateZ: [0, 360] }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                   />
                   {/* ✏️ EDIT: Replace "YN" with your photo - use <img src="..." /> */}
-                  <div className="w-64 h-64 md:w-80 md:h-80 rounded-full p-2 animate-glow">
+                  <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-80 md:h-80 rounded-full p-2 animate-glow">
                     <motion.div
                       className="w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden"
                       whileHover={{ scale: 1.05 }}
@@ -118,7 +118,7 @@ const HomePage = () => {
               <div className="flex-1 text-center lg:text-left">
                 {/* Main Heading */}
                 <ScrollAnimationWrapper delay={0.3}>
-                  <motion.h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
+                  <motion.h1 className="font-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-4">
                     Hi, I'm {/* ✏️ EDIT: Replace "Your Name" with your actual name */}
                     <span className="gradient-text animate-glow-text">Atul Patel</span>
                   </motion.h1>
@@ -126,7 +126,7 @@ const HomePage = () => {
 
                 {/* Typing tagline */}
                 <ScrollAnimationWrapper delay={0.4}>
-                  <motion.p className="text-lg md:text-xl text-muted-foreground mb-6 h-8">
+                  <motion.p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-4 sm:mb-6 h-7 sm:h-8">
                     <span>{typedText}</span>
                     <span className="animate-pulse text-primary">|</span>
                   </motion.p>
@@ -134,7 +134,7 @@ const HomePage = () => {
 
                 {/* Role Tags with stagger animation */}
                 <ScrollAnimationWrapper delay={0.5}>
-                  <motion.div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-8">
+                  <motion.div className="flex flex-wrap justify-center lg:justify-start gap-1.5 sm:gap-2 mb-6 sm:mb-8">
                     {roles.map((role, index) => (
                       <motion.span
                         key={role}
@@ -142,7 +142,7 @@ const HomePage = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.5 + index * 0.1 }}
                         whileHover={{ scale: 1.05, borderColor: "hsl(var(--primary))" }}
-                        className="px-4 py-2 rounded-full border border-border bg-card/50 text-sm text-muted-foreground hover:text-foreground transition-all duration-300 cursor-default"
+                        className="px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-border bg-card/50 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-all duration-300 cursor-default"
                       >
                         {role}
                       </motion.span>
@@ -152,7 +152,7 @@ const HomePage = () => {
 
                 {/* Info Cards */}
                 <ScrollAnimationWrapper delay={0.6}>
-                  <motion.div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8">
+                  <motion.div className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-2 sm:gap-4 mb-6 sm:mb-8">
                     {/* ✏️ EDIT: Update these info cards with your actual data */}
                     {[
                       { icon: MapPin, label: "Location", value: "Your City, Country" },
@@ -165,12 +165,12 @@ const HomePage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 + index * 0.1 }}
                         whileHover={{ y: -5, scale: 1.02 }}
-                        className="glass-card rounded-xl px-6 py-4 flex items-center gap-3 cursor-pointer"
+                        className="glass-card rounded-xl px-4 py-3 sm:px-6 sm:py-4 flex items-center gap-2 sm:gap-3 cursor-pointer"
                       >
-                        <item.icon className="w-5 h-5 text-primary" />
-                        <div>
-                          <p className="text-xs text-muted-foreground">{item.label}</p>
-                          <p className="text-sm font-medium">{item.value}</p>
+                        <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+                        <div className="min-w-0">
+                          <p className="text-[10px] sm:text-xs text-muted-foreground">{item.label}</p>
+                          <p className="text-xs sm:text-sm font-medium truncate">{item.value}</p>
                         </div>
                       </motion.div>
                     ))}
@@ -182,11 +182,11 @@ const HomePage = () => {
                   <motion.div className="flex justify-center lg:justify-start">
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Button
-                        size="lg"
-                        className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 gap-2 shadow-lg shadow-primary/25"
+                        size="default"
+                        className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6 sm:px-8 gap-2 shadow-lg shadow-primary/25 text-sm sm:text-base"
                         onClick={() => setResumeOpen(true)}
                       >
-                        <Download className="w-5 h-5" />
+                        <Download className="w-4 h-4 sm:w-5 sm:h-5" />
                         Download Resume
                       </Button>
                     </motion.div>
@@ -197,18 +197,18 @@ const HomePage = () => {
 
             {/* Social Links Section */}
             <ScrollAnimationWrapper delay={0.8}>
-              <motion.div className="mt-16 flex flex-col md:flex-row items-center justify-center gap-12">
+              <motion.div className="mt-10 sm:mt-16 flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12">
                 {/* Connect with me */}
                 <div className="text-center">
                   <motion.h3
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.9 }}
-                    className="text-lg font-medium mb-4"
+                    className="text-base sm:text-lg font-medium mb-3 sm:mb-4"
                   >
                     Connect with me
                   </motion.h3>
-                  <div className="flex gap-4">
+                  <div className="flex gap-3 sm:gap-4">
                     {socialLinks.map((social, index) => (
                       <motion.a
                         key={social.label}
@@ -220,10 +220,10 @@ const HomePage = () => {
                         transition={{ delay: 1 + index * 0.1 }}
                         whileHover={{ scale: 1.2, y: -5 }}
                         whileTap={{ scale: 0.9 }}
-                        className="w-12 h-12 rounded-full border border-border hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-all duration-300 group"
+                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-border hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-all duration-300 group"
                         aria-label={social.label}
                       >
-                        <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                        <social.icon className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                       </motion.a>
                     ))}
                   </div>
@@ -235,11 +235,11 @@ const HomePage = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.9 }}
-                    className="text-lg font-medium mb-4"
+                    className="text-base sm:text-lg font-medium mb-3 sm:mb-4"
                   >
                     See what I'm doing
                   </motion.h3>
-                  <div className="flex gap-4">
+                  <div className="flex gap-3 sm:gap-4">
                     {workLinks.map((link, index) => (
                       <motion.a
                         key={link.label}
@@ -251,10 +251,10 @@ const HomePage = () => {
                         transition={{ delay: 1.2 + index * 0.1 }}
                         whileHover={{ scale: 1.2, y: -5 }}
                         whileTap={{ scale: 0.9 }}
-                        className="w-12 h-12 rounded-full border border-border hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-all duration-300 group"
+                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-border hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-all duration-300 group"
                         aria-label={link.label}
                       >
-                        <link.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                        <link.icon className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                       </motion.a>
                     ))}
                   </div>
