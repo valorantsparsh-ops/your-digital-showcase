@@ -33,15 +33,15 @@ const Navbar = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex items-center justify-between h-14 md:h-16">
             {/* Logo - EDIT THIS */}
-            <Link to="/" className="flex items-center gap-1.5 sm:gap-2 text-foreground hover:text-primary transition-colors">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center flex-shrink-0">
-                <Code2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-primary" />
+            <Link to="/" className="flex items-center gap-1.5 md:gap-2 text-foreground hover:text-primary transition-colors">
+              <div className="w-8 h-8 md:w-9 md:h-9 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
+                <Code2 className="w-4 h-4 md:w-5 md:h-5 text-primary" />
               </div>
-              <div className="flex flex-col min-w-0">
+              <div className="flex flex-col">
                 {/* ✏️ EDIT: Your Name */}
-                <span className="font-display font-semibold text-sm sm:text-base md:text-lg leading-tight truncate">YourName</span>
+                <span className="font-display font-semibold text-base md:text-lg leading-tight">YourName</span>
                 {/* ✏️ EDIT: Your Title */}
-                <span className="text-[9px] sm:text-[10px] md:text-xs text-muted-foreground leading-tight">ML • AI • Developer</span>
+                <span className="text-[10px] md:text-xs text-muted-foreground leading-tight">ML • AI • Developer</span>
               </div>
             </Link>
 

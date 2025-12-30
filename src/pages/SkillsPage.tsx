@@ -281,9 +281,9 @@ const SkillsPage = () => {
             <h1 className="font-display text-3xl md:text-4xl font-bold text-primary mb-2">
               My Skills
             </h1>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <p>Technical expertise blended with creativity — explore my core competencies below.</p>
+            <div className="flex items-start sm:items-center gap-2 text-muted-foreground">
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 flex-shrink-0 mt-0.5 sm:mt-0" />
+              <p className="text-sm sm:text-base">Technical expertise blended with creativity — explore my core competencies below.</p>
             </div>
           </ScrollAnimationWrapper>
 
