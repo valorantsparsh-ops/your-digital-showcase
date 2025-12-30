@@ -1,13 +1,47 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════
+ * EMAILJS CONFIGURATION - Contact form email service
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 
+ * This file handles sending emails from the contact form using EmailJS.
+ * 
+ * HOW TO SET UP:
+ * 1. Create account at https://www.emailjs.com/
+ * 2. Add an email service (Gmail, Outlook, etc.)
+ * 3. Create an email template with variables:
+ *    - {{from_name}} - Sender's name
+ *    - {{from_email}} - Sender's email
+ *    - {{subject}} - Email subject
+ *    - {{message}} - Email message
+ *    - {{to_name}} - Your name (recipient)
+ * 4. Copy your credentials below
+ * 
+ * WHAT TO EDIT:
+ * - Line 28: Your EmailJS Service ID
+ * - Line 29: Your EmailJS Template ID
+ * - Line 30: Your EmailJS Public Key
+ * - Line 58: Your name (recipient name in emails)
+ * 
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
 import emailjs from '@emailjs/browser';
 import { z } from 'zod';
 
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ✏️ EDIT: Your EmailJS credentials
+ * Get these from your EmailJS dashboard
+ * ═══════════════════════════════════════════════════════════════════════════ */
 export const EMAILJS_CONFIG = {
-  serviceId: 'service_7mq36t7',
-  templateId: 'template_m92zz1x',
-  publicKey: 'mo9nslnBBQDYnqjjq',
+  serviceId: 'service_7mq36t7',     // ✏️ EDIT: Your Service ID
+  templateId: 'template_m92zz1x',   // ✏️ EDIT: Your Template ID
+  publicKey: 'mo9nslnBBQDYnqjjq',   // ✏️ EDIT: Your Public Key
 };
 
-// Validation schema for contact form
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Form Validation Schema
+ * Validates contact form inputs before sending
+ * ═══════════════════════════════════════════════════════════════════════════ */
 export const contactFormSchema = z.object({
   name: z.string().trim().min(1, 'Name is required').max(100, 'Name must be less than 100 characters'),
   email: z.string().trim().email('Invalid email address').max(255, 'Email must be less than 255 characters'),
@@ -22,6 +56,10 @@ export interface EmailJSResponse {
   message: string;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Send Email Function
+ * Validates form data and sends email via EmailJS
+ * ═══════════════════════════════════════════════════════════════════════════ */
 export const sendEmail = async (formData: ContactFormData): Promise<EmailJSResponse> => {
   // Validate form data
   const validationResult = contactFormSchema.safeParse(formData);
@@ -42,7 +80,7 @@ export const sendEmail = async (formData: ContactFormData): Promise<EmailJSRespo
         from_email: formData.email,
         subject: formData.subject,
         message: formData.message,
-        to_name: 'Your Name', // ✏️ EDIT: Your name
+        to_name: 'Your Name',  // ✏️ EDIT: Your name (appears in email template)
       },
       EMAILJS_CONFIG.publicKey
     );
