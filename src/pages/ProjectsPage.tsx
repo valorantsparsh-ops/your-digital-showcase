@@ -253,8 +253,8 @@ const ProjectsPage = () => {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <BackgroundEffects />
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      <main className="pt-24 pb-16 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto relative z-10">
           {/* Page Header */}
           <ScrollAnimationWrapper className="text-center mb-12 md:mb-16">
             <div className="flex items-center justify-center gap-2 mb-4">
@@ -262,13 +262,13 @@ const ProjectsPage = () => {
               <span className="text-sm text-muted-foreground uppercase tracking-widest">My Work</span>
             </div>
             <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Projects</h1>
-            <p className="text-muted-foreground max-w-lg mx-auto text-sm sm:text-base px-4">
+            <p className="text-muted-foreground max-w-lg mx-auto text-sm sm:text-base">
               A collection of my recent projects and open source contributions
             </p>
           </ScrollAnimationWrapper>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-12" style={{ perspective: "1000px" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-12 max-w-md sm:max-w-none mx-auto" style={{ perspective: "1000px" }}>
             {projects.map((project, index) => (
               <ProjectCard key={`${project.title}-${index}`} project={project} index={index} />
             ))}
