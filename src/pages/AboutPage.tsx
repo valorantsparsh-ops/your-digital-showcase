@@ -32,6 +32,11 @@ const education = [
     year: "2019",
     description: "Your specialization or notable achievements",
   },
+  degree: "Your Degree",
+    institution: "University Name",
+    year: "2019",
+    description: "Your specialization or notable achievements",
+  },
 ];
 const education2 = [
   {
