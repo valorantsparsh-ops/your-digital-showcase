@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, MapPin, Send, Github, Linkedin, Twitter, Phone } from "lucide-react";
+import { Mail, MapPin, Send, Github, Linkedin, Twitter, Phone, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,6 +9,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
 import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
+import { sendEmail, contactFormSchema } from "@/lib/emailjs";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 /* ✏️ EDIT: Your social links */
 const socialLinks = [
@@ -19,20 +21,61 @@ const socialLinks = [
 
 const ContactPage = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Use localStorage to remember user's name and email for convenience
+  const [savedName, setSavedName] = useLocalStorage('contact_name', '');
+  const [savedEmail, setSavedEmail] = useLocalStorage('contact_email', '');
+  
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    name: savedName,
+    email: savedEmail,
     subject: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message sent!",
-      description: "Thanks for reaching out. I'll get back to you soon!",
-    });
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setErrors({});
+    
+    // Validate form data
+    const validationResult = contactFormSchema.safeParse(formData);
+    if (!validationResult.success) {
+      const newErrors: Record<string, string> = {};
+      validationResult.error.errors.forEach((err) => {
+        if (err.path[0]) {
+          newErrors[err.path[0] as string] = err.message;
+        }
+      });
+      setErrors(newErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    const response = await sendEmail(formData);
+    
+    setIsSubmitting(false);
+    
+    if (response.success) {
+      // Save name and email to localStorage for future use
+      setSavedName(formData.name);
+      setSavedEmail(formData.email);
+      
+      toast({
+        title: "Message sent!",
+        description: "Thanks for reaching out. I'll get back to you soon!",
+      });
+      setFormData({ name: formData.name, email: formData.email, subject: "", message: "" });
+    } else {
+      toast({
+        title: "Failed to send",
+        description: response.message,
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -156,9 +199,10 @@ const ContactPage = () => {
                         placeholder="Your name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="bg-secondary/50 border-border focus:border-primary"
+                        className={`bg-secondary/50 border-border focus:border-primary ${errors.name ? 'border-destructive' : ''}`}
                         required
                       />
+                      {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
                     </div>
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium mb-2">
@@ -170,9 +214,10 @@ const ContactPage = () => {
                         placeholder="your@email.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="bg-secondary/50 border-border focus:border-primary"
+                        className={`bg-secondary/50 border-border focus:border-primary ${errors.email ? 'border-destructive' : ''}`}
                         required
                       />
+                      {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
                     </div>
                   </div>
 
@@ -185,9 +230,10 @@ const ContactPage = () => {
                       placeholder="What's this about?"
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="bg-secondary/50 border-border focus:border-primary"
+                      className={`bg-secondary/50 border-border focus:border-primary ${errors.subject ? 'border-destructive' : ''}`}
                       required
                     />
+                    {errors.subject && <p className="text-xs text-destructive mt-1">{errors.subject}</p>}
                   </div>
 
                   <div>
@@ -200,18 +246,29 @@ const ContactPage = () => {
                       rows={5}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="bg-secondary/50 border-border focus:border-primary resize-none"
+                      className={`bg-secondary/50 border-border focus:border-primary resize-none ${errors.message ? 'border-destructive' : ''}`}
                       required
                     />
+                    {errors.message && <p className="text-xs text-destructive mt-1">{errors.message}</p>}
                   </div>
 
                   <Button
                     type="submit"
                     size="lg"
+                    disabled={isSubmitting}
                     className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300"
                   >
-                    <Send className="w-4 h-4 mr-2" />
-                    Send Message
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        Send Message
+                      </>
+                    )}
                   </Button>
                 </div>
               </form>
