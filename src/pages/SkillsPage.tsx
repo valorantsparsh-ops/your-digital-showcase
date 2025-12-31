@@ -215,6 +215,8 @@ const FloatingSkillIcon = ({
   skill: typeof floatingSkills[0]; 
   index: number 
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   // Responsive size classes - smaller on mobile
   const sizeClasses = {
     sm: "w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20",
@@ -242,6 +244,8 @@ const FloatingSkillIcon = ({
         y: { duration: 3 + Math.random() * 2, repeat: Infinity, ease: "easeInOut", delay: index * 0.15 }
       }}
       whileHover={{ scale: 1.1, zIndex: 10 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
       className="absolute cursor-pointer flex flex-col items-center gap-1 sm:gap-2"
       style={{ 
         left: `${skill.x}%`, 
@@ -250,20 +254,34 @@ const FloatingSkillIcon = ({
       }}
     >
       {/* Dark bubble with glowing teal border */}
-      <div 
-        className={`${sizeClasses[skill.size as keyof typeof sizeClasses]} rounded-full flex items-center justify-center transition-all duration-300`}
+      <motion.div 
+        animate={{
+          boxShadow: isHovered 
+            ? '0 0 30px hsl(var(--primary) / 0.6), 0 0 60px hsl(var(--primary) / 0.4), 0 0 90px hsl(var(--primary) / 0.2), inset 0 0 30px hsl(var(--primary) / 0.15)'
+            : '0 0 20px hsl(var(--primary) / 0.15), inset 0 0 20px hsl(var(--primary) / 0.05)',
+          borderColor: isHovered 
+            ? 'hsl(var(--primary) / 0.8)'
+            : 'hsl(var(--primary) / 0.4)',
+        }}
+        transition={{ duration: 0.3 }}
+        className={`${sizeClasses[skill.size as keyof typeof sizeClasses]} rounded-full flex items-center justify-center`}
         style={{
           background: 'linear-gradient(145deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%)',
-          border: '2px solid hsl(var(--primary) / 0.4)',
-          boxShadow: '0 0 20px hsl(var(--primary) / 0.15), inset 0 0 20px hsl(var(--primary) / 0.05)',
+          border: '2px solid',
         }}
       >
         <SkillIcon name={skill.name} className={iconSizeClasses[skill.size as keyof typeof iconSizeClasses]} />
-      </div>
+      </motion.div>
       {/* Label - hidden on very small screens, visible on sm+ */}
-      <span className="text-[10px] sm:text-xs font-medium text-primary/80 whitespace-nowrap hidden sm:block">
+      <motion.span 
+        animate={{ 
+          color: isHovered ? 'hsl(var(--primary))' : 'hsl(var(--primary) / 0.8)',
+          textShadow: isHovered ? '0 0 10px hsl(var(--primary) / 0.5)' : 'none'
+        }}
+        className="text-[10px] sm:text-xs font-medium whitespace-nowrap hidden sm:block"
+      >
         {skill.name}
-      </span>
+      </motion.span>
     </motion.div>
   );
 };
