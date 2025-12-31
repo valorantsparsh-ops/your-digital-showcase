@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Sparkles, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -207,8 +207,17 @@ const TiltCard = ({ children, className = "" }: { children: React.ReactNode; cla
   );
 };
 
-// Floating Skill Icon Component
-const FloatingSkillIcon = ({ skill, index }: { skill: typeof floatingSkills[0]; index: number }) => {
+// Floating Skill Icon Component - Blends with dark background
+const FloatingSkillIcon = ({ 
+  skill, 
+  index 
+}: { 
+  skill: typeof floatingSkills[0]; 
+  index: number 
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Responsive size classes - smaller on mobile
   const sizeClasses = {
     sm: "w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20",
     md: "w-14 h-14 sm:w-18 sm:h-18 md:w-24 md:h-24",
@@ -220,28 +229,59 @@ const FloatingSkillIcon = ({ skill, index }: { skill: typeof floatingSkills[0]; 
     md: "w-7 h-7 sm:w-9 sm:h-9 md:w-12 md:h-12",
     lg: "w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14",
   };
-
+  
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: 1, scale: 1, y: [0, -6, 0] }}
+      animate={{ 
+        opacity: 1, 
+        scale: 1,
+        y: [0, -6, 0],
+      }}
       transition={{
         opacity: { duration: 0.5, delay: index * 0.08 },
         scale: { duration: 0.5, delay: index * 0.08, type: "spring" },
         y: { duration: 3 + Math.random() * 2, repeat: Infinity, ease: "easeInOut", delay: index * 0.15 }
       }}
       whileHover={{ scale: 1.1, zIndex: 10 }}
-      className="absolute cursor-pointer flex flex-col items-center gap-1 sm:gap-2 group"
-      style={{ left: `${skill.x}%`, top: `${skill.y}%`, transform: "translate(-50%, -50%)" }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="absolute cursor-pointer flex flex-col items-center gap-1 sm:gap-2"
+      style={{ 
+        left: `${skill.x}%`, 
+        top: `${skill.y}%`,
+        transform: "translate(-50%, -50%)"
+      }}
     >
-      <div 
-        className={`${sizeClasses[skill.size as keyof typeof sizeClasses]} rounded-full flex items-center justify-center skill-bubble`}
+      {/* Dark bubble with glowing teal border */}
+      <motion.div 
+        animate={{
+          boxShadow: isHovered 
+            ? '0 0 30px hsl(var(--primary) / 0.6), 0 0 60px hsl(var(--primary) / 0.4), 0 0 90px hsl(var(--primary) / 0.2), inset 0 0 30px hsl(var(--primary) / 0.15)'
+            : '0 0 20px hsl(var(--primary) / 0.15), inset 0 0 20px hsl(var(--primary) / 0.05)',
+          borderColor: isHovered 
+            ? 'hsl(var(--primary) / 0.8)'
+            : 'hsl(var(--primary) / 0.4)',
+        }}
+        transition={{ duration: 0.3 }}
+        className={`${sizeClasses[skill.size as keyof typeof sizeClasses]} rounded-full flex items-center justify-center`}
+        style={{
+          background: 'linear-gradient(145deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%)',
+          border: '2px solid',
+        }}
       >
         <SkillIcon name={skill.name} className={iconSizeClasses[skill.size as keyof typeof iconSizeClasses]} />
-      </div>
-      <span className="text-[10px] sm:text-xs font-medium whitespace-nowrap hidden sm:block text-primary/80 transition-all duration-300 group-hover:text-primary group-hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]">
+      </motion.div>
+      {/* Label - hidden on very small screens, visible on sm+ */}
+      <motion.span 
+        animate={{ 
+          color: isHovered ? 'hsl(var(--primary))' : 'hsl(var(--primary) / 0.8)',
+          textShadow: isHovered ? '0 0 10px hsl(var(--primary) / 0.5)' : 'none'
+        }}
+        className="text-[10px] sm:text-xs font-medium whitespace-nowrap hidden sm:block"
+      >
         {skill.name}
-      </span>
+      </motion.span>
     </motion.div>
   );
 };
