@@ -57,6 +57,87 @@ const skillCategories = [
   },
 ];
 
+// Custom Cursor Component
+const CustomCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement> }) => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isInside, setIsInside] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      setPosition({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    };
+
+    const handleMouseEnter = () => setIsInside(true);
+    const handleMouseLeave = () => setIsInside(false);
+
+    container.addEventListener("mousemove", handleMouseMove);
+    container.addEventListener("mouseenter", handleMouseEnter);
+    container.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      container.removeEventListener("mousemove", handleMouseMove);
+      container.removeEventListener("mouseenter", handleMouseEnter);
+      container.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [containerRef]);
+
+  if (!isInside) return null;
+
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {/* Outer ring */}
+      <motion.div
+        className="absolute rounded-full border-2 border-primary/60"
+        style={{
+          width: 40,
+          height: 40,
+          left: position.x,
+          top: position.y,
+          x: "-50%",
+          y: "-50%",
+        }}
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.6, 0.3, 0.6],
+        }}
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      {/* Inner glow dot */}
+      <motion.div
+        className="absolute rounded-full bg-primary"
+        style={{
+          width: 8,
+          height: 8,
+          left: position.x,
+          top: position.y,
+          x: "-50%",
+          y: "-50%",
+          boxShadow: "0 0 20px hsl(var(--primary)), 0 0 40px hsl(var(--primary) / 0.5)",
+        }}
+        animate={{
+          scale: [1, 1.3, 1],
+        }}
+        transition={{
+          duration: 0.8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+    </div>
+  );
+};
+
 // Mouse following particles
 interface Particle {
   id: number;
@@ -310,9 +391,12 @@ const SkillsPage = () => {
           <ScrollAnimationWrapper delay={0.2} direction="scale">
             <motion.div
               ref={containerRef}
-              className="relative w-full h-[350px] sm:h-[450px] md:h-[600px] rounded-2xl sm:rounded-3xl bg-card/30 backdrop-blur-sm border border-border/50 mb-12 sm:mb-16 overflow-hidden cursor-grab active:cursor-grabbing"
+              className="relative w-full h-[350px] sm:h-[450px] md:h-[600px] rounded-2xl sm:rounded-3xl bg-card/30 backdrop-blur-sm border border-border/50 mb-12 sm:mb-16 overflow-hidden cursor-none"
               style={{ perspective: "1000px" }}
             >
+              {/* Custom cursor */}
+              <CustomCursor containerRef={containerRef} />
+              
               {/* Mouse following particles */}
               <MouseParticles containerRef={containerRef} />
 
