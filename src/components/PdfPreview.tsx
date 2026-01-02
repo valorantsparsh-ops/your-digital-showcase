@@ -6,14 +6,15 @@ import { ExternalLink } from "lucide-react";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
-// Configure PDF.js worker for Vite
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.mjs",
-  import.meta.url,
-).toString();
+// Configure PDF.js worker for Vite (and disable it as a fallback if extensions block workers)
+import PdfWorkerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
+
+pdfjs.GlobalWorkerOptions.workerSrc = PdfWorkerUrl;
+(pdfjs as any).disableWorker = true;
+
 
 type PdfPreviewProps = {
-  url: string;
+  url: string; // points to a PDF-like file (we use .dat to avoid client blockers)
   className?: string;
 };
 
@@ -22,6 +23,7 @@ export default function PdfPreview({ url, className }: PdfPreviewProps) {
   const [containerWidth, setContainerWidth] = useState(0);
   const [numPages, setNumPages] = useState<number>(0);
   const [hasError, setHasError] = useState(false);
+  const [pdfData, setPdfData] = useState<ArrayBuffer | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -35,6 +37,25 @@ export default function PdfPreview({ url, className }: PdfPreviewProps) {
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+
+  useEffect(() => {
+    const ac = new AbortController();
+
+    (async () => {
+      try {
+        setHasError(false);
+        setPdfData(null);
+        const res = await fetch(url, { signal: ac.signal });
+        if (!res.ok) throw new Error(`Failed to fetch PDF data (${res.status})`);
+        const buf = await res.arrayBuffer();
+        setPdfData(buf);
+      } catch {
+        if (!ac.signal.aborted) setHasError(true);
+      }
+    })();
+
+    return () => ac.abort();
+  }, [url]);
 
   const pageWidth = Math.max(320, Math.min(containerWidth - 32, 960));
 
@@ -57,29 +78,34 @@ export default function PdfPreview({ url, className }: PdfPreviewProps) {
   }
 
   return (
-    <div ref={containerRef} className={"h-full w-full overflow-auto " + (className ?? "")}>
+    <div
+      ref={containerRef}
+      className={"h-full w-full overflow-auto " + (className ?? "")}
+    >
       <div className="mx-auto w-fit px-4 py-6">
-        <Document
-          file={url}
-          loading={
-            <div className="text-sm text-muted-foreground">Loading resume…</div>
-          }
-          onLoadSuccess={({ numPages: n }) => setNumPages(n)}
-          onLoadError={() => setHasError(true)}
-          error={null}
-          noData={null}
-        >
-          {Array.from({ length: numPages }, (_, i) => (
-            <div key={i} className="mb-6 last:mb-0">
-              <Page
-                pageNumber={i + 1}
-                width={pageWidth}
-                renderAnnotationLayer={false}
-              />
-            </div>
-          ))}
-        </Document>
+        {!pdfData ? (
+          <div className="text-sm text-muted-foreground">Loading resume…</div>
+        ) : (
+          <Document
+            file={{ data: pdfData }}
+            onLoadSuccess={({ numPages: n }) => setNumPages(n)}
+            onLoadError={() => setHasError(true)}
+            error={null}
+            noData={null}
+          >
+            {Array.from({ length: numPages }, (_, i) => (
+              <div key={i} className="mb-6 last:mb-0">
+                <Page
+                  pageNumber={i + 1}
+                  width={pageWidth}
+                  renderAnnotationLayer={false}
+                />
+              </div>
+            ))}
+          </Document>
+        )}
       </div>
     </div>
   );
 }
+
