@@ -51,18 +51,17 @@ All editable content is marked with `✏️ EDIT` comments in the source code. S
 | Footer links | `src/components/Footer.tsx` |
 | Profile images | `src/assets/profile-image.png` (dark) & `src/assets/profile-image-light.png` (light) |
 | Skill icons | `src/assets/skills/` folder |
-| Resume file | `public/cv.dat` |
+| Resume file | `public/resume.pdf` |
 
 ---
 
-```text
+## 📁 File Structure Overview
+
+```
 ├── index.html                    # SEO meta tags, page title, structured data
 ├── public/
-│   ├── cv.dat                    # Your resume (PDF content)
-│   └── robots.txt                # Search engine crawling rules
-```
-
-
+│   ├── resume.pdf               # Your downloadable resume
+│   └── robots.txt               # Search engine crawling rules
 ├── src/
 │   ├── assets/
 │   │   ├── profile-image.png       # Dark mode profile photo
@@ -502,14 +501,12 @@ to_name: 'Your Name',
 
 ## 📄 Resume Configuration
 
-**Resume file:** `public/cv.dat`
+**Resume file:** `public/resume.pdf`
 
 **To update your resume:**
-1. Replace `public/cv.dat` with your new resume (keep it as a PDF, just named `cv.dat`)
-2. Keep the filename as `cv.dat`
+1. Replace `public/resume.pdf` with your new resume
+2. Keep the filename as `resume.pdf`
 3. The resume preview dialog will automatically use the new file
-
-
 
 **Resume preview component:** `src/components/ResumePreviewDialog.tsx`
 

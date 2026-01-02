@@ -94,10 +94,10 @@ const CustomCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivE
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {/* Outer ring */}
       <motion.div
-        className="absolute rounded-full border border-primary/60"
+        className="absolute rounded-full border-2 border-primary/60"
         style={{
-          width: 24,
-          height: 24,
+          width: 40,
+          height: 40,
           left: position.x,
           top: position.y,
           x: "-50%",
@@ -117,13 +117,13 @@ const CustomCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivE
       <motion.div
         className="absolute rounded-full bg-primary"
         style={{
-          width: 5,
-          height: 5,
+          width: 8,
+          height: 8,
           left: position.x,
           top: position.y,
           x: "-50%",
           y: "-50%",
-          boxShadow: "0 0 10px hsl(var(--primary)), 0 0 20px hsl(var(--primary) / 0.5)",
+          boxShadow: "0 0 20px hsl(var(--primary)), 0 0 40px hsl(var(--primary) / 0.5)",
         }}
         animate={{
           scale: [1, 1.3, 1],
