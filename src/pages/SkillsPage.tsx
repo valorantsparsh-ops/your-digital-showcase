@@ -310,7 +310,7 @@ const SkillsPage = () => {
           <ScrollAnimationWrapper delay={0.2} direction="scale">
             <motion.div
               ref={containerRef}
-              className="relative w-full h-[350px] sm:h-[450px] md:h-[600px] rounded-2xl sm:rounded-3xl bg-card/30 backdrop-blur-sm border border-border/50 mb-12 sm:mb-16 overflow-hidden cursor-crosshair"
+              className="relative w-full h-[350px] sm:h-[450px] md:h-[600px] rounded-2xl sm:rounded-3xl bg-card/30 backdrop-blur-sm border border-border/50 mb-12 sm:mb-16 overflow-hidden cursor-grab active:cursor-grabbing"
               style={{ perspective: "1000px" }}
             >
               {/* Mouse following particles */}
