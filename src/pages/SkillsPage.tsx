@@ -57,12 +57,10 @@ const skillCategories = [
   },
 ];
 
-// Custom Cursor Component with orbiting particles
+// Custom Cursor Component
 const CustomCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement> }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [velocity, setVelocity] = useState({ x: 0, y: 0 });
   const [isInside, setIsInside] = useState(false);
-  const lastPosition = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const container = containerRef.current;
@@ -70,16 +68,10 @@ const CustomCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivE
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
-      const newX = e.clientX - rect.left;
-      const newY = e.clientY - rect.top;
-      
-      setVelocity({
-        x: newX - lastPosition.current.x,
-        y: newY - lastPosition.current.y,
+      setPosition({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
       });
-      
-      lastPosition.current = { x: newX, y: newY };
-      setPosition({ x: newX, y: newY });
     };
 
     const handleMouseEnter = () => setIsInside(true);
@@ -98,153 +90,50 @@ const CustomCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivE
 
   if (!isInside) return null;
 
-  const orbitingParticles = [0, 1, 2, 3, 4, 5];
-  const trailParticles = [0, 1, 2, 3, 4];
-
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden z-50">
-      {/* Trail effect */}
-      {trailParticles.map((i) => (
-        <motion.div
-          key={`trail-${i}`}
-          className="absolute rounded-full"
-          style={{
-            width: 6 - i,
-            height: 6 - i,
-            background: `linear-gradient(135deg, hsl(var(--primary)), hsl(280 100% 70%))`,
-            left: position.x,
-            top: position.y,
-            x: "-50%",
-            y: "-50%",
-          }}
-          animate={{
-            opacity: [0.8 - i * 0.15, 0],
-            scale: [1, 0.5],
-          }}
-          transition={{
-            duration: 0.5,
-            delay: i * 0.05,
-            repeat: Infinity,
-          }}
-        />
-      ))}
-
-      {/* Rotating hexagon outline */}
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {/* Outer ring */}
       <motion.div
-        className="absolute"
+        className="absolute rounded-full border-2 border-primary/60"
         style={{
+          width: 40,
+          height: 40,
           left: position.x,
           top: position.y,
           x: "-50%",
           y: "-50%",
         }}
         animate={{
-          rotate: 360,
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      >
-        <svg width="50" height="50" viewBox="0 0 50 50">
-          <motion.polygon
-            points="25,2 45,14 45,36 25,48 5,36 5,14"
-            fill="none"
-            stroke="url(#cursorGradient)"
-            strokeWidth="1.5"
-            animate={{
-              strokeDasharray: ["0 200", "100 100", "200 0"],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-          <defs>
-            <linearGradient id="cursorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="hsl(var(--primary))" />
-              <stop offset="50%" stopColor="hsl(280 100% 70%)" />
-              <stop offset="100%" stopColor="hsl(var(--primary))" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </motion.div>
-
-      {/* Orbiting particles */}
-      {orbitingParticles.map((i) => (
-        <motion.div
-          key={`orbit-${i}`}
-          className="absolute"
-          style={{
-            left: position.x,
-            top: position.y,
-          }}
-          animate={{
-            rotate: 360,
-          }}
-          transition={{
-            duration: 2 + i * 0.3,
-            repeat: Infinity,
-            ease: "linear",
-            delay: i * 0.2,
-          }}
-        >
-          <motion.div
-            className="absolute rounded-full"
-            style={{
-              width: 4,
-              height: 4,
-              background: i % 2 === 0 
-                ? "hsl(var(--primary))" 
-                : "hsl(280 100% 70%)",
-              boxShadow: i % 2 === 0 
-                ? "0 0 10px hsl(var(--primary))" 
-                : "0 0 10px hsl(280 100% 70%)",
-              left: 20 + i * 3,
-              top: -2,
-            }}
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [1, 0.6, 1],
-            }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              delay: i * 0.1,
-            }}
-          />
-        </motion.div>
-      ))}
-
-      {/* Center diamond */}
-      <motion.div
-        className="absolute"
-        style={{
-          left: position.x,
-          top: position.y,
-          x: "-50%",
-          y: "-50%",
-        }}
-        animate={{
-          rotate: [0, 180, 360],
           scale: [1, 1.2, 1],
+          opacity: [0.6, 0.3, 0.6],
         }}
         transition={{
           duration: 1.5,
           repeat: Infinity,
           ease: "easeInOut",
         }}
-      >
-        <div 
-          className="w-3 h-3 rotate-45"
-          style={{
-            background: "linear-gradient(135deg, hsl(var(--primary)), hsl(280 100% 70%))",
-            boxShadow: "0 0 15px hsl(var(--primary)), 0 0 30px hsl(280 100% 70% / 0.5)",
-          }}
-        />
-      </motion.div>
+      />
+      {/* Inner glow dot */}
+      <motion.div
+        className="absolute rounded-full bg-primary"
+        style={{
+          width: 8,
+          height: 8,
+          left: position.x,
+          top: position.y,
+          x: "-50%",
+          y: "-50%",
+          boxShadow: "0 0 20px hsl(var(--primary)), 0 0 40px hsl(var(--primary) / 0.5)",
+        }}
+        animate={{
+          scale: [1, 1.3, 1],
+        }}
+        transition={{
+          duration: 0.8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
     </div>
   );
 };
