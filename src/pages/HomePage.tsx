@@ -192,7 +192,7 @@ const HomePage = () => {
 
                 {/* ✏️ EDIT: Info Cards - Update location, expertise, and email */}
                 <ScrollAnimationWrapper delay={0.6}>
-                  <motion.div className="flex flex-col items-stretch sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start gap-2 sm:gap-4 mb-6 sm:mb-8 w-full sm:w-auto">
+                  <motion.div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:justify-center lg:justify-start sm:gap-4 mb-6 sm:mb-8 w-full sm:w-auto">
                     {[
                       { icon: MapPin, label: "Location", value: "Your City, Country" },
                       { icon: Briefcase, label: "Expertise", value: "Web Dev, AI/ML" },
@@ -204,12 +204,12 @@ const HomePage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 + index * 0.1 }}
                         whileHover={{ y: -5, scale: 1.02 }}
-                        className="glass-card rounded-xl px-4 py-3 sm:px-6 sm:py-4 flex items-center gap-2 sm:gap-3 cursor-pointer w-full sm:w-auto"
+                        className="glass-card rounded-xl px-2 py-2.5 sm:px-6 sm:py-4 flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 cursor-pointer"
                       >
                         <item.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
-                        <div className="min-w-0 flex-1">
-                          <p className="text-[10px] sm:text-xs text-muted-foreground">{item.label}</p>
-                          <p className="text-xs sm:text-sm font-medium truncate">{item.value}</p>
+                        <div className="min-w-0 text-center sm:text-left">
+                          <p className="text-[9px] sm:text-xs text-muted-foreground">{item.label}</p>
+                          <p className="text-[10px] sm:text-sm font-medium leading-tight">{item.value}</p>
                         </div>
                       </motion.div>
                     ))}
