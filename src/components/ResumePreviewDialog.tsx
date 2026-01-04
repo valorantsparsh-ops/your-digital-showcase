@@ -23,7 +23,9 @@ const ResumePreviewDialog = ({ open, onOpenChange }: ResumePreviewDialogProps) =
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         className={`p-0 overflow-hidden [&>button]:hidden transition-all duration-500 ease-out border-0 bg-transparent shadow-none ${
-          isFullscreen ? "max-w-[95vw] w-[95vw] h-[95vh] max-h-[95vh]" : "max-w-4xl w-[92vw] h-[85vh] max-h-[85vh]"
+          isFullscreen 
+            ? "max-w-[95vw] w-[95vw] h-[95vh] max-h-[95vh]" 
+            : "max-w-4xl w-[92vw] sm:w-[92vw] h-[80vh] sm:h-[85vh] max-h-[85vh]"
         }`}
       >
         <DialogTitle className="sr-only">Resume Preview</DialogTitle>
@@ -41,66 +43,36 @@ const ResumePreviewDialog = ({ open, onOpenChange }: ResumePreviewDialogProps) =
           <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-primary/30 via-border/20 to-primary/20 -z-10 blur-sm" />
 
           {/* Header */}
-          <div className="relative flex items-center justify-between px-5 py-4 bg-gradient-to-r from-muted/80 via-muted/60 to-muted/80 border-b border-border/50 backdrop-blur-sm">
+          <div className="relative flex items-center justify-between px-3 sm:px-5 py-3 sm:py-4 bg-gradient-to-r from-muted/80 via-muted/60 to-muted/80 border-b border-border/50 backdrop-blur-sm">
             {/* File info */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <motion.div
-                className="p-2 rounded-xl bg-primary/10 bg-gradient-to-br from-red-500 to-red-600 border border-primary/20"
+                className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-primary/10 bg-gradient-to-br from-red-500 to-red-600 border border-primary/20"
                 whileHover={{ scale: 1.05, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 400 }}
               >
-                <FileText className="h-4 w-4 text-primary" />
+                <FileText className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
               </motion.div>
               <div className="flex flex-col">
-                <span className="text-sm font-semibold text-foreground tracking-tight">{RESUME_FILENAME}</span>
-                <span className="text-xs text-muted-foreground">PDF Document</span>
+                <span className="text-xs sm:text-sm font-semibold text-foreground tracking-tight truncate max-w-[120px] sm:max-w-none">
+                  {RESUME_FILENAME}
+                </span>
+                <span className="text-[10px] sm:text-xs text-muted-foreground">PDF Document</span>
               </div>
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-2">
-              {/* <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-9 w-9 rounded-xl hover:bg-primary/10 hover:text-primary transition-colors"
-                  onClick={() => setIsFullscreen(!isFullscreen)}
-                >
-                  <AnimatePresence mode="wait">
-                    {isFullscreen ? (
-                      <motion.div
-                        key="minimize"
-                        initial={{ rotate: -90, opacity: 0 }}
-                        animate={{ rotate: 0, opacity: 1 }}
-                        exit={{ rotate: 90, opacity: 0 }}
-                        transition={{ duration: 0.15 }}
-                      >
-                        <Minimize2 className="h-4 w-4" />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="maximize"
-                        initial={{ rotate: 90, opacity: 0 }}
-                        animate={{ rotate: 0, opacity: 1 }}
-                        exit={{ rotate: -90, opacity: 0 }}
-                        transition={{ duration: 0.15 }}
-                      >
-                        <Maximize2 className="h-4 w-4" />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </Button>
-              </motion.div> */}
+            <div className="flex items-center gap-1 sm:gap-2">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
                   asChild
                   variant="outline"
                   size="sm"
-                  className="rounded-xl bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground gap-2 px-4 shadow-lg shadow-primary/25 border border-primary/20"
+                  className="rounded-lg sm:rounded-xl bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground gap-1 sm:gap-2 px-2 sm:px-4 h-8 sm:h-9 shadow-lg shadow-primary/25 border border-primary/20"
                 >
                   <a href={RESUME_PDF_URL} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4" />
-                    Open
+                    <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" />
+                    <span className="hidden sm:inline">Open</span>
                   </a>
                 </Button>
               </motion.div>
@@ -109,35 +81,22 @@ const ResumePreviewDialog = ({ open, onOpenChange }: ResumePreviewDialogProps) =
                   asChild
                   variant="outline"
                   size="sm"
-                  className="rounded-xl bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground gap-2 px-4 shadow-lg shadow-primary/25 border border-primary/20"
+                  className="rounded-lg sm:rounded-xl bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground gap-1 sm:gap-2 px-2 sm:px-4 h-8 sm:h-9 shadow-lg shadow-primary/25 border border-primary/20"
                 >
                   <a href={RESUME_PDF_URL} download={RESUME_FILENAME}>
-                    <Download className="h-4 w-4" />
-                    <span className="font-medium">Download</span>
+                    <Download className="h-3 w-3 sm:h-4 sm:w-4" />
+                    <span className="font-medium hidden sm:inline">Download</span>
                   </a>
                 </Button>
               </motion.div>
-              {/* <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Button
-                  asChild
-                  size="sm"
-                  className="rounded-xl bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground gap-2 px-4 shadow-lg shadow-primary/25 border border-primary/20"
-                >
-                  <a href={RESUME_PDF_URL} download={RESUME_FILENAME}>
-                    <Download className="h-4 w-4" />
-                    <span className="font-medium">Download</span>
-                  </a>
-                </Button>
-              </motion.div> */}
-              {/* className="rounded-xl bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground gap-2 px-4 shadow-lg shadow-primary/25 border border-primary/20" */}
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="rounded-xl bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground gap-2 px-4 shadow-lg shadow-primary/25 border border-primary/20 h-9 w-9 rounded-xl hover:bg-destructive/10 hover:text-destructive transition-colors"
+                  className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg sm:rounded-xl bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg shadow-primary/25 border border-primary/20 hover:bg-destructive/10 hover:text-destructive transition-colors"
                   onClick={() => onOpenChange(false)}
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
               </motion.div>
             </div>
