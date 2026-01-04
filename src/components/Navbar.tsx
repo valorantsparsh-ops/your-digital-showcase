@@ -50,21 +50,21 @@ const Navbar = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border"
       >
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex items-center justify-between h-14 md:h-16">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6">
+          <div className="flex items-center justify-between h-12 sm:h-14 md:h-16">
             {/* ═══════════════════════════════════════════════════════════
              * LOGO SECTION
              * ✏️ EDIT: Update your name and title below
              * ═══════════════════════════════════════════════════════════ */}
-            <Link to="/" className="flex items-center gap-1.5 md:gap-2 text-foreground hover:text-primary transition-colors">
-              <div className="w-8 h-8 md:w-9 md:h-9 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
-                <Code2 className="w-4 h-4 md:w-5 md:h-5 text-primary" />
+            <Link to="/" className="flex items-center gap-1 sm:gap-1.5 md:gap-2 text-foreground hover:text-primary transition-colors">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center flex-shrink-0">
+                <Code2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-primary" />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col min-w-0">
                 {/* ✏️ EDIT: Your Name */}
-                <span className="font-display font-semibold text-base md:text-lg leading-tight">YourName</span>
+                <span className="font-display font-semibold text-sm sm:text-base md:text-lg leading-tight truncate">YourName</span>
                 {/* ✏️ EDIT: Your Title/Tagline */}
-                <span className="text-[10px] md:text-xs text-muted-foreground leading-tight">ML • AI • Developer</span>
+                <span className="text-[9px] sm:text-[10px] md:text-xs text-muted-foreground leading-tight truncate">ML • AI • Developer</span>
               </div>
             </Link>
 
@@ -153,21 +153,21 @@ const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-              className="lg:hidden bg-background/95 backdrop-blur-lg border-t border-border overflow-hidden"
+              transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+              className="lg:hidden bg-background/95 backdrop-blur-lg border-t border-border overflow-hidden max-h-[70vh] overflow-y-auto"
             >
-              <div className="container mx-auto px-4 py-3 flex flex-col gap-1">
+              <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-3 flex flex-col gap-0.5 sm:gap-1">
                 {navLinks.map((link, index) => (
                   <motion.div
                     key={link.to}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -15 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05, duration: 0.3 }}
+                    transition={{ delay: index * 0.03, duration: 0.2 }}
                   >
                     <Link
                       to={link.to}
                       onClick={() => setIsOpen(false)}
-                      className={`flex items-center py-2.5 px-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      className={`flex items-center py-2 sm:py-2.5 px-2.5 sm:px-3 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 ${
                         location.pathname === link.to
                           ? "bg-primary/10 text-primary border-l-2 border-primary"
                           : "text-muted-foreground hover:text-foreground hover:bg-secondary/50 border-l-2 border-transparent"
@@ -182,34 +182,34 @@ const Navbar = () => {
                 <motion.div 
                   initial={{ opacity: 0, scaleX: 0 }}
                   animate={{ opacity: 1, scaleX: 1 }}
-                  transition={{ delay: 0.3, duration: 0.3 }}
-                  className="h-px bg-border my-2"
+                  transition={{ delay: 0.2, duration: 0.2 }}
+                  className="h-px bg-border my-1.5 sm:my-2"
                 />
                 
                 {/* Theme Toggle Row */}
                 <motion.div 
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -15 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.35, duration: 0.3 }}
-                  className="flex items-center justify-between py-2 px-3"
+                  transition={{ delay: 0.25, duration: 0.2 }}
+                  className="flex items-center justify-between py-1.5 sm:py-2 px-2.5 sm:px-3"
                 >
-                  <span className="text-sm text-muted-foreground">Theme</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">Theme</span>
                   <ThemeToggle />
                 </motion.div>
                 
                 {/* Resume Button */}
                 <motion.button
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.3 }}
+                  transition={{ delay: 0.3, duration: 0.2 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => {
                     setIsOpen(false);
                     setResumeOpen(true);
                   }}
-                  className="flex items-center justify-center gap-2 py-2.5 px-4 mt-1 rounded-lg bg-primary text-primary-foreground text-sm font-medium w-full hover:bg-primary/90 transition-colors"
+                  className="flex items-center justify-center gap-1.5 sm:gap-2 py-2 sm:py-2.5 px-3 sm:px-4 mt-0.5 sm:mt-1 rounded-lg bg-primary text-primary-foreground text-xs sm:text-sm font-medium w-full hover:bg-primary/90 transition-colors"
                 >
-                  <FileText className="w-4 h-4" />
+                  <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   View Resume
                 </motion.button>
               </div>
