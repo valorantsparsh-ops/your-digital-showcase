@@ -21,6 +21,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Briefcase, Mail, Github, Linkedin, Instagram, Facebook, Download } from "lucide-react";
 import { useTypingAnimation } from "@/hooks/useTypingAnimation";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -80,9 +81,10 @@ const taglines = ["Full Stack Developer", "Tech Explorer", "Problem Solver", "Co
 
 const HomePage = () => {
   const [resumeOpen, setResumeOpen] = useState(false);
+  const isMobile = useIsMobile();
   const typedText = useTypingAnimation({
     texts: taglines,
-    typingSpeed: 60,
+    typingSpeed: isMobile ? 40 : 60,
     separator: " | ",
   });
 
@@ -109,47 +111,31 @@ const HomePage = () => {
                * - profile-image.png (dark mode)
                * - profile-image-light.png (light mode)
                * ═══════════════════════════════════════════════════════════ */}
-              <ScrollAnimationWrapper direction="left" delay={0.2}>
-                <motion.div className="relative">
-                  {/* Rotating border animation */}
-                  <motion.div
-                    className="absolute inset-0 w-48 h-48 sm:w-56 sm:h-56 md:w-80 md:h-80 rounded-full border-2 border-dashed border-primary/50"
-                    animate={{ rotateZ: [0, 360] }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  />
-                  {/* Profile image container */}
-                  <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-80 md:h-80 rounded-full p-2 animate-glow">
+              <ScrollAnimationWrapper direction={isMobile ? "fade" : "left"} delay={0.1}>
+                <div className="relative">
+                  {/* Rotating border animation - only on desktop */}
+                  {!isMobile && (
                     <motion.div
-                      className="w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
+                      className="absolute inset-0 w-48 h-48 sm:w-56 sm:h-56 md:w-80 md:h-80 rounded-full border-2 border-dashed border-primary/50"
+                      animate={{ rotateZ: 360 }}
+                      transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                    />
+                  )}
+                  {/* Profile image container */}
+                  <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-80 md:h-80 rounded-full p-2">
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden border-2 border-primary/30">
                       <ProfileImage />
-                    </motion.div>
+                    </div>
                   </div>
-                  {/* Pulsing glow rings */}
-                  <motion.div
-                    className="absolute inset-0 rounded-full border-2 border-primary/40"
-                    animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0, 0.6] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
-                  <motion.div
-                    className="absolute inset-0 rounded-full border border-primary/30"
-                    animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0, 0.4] }}
-                    transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
-                  />
-                  <motion.div
-                    className="absolute inset-0 rounded-full"
-                    animate={{
-                      boxShadow: [
-                        "0 0 30px hsl(var(--primary) / 0.2), 0 0 60px hsl(var(--primary) / 0.1)",
-                        "0 0 50px hsl(var(--primary) / 0.4), 0 0 100px hsl(var(--primary) / 0.2)",
-                        "0 0 30px hsl(var(--primary) / 0.2), 0 0 60px hsl(var(--primary) / 0.1)",
-                      ],
-                    }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                </motion.div>
+                  {/* Glow effect - simplified, static on mobile */}
+                  {!isMobile && (
+                    <motion.div
+                      className="absolute inset-0 rounded-full border-2 border-primary/30"
+                      animate={{ scale: [1, 1.1, 1], opacity: [0.4, 0, 0.4] }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                    />
+                  )}
+                </div>
               </ScrollAnimationWrapper>
 
               {/* ═══════════════════════════════════════════════════════════

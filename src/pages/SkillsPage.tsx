@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Sparkles, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -8,6 +8,7 @@ import BackgroundEffects from "@/components/BackgroundEffects";
 import { Button } from "@/components/ui/button";
 import SkillIcon from "@/components/SkillIcons";
 import ScrollAnimationWrapper from "@/components/ScrollAnimationWrapper";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 /* ✏️ EDIT: Your floating skill icons - positions and sizes only
  * To change skill images, edit src/components/SkillIcons.tsx
@@ -57,195 +58,73 @@ const skillCategories = [
   },
 ];
 
-// Custom Cursor Component
-const CustomCursor = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement> }) => {
+// Custom Cursor Component - Desktop only
+const CustomCursor = ({ containerRef, enabled }: { containerRef: React.RefObject<HTMLDivElement>; enabled: boolean }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isInside, setIsInside] = useState(false);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+  if (!enabled) return null;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (rect) {
       setPosition({
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
       });
-    };
-
-    const handleMouseEnter = () => setIsInside(true);
-    const handleMouseLeave = () => setIsInside(false);
-
-    container.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("mouseenter", handleMouseEnter);
-    container.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      container.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("mouseenter", handleMouseEnter);
-      container.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, [containerRef]);
+    }
+  };
 
   if (!isInside) return null;
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {/* Outer ring */}
       <motion.div
-        className="absolute rounded-full border-2 border-primary/60"
+        className="absolute rounded-full border-2 border-primary/50"
         style={{
-          width: 40,
-          height: 40,
+          width: 36,
+          height: 36,
           left: position.x,
           top: position.y,
           x: "-50%",
           y: "-50%",
         }}
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.6, 0.3, 0.6],
-        }}
-        transition={{
-          duration: 1.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
       />
-      {/* Inner glow dot */}
       <motion.div
         className="absolute rounded-full bg-primary"
         style={{
-          width: 8,
-          height: 8,
+          width: 6,
+          height: 6,
           left: position.x,
           top: position.y,
           x: "-50%",
           y: "-50%",
-          boxShadow: "0 0 20px hsl(var(--primary)), 0 0 40px hsl(var(--primary) / 0.5)",
-        }}
-        animate={{
-          scale: [1, 1.3, 1],
-        }}
-        transition={{
-          duration: 0.8,
-          repeat: Infinity,
-          ease: "easeInOut",
+          boxShadow: "0 0 15px hsl(var(--primary))",
         }}
       />
     </div>
   );
 };
 
-// Mouse following particles
-interface Particle {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  opacity: number;
-  velocityX: number;
-  velocityY: number;
-}
-
-const MouseParticles = ({ containerRef }: { containerRef: React.RefObject<HTMLDivElement> }) => {
-  const [particles, setParticles] = useState<Particle[]>([]);
-  const particleIdRef = useRef(0);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      // Create new particles
-      const newParticles: Particle[] = [];
-      for (let i = 0; i < 3; i++) {
-        newParticles.push({
-          id: particleIdRef.current++,
-          x,
-          y,
-          size: Math.random() * 6 + 2,
-          opacity: Math.random() * 0.5 + 0.3,
-          velocityX: (Math.random() - 0.5) * 2,
-          velocityY: (Math.random() - 0.5) * 2,
-        });
-      }
-
-      setParticles(prev => [...prev.slice(-50), ...newParticles]);
-    };
-
-    container.addEventListener("mousemove", handleMouseMove);
-    return () => container.removeEventListener("mousemove", handleMouseMove);
-  }, [containerRef]);
-
-  // Animate particles
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setParticles(prev =>
-        prev
-          .map(p => ({
-            ...p,
-            x: p.x + p.velocityX,
-            y: p.y + p.velocityY,
-            opacity: p.opacity - 0.02,
-            size: p.size * 0.98,
-          }))
-          .filter(p => p.opacity > 0)
-      );
-    }, 30);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {particles.map(particle => (
-        <div
-          key={particle.id}
-          className="absolute rounded-full bg-primary"
-          style={{
-            left: particle.x,
-            top: particle.y,
-            width: particle.size,
-            height: particle.size,
-            opacity: particle.opacity,
-            transform: "translate(-50%, -50%)",
-            boxShadow: `0 0 ${particle.size * 2}px hsl(var(--primary))`,
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-
-// 3D Tilt Card Component
-const TiltCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
+// 3D Tilt Card Component - Simplified for performance
+const TiltCard = ({ children, className = "", enabled = true }: { children: React.ReactNode; className?: string; enabled?: boolean }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+  const mouseXSpring = useSpring(x, { stiffness: 200, damping: 25 });
+  const mouseYSpring = useSpring(y, { stiffness: 200, damping: 25 });
   
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["8deg", "-8deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-8deg", "8deg"]);
   
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+    if (!enabled || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
+    const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+    const yPct = (e.clientY - rect.top) / rect.height - 0.5;
     x.set(xPct);
     y.set(yPct);
   };
@@ -255,6 +134,10 @@ const TiltCard = ({ children, className = "" }: { children: React.ReactNode; cla
     x.set(0);
     y.set(0);
   };
+
+  if (!enabled) {
+    return <div className={className}>{children}</div>;
+  }
   
   return (
     <motion.div
@@ -269,21 +152,9 @@ const TiltCard = ({ children, className = "" }: { children: React.ReactNode; cla
       }}
       className={`relative ${className}`}
     >
-      <div
-        style={{
-          transform: "translateZ(75px)",
-          transformStyle: "preserve-3d",
-        }}
-        className={`h-full transition-all duration-300 ${isHovered ? "scale-[1.02]" : ""}`}
-      >
+      <div className={`h-full transition-transform duration-200 ${isHovered ? "scale-[1.01]" : ""}`}>
         {children}
       </div>
-      {/* Glow effect */}
-      <motion.div
-        className="absolute inset-0 rounded-xl bg-primary/20 blur-xl -z-10"
-        animate={{ opacity: isHovered ? 0.4 : 0 }}
-        transition={{ duration: 0.3 }}
-      />
     </motion.div>
   );
 };
@@ -369,6 +240,7 @@ const FloatingSkillIcon = ({
 
 const SkillsPage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -387,18 +259,16 @@ const SkillsPage = () => {
             </div>
           </ScrollAnimationWrapper>
 
-          {/* Floating Skills Container with Mouse Particles */}
+          {/* Floating Skills Container */}
           <ScrollAnimationWrapper delay={0.2} direction="scale">
             <motion.div
               ref={containerRef}
-              className="relative w-full h-[350px] sm:h-[450px] md:h-[600px] rounded-2xl sm:rounded-3xl bg-card/30 backdrop-blur-sm border border-border/50 mb-12 sm:mb-16 overflow-hidden cursor-none"
+              className={`relative w-full h-[350px] sm:h-[450px] md:h-[600px] rounded-2xl sm:rounded-3xl bg-card/30 backdrop-blur-sm border border-border/50 mb-12 sm:mb-16 overflow-hidden ${isMobile ? '' : 'cursor-none'}`}
               style={{ perspective: "1000px" }}
             >
-              {/* Custom cursor */}
-              <CustomCursor containerRef={containerRef} />
+              {/* Custom cursor - desktop only */}
+              {!isMobile && <CustomCursor containerRef={containerRef} enabled={!isMobile} />}
               
-              {/* Mouse following particles */}
-              <MouseParticles containerRef={containerRef} />
 
               {/* Decorative grid background */}
               <div className="absolute inset-0 opacity-10">
@@ -413,38 +283,36 @@ const SkillsPage = () => {
                 <FloatingSkillIcon key={skill.name} skill={skill} index={index} />
               ))}
               
-              {/* Glowing orbs in background */}
-              <motion.div
-                animate={{ 
-                  scale: [1, 1.2, 1],
-                  opacity: [0.1, 0.2, 0.1]
-                }}
-                transition={{ duration: 4, repeat: Infinity }}
-                className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/20 blur-3xl"
-              />
-              <motion.div
-                animate={{ 
-                  scale: [1.2, 1, 1.2],
-                  opacity: [0.15, 0.25, 0.15]
-                }}
-                transition={{ duration: 5, repeat: Infinity }}
-                className="absolute bottom-1/3 right-1/4 w-40 h-40 rounded-full bg-cyan-500/20 blur-3xl"
-              />
+              {/* Glowing orbs in background - only on desktop */}
+              {!isMobile && (
+                <>
+                  <motion.div
+                    animate={{ opacity: [0.1, 0.15, 0.1] }}
+                    transition={{ duration: 5, repeat: Infinity }}
+                    className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/20 blur-3xl"
+                  />
+                  <motion.div
+                    animate={{ opacity: [0.12, 0.18, 0.12] }}
+                    transition={{ duration: 6, repeat: Infinity }}
+                    className="absolute bottom-1/3 right-1/4 w-40 h-40 rounded-full bg-cyan-500/20 blur-3xl"
+                  />
+                </>
+              )}
             </motion.div>
           </ScrollAnimationWrapper>
 
           {/* Skill Categories Grid with 3D Tilt */}
           <div
             className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
-            style={{ perspective: "1000px" }}
+            style={{ perspective: isMobile ? undefined : "1000px" }}
           >
             {skillCategories.map((category, index) => (
               <ScrollAnimationWrapper
                 key={category.title}
-                delay={index * 0.1}
+                delay={isMobile ? 0 : index * 0.05}
                 direction="up"
               >
-                <TiltCard className="h-full">
+                <TiltCard className="h-full" enabled={!isMobile}>
                   <div className="h-full bg-card/60 backdrop-blur-sm border border-border/50 rounded-xl p-6 hover:border-primary/30 transition-colors duration-300">
                     <h3 className="font-display font-bold text-lg mb-4 text-foreground">
                       {category.title}

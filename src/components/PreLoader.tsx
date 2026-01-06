@@ -1,141 +1,119 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import PreloaderLogo from "@/components/PreloaderLogo";
+import { useIsMobile } from "@/hooks/useIsMobile";
+
 interface PreLoaderProps {
   onComplete: () => void;
 }
 
 const PreLoader = ({ onComplete }: PreLoaderProps) => {
   const [progress, setProgress] = useState(0);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
+    // Faster loading on mobile
+    const increment = isMobile ? 4 : 2;
+    const interval = isMobile ? 20 : 30;
+    
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-          setTimeout(onComplete, 500);
+          setTimeout(onComplete, 300);
           return 100;
         }
-        return prev + 2;
+        return prev + increment;
       });
-    }, 30);
+    }, interval);
 
     return () => clearInterval(timer);
-  }, [onComplete]);
+  }, [onComplete, isMobile]);
 
   return (
     <motion.div
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, y: -50 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
       className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
     >
-      {/* Grid overlay */}
-      <div className="absolute inset-0 grid-overlay opacity-30" />
+      {/* Grid overlay - reduced opacity on mobile */}
+      <div className={`absolute inset-0 grid-overlay ${isMobile ? 'opacity-20' : 'opacity-30'}`} />
 
-      {/* Animated circles */}
-      <div className="relative mb-12">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute inset-0 w-32 h-32 rounded-full bg-primary/20 blur-xl"
-        />
-        <motion.div
-          animate={{
-            rotate: 360,
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="relative w-32 h-32 rounded-full border-2 border-muted-foreground/20"
-        >
+      {/* Simplified loader */}
+      <div className="relative mb-8">
+        {/* Static glow on mobile, animated on desktop */}
+        {!isMobile && (
           <motion.div
             animate={{
-              rotate: -360,
+              scale: [1, 1.1, 1],
+              opacity: [0.2, 0.4, 0.2],
             }}
             transition={{
               duration: 2,
               repeat: Infinity,
-              ease: "linear",
+              ease: "easeInOut",
             }}
-            className="absolute inset-2 rounded-full border-2 border-t-primary border-r-transparent border-b-transparent border-l-transparent"
+            className="absolute inset-0 w-24 h-24 rounded-full bg-primary/20 blur-xl"
           />
+        )}
+        
+        {/* Spinning ring */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{
+            duration: isMobile ? 2 : 3,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="relative w-24 h-24 rounded-full border-2 border-muted-foreground/20"
+        >
+          <div className="absolute inset-1 rounded-full border-2 border-t-primary border-r-transparent border-b-transparent border-l-transparent" />
         </motion.div>
 
         {/* Center logo */}
-        <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          <PreloaderLogo className="w-16 h-16" />
-        </motion.div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <PreloaderLogo className="w-12 h-12" />
+        </div>
       </div>
 
-      {/* Loading text */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="text-center"
-      >
-        <motion.p
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="text-muted-foreground text-sm mb-4 tracking-widest uppercase"
-        >
-          Loading Portfolio
-        </motion.p>
+      {/* Loading text - simplified */}
+      <div className="text-center">
+        <p className="text-muted-foreground text-sm mb-3 tracking-widest uppercase">
+          Loading
+        </p>
 
         {/* Progress bar */}
-        <div className="w-48 h-1 bg-muted rounded-full overflow-hidden">
+        <div className="w-40 h-1 bg-muted rounded-full overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
-            className="h-full bg-gradient-to-r from-primary to-primary/50 rounded-full"
+            transition={{ ease: "linear" }}
+            className="h-full bg-primary rounded-full"
           />
         </div>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-xs text-muted-foreground mt-2"
-        >
+        <p className="text-xs text-muted-foreground mt-2">
           {progress}%
-        </motion.p>
-      </motion.div>
+        </p>
+      </div>
 
-      {/* Floating particles */}
-      {[...Array(6)].map((_, i) => (
+      {/* Floating particles - only on desktop */}
+      {!isMobile && [...Array(4)].map((_, i) => (
         <motion.div
           key={i}
-          initial={{
-            x: Math.random() * 400 - 200,
-            y: Math.random() * 400 - 200,
-            opacity: 0,
-          }}
           animate={{
-            y: [0, -30, 0],
-            opacity: [0, 0.5, 0],
+            y: [0, -20, 0],
+            opacity: [0, 0.4, 0],
           }}
           transition={{
-            duration: 2 + Math.random() * 2,
+            duration: 2 + i * 0.5,
             repeat: Infinity,
-            delay: i * 0.3,
+            delay: i * 0.4,
           }}
           className="absolute w-2 h-2 rounded-full bg-primary/30"
           style={{
-            left: `${20 + i * 12}%`,
-            top: `${30 + (i % 3) * 20}%`,
+            left: `${25 + i * 15}%`,
+            top: `${35 + (i % 2) * 25}%`,
           }}
         />
       ))}
