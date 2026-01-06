@@ -100,11 +100,11 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
       <BackgroundEffects />
       <main className="pt-24 pb-16">
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Page Header */}
           <ScrollAnimationWrapper className="text-center mb-16">
             <div className="flex items-center justify-center gap-2 mb-4">
@@ -125,66 +125,57 @@ const ContactPage = () => {
              * ✏️ EDIT: Your email, phone, and location below
              * ═══════════════════════════════════════════════════════════ */}
             <ScrollAnimationWrapper direction="left">
-              <div className="glass-card rounded-xl p-8 h-full contact-card-hover">
-                <h3 className="font-display text-xl font-semibold mb-6">Contact Information</h3>
+              <div className="glass-card rounded-xl p-5 sm:p-8 h-full contact-card-hover">
+                <h3 className="font-display text-lg sm:text-xl font-semibold mb-4 sm:mb-6">Contact Information</h3>
 
-                <div className="space-y-6 mb-8">
+                <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
                   {/* ✏️ EDIT: Your email address */}
-                  <motion.div 
-                    className="flex items-center gap-4 p-3 rounded-xl transition-all duration-300 hover:bg-primary/5 cursor-pointer group"
-                    whileHover={{ x: 8, scale: 1.02 }}
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
-                      <Mail className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                  <div className="flex items-center gap-3 sm:gap-4 p-2 sm:p-3 rounded-xl transition-all duration-300 hover:bg-primary/5 cursor-pointer group">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-all duration-300">
+                      <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">Email</p>
+                    <div className="min-w-0">
+                      <p className="text-xs sm:text-sm text-muted-foreground">Email</p>
                       <a
                         href="mailto:your@email.com"
-                        className="font-medium hover:text-primary transition-colors"
+                        className="text-sm sm:text-base font-medium hover:text-primary transition-colors truncate block"
                       >
                         your@email.com
                       </a>
                     </div>
-                  </motion.div>
+                  </div>
 
                   {/* ✏️ EDIT: Your phone number */}
-                  <motion.div 
-                    className="flex items-center gap-4 p-3 rounded-xl transition-all duration-300 hover:bg-primary/5 cursor-pointer group"
-                    whileHover={{ x: 8, scale: 1.02 }}
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
-                      <Phone className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                  <div className="flex items-center gap-3 sm:gap-4 p-2 sm:p-3 rounded-xl transition-all duration-300 hover:bg-primary/5 cursor-pointer group">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-all duration-300">
+                      <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">Phone</p>
+                    <div className="min-w-0">
+                      <p className="text-xs sm:text-sm text-muted-foreground">Phone</p>
                       <a
                         href="tel:+1234567890"
-                        className="font-medium hover:text-primary transition-colors"
+                        className="text-sm sm:text-base font-medium hover:text-primary transition-colors"
                       >
                         +1 (234) 567-890
                       </a>
                     </div>
-                  </motion.div>
+                  </div>
 
                   {/* ✏️ EDIT: Your location */}
-                  <motion.div 
-                    className="flex items-center gap-4 p-3 rounded-xl transition-all duration-300 hover:bg-primary/5 cursor-pointer group"
-                    whileHover={{ x: 8, scale: 1.02 }}
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
-                      <MapPin className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                  <div className="flex items-center gap-3 sm:gap-4 p-2 sm:p-3 rounded-xl transition-all duration-300 hover:bg-primary/5 cursor-pointer group">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-all duration-300">
+                      <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">Location</p>
-                      <p className="font-medium">Your City, Country</p>
+                    <div className="min-w-0">
+                      <p className="text-xs sm:text-sm text-muted-foreground">Location</p>
+                      <p className="text-sm sm:text-base font-medium">Your City, Country</p>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
 
                 {/* Social Links */}
                 <div>
-                  <p className="text-sm text-muted-foreground mb-4">Follow me on</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">Follow me on</p>
                   <div className="flex gap-3">
                     {socialLinks.map((social, index) => (
                       <motion.a
@@ -213,7 +204,7 @@ const ContactPage = () => {
              * Form sends emails via EmailJS (configure in src/lib/emailjs.ts)
              * ═══════════════════════════════════════════════════════════ */}
             <ScrollAnimationWrapper direction="right" delay={0.1}>
-              <div className="glass-card rounded-xl p-8 relative overflow-hidden">
+              <div className="glass-card rounded-xl p-5 sm:p-8 relative overflow-hidden">
                 <AnimatePresence mode="wait">
                   {isSuccess ? (
                     /* Success State */
@@ -298,10 +289,10 @@ const ContactPage = () => {
                       exit={{ opacity: 0 }}
                       onSubmit={handleSubmit}
                     >
-                      <h3 className="font-display text-xl font-semibold mb-6">Send a Message</h3>
+                      <h3 className="font-display text-lg sm:text-xl font-semibold mb-4 sm:mb-6">Send a Message</h3>
 
                       <div className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           {/* Name field */}
                           <div>
                             <label htmlFor="name" className="block text-sm font-medium mb-2">
