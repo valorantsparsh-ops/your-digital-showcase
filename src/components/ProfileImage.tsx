@@ -35,11 +35,16 @@ const ProfileImage = ({ className = "w-full h-full" }: ProfileImageProps) => {
   }, []);
 
   return (
-    <img
-      src={isLightMode ? profileImageLight : profileImageDark}
-      alt="Profile"
-      className={`${className} object-cover rounded-full`}
-    />
+    <div className="relative">
+      {/* Static circular pattern border */}
+      <div className="absolute -inset-3 rounded-full border-2 border-dashed border-primary/30" />
+      <div className="absolute -inset-6 rounded-full border border-primary/15" />
+      <img
+        src={isLightMode ? profileImageLight : profileImageDark}
+        alt="Profile"
+        className={`${className} object-cover rounded-full relative z-10`}
+      />
+    </div>
   );
 };
 

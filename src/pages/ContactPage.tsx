@@ -124,8 +124,8 @@ const ContactPage = () => {
              * CONTACT INFO SECTION
              * ✏️ EDIT: Your email, phone, and location below
              * ═══════════════════════════════════════════════════════════ */}
-            <ScrollAnimationWrapper direction="left">
-              <div className="glass-card rounded-xl p-5 sm:p-8 h-full contact-card-hover">
+            <ScrollAnimationWrapper direction="left" className="h-full">
+              <div className="glass-card rounded-xl p-5 sm:p-8 h-full flex flex-col contact-card-hover">
                 <h3 className="font-display text-lg sm:text-xl font-semibold mb-4 sm:mb-6">Contact Information</h3>
 
                 <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
@@ -203,8 +203,8 @@ const ContactPage = () => {
              * CONTACT FORM
              * Form sends emails via EmailJS (configure in src/lib/emailjs.ts)
              * ═══════════════════════════════════════════════════════════ */}
-            <ScrollAnimationWrapper direction="right" delay={0.1}>
-              <div className="glass-card rounded-xl p-5 sm:p-8 relative overflow-hidden">
+            <ScrollAnimationWrapper direction="right" delay={0.1} className="h-full">
+              <div className="glass-card rounded-xl p-5 sm:p-8 h-full relative overflow-hidden flex flex-col">
                 <AnimatePresence mode="wait">
                   {isSuccess ? (
                     /* Success State */
