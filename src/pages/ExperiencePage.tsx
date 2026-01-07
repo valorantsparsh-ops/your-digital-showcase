@@ -133,7 +133,7 @@ const ExperiencePage = () => {
                 </div>
 
                 {/* Experience Card */}
-                <div className="glass-card rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 ml-2 sm:ml-3 md:ml-4 hover:border-primary/30 transition-colors duration-300 edit-highlight">
+                <div className="glass-card rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 ml-2 sm:ml-3 md:ml-4 hover:border-primary/30 transition-colors duration-300 edit-highlight w-full box-border">
                   {/* Header with title and meta info */}
                   <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-start sm:justify-between gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-3 md:mb-4">
                     <div className="min-w-0 flex-1">
